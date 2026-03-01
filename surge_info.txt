@@ -1,0 +1,2 @@
+project: .
+domain: disney-2026-pleugenio.surge.sh
