@@ -411,7 +411,64 @@ function toggleTheme() {
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
 }
 
+// --- Firebase Config & Setup ---
+const firebaseConfig = {
+    apiKey: "AIzaSyCmZEvytDAA9wTj2xNEJp8mKj5uNH6xyjY",
+    authDomain: "disney2026-97f07.firebaseapp.com",
+    databaseURL: "https://disney2026-97f07-default-rtdb.firebaseio.com",
+    projectId: "disney2026-97f07",
+    storageBucket: "disney2026-97f07.firebasestorage.app",
+    messagingSenderId: "506635218625",
+    appId: "1:506635218625:web:7f93301274ed052c2d6e40"
+};
+
+// Initialize Firebase
+if (typeof firebase !== 'undefined') {
+    firebase.initializeApp(firebaseConfig);
+}
+const database = typeof firebase !== 'undefined' ? firebase.database() : null;
+const DB_REF = '/disneyTripData_v2'; // Bumped version to ensure clean slate if needed
+
 function loadPersistedData() {
+    if (database) {
+        // Listen for realtime updates from Firebase
+        database.ref(DB_REF).on('value', (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                if (Array.isArray(data.tripData)) tripData = data.tripData;
+                if (Array.isArray(data.wishlist)) wishlist = data.wishlist;
+                if (Array.isArray(data.checkedItems)) checkedItems = data.checkedItems;
+
+                // Re-render the application when new data arrives from any device
+                sanitizeData();
+                renderAll();
+            } else {
+                // First time load on Firebase: Try to migrate existing localStorage data to Firebase
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (saved) {
+                    try {
+                        const parsed = JSON.parse(saved);
+                        if (Array.isArray(parsed.tripData)) tripData = parsed.tripData;
+                        if (Array.isArray(parsed.wishlist)) wishlist = parsed.wishlist;
+                        if (Array.isArray(parsed.checkedItems)) checkedItems = parsed.checkedItems;
+                        persistData(); // Push migrated data to Firebase
+                    } catch (e) { console.error('Error loading local data', e); }
+                }
+
+                sanitizeData();
+                renderAll();
+            }
+        }, (error) => {
+            console.error("Firebase read error:", error);
+            // Fallback to local if Firebase errors out
+            fallbackToLocal();
+        });
+    } else {
+        fallbackToLocal();
+    }
+}
+
+function fallbackToLocal() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
         try {
@@ -421,14 +478,24 @@ function loadPersistedData() {
             if (Array.isArray(parsed.checkedItems)) checkedItems = parsed.checkedItems;
         } catch (e) { console.error('Error loading data', e); }
     }
+    sanitizeData();
+    renderAll();
 }
 
 function persistData() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    const dataToSave = {
         tripData,
         wishlist,
         checkedItems
-    }));
+    };
+
+    // Save to Firebase (triggers .on('value') on all connected clients)
+    if (database) {
+        database.ref(DB_REF).set(dataToSave).catch(e => console.error("Firebase write error:", e));
+    }
+
+    // Keep local backup just in case of offline
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
 }
 
 function getDailyVariableEstimate(day) {
@@ -975,12 +1042,21 @@ function importData(event) {
         try {
             const importedContent = e.target.result;
             // Validate JSON
-            JSON.parse(importedContent);
+            const parsed = JSON.parse(importedContent);
 
-            if (confirm("Isto irá substituir todos os seus dados atuais (lista de compras, checklist, etc). Deseja continuar?")) {
+            if (confirm("Isto irá substituir todos os seus dados atuais E na nuvem (lista de compras, checklist, etc). Deseja continuar?")) {
                 localStorage.setItem(STORAGE_KEY, importedContent);
-                alert("Dados importados com sucesso! O aplicativo será recarregado.");
-                location.reload();
+                if (database) {
+                    database.ref(DB_REF).set(parsed).then(() => {
+                        alert("Dados importados com sucesso para a Nuvem! A tela será atualizada.");
+                    }).catch(err => {
+                        console.error("Erro ao subir pro Firebase:", err);
+                        alert("Importação salva localmente, mas falhou ao enviar para a nuvem.");
+                    });
+                } else {
+                    alert("Dados importados localmente com sucesso! A tela será atualizada.");
+                    location.reload();
+                }
             }
         } catch (err) {
             alert("Erro ao ler o arquivo. Certifique-se de que é um arquivo de backup válido do aplicativo Disney 2026.");
@@ -992,9 +1068,7 @@ function importData(event) {
 
 window.onload = () => {
     initTheme();
-    loadPersistedData();
-    sanitizeData();
-    renderAll();
+    loadPersistedData(); // This now async handles sanitizeData() and renderAll()
     setupEventListeners();
     startCountdown();
 };
