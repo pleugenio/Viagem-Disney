@@ -94,7 +94,18 @@
             </div>
 
             <div class="dashboard-main glass">
-                <h2>Resumo da Jornada</h2>
+                <div
+                    style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                    <h2>Resumo da Jornada</h2>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button class="glass-select" onclick="exportData()" title="Salvar Backup no seu celular/PC">⬇️
+                            Exportar Dados</button>
+                        <button class="glass-select" onclick="document.getElementById('import-file').click()"
+                            title="Restaurar Backup">⬆️ Importar Dados</button>
+                        <input type="file" id="import-file" style="display: none;" accept=".json"
+                            onchange="importData(event)">
+                    </div>
+                </div>
                 <div class="timeline-summary">
                     <!-- Progress bar or summary list -->
                 </div>

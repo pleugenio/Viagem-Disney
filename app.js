@@ -948,6 +948,48 @@ function startCountdown() {
     setInterval(timer, 60000);
 }
 
+// --- Data Export & Import ---
+function exportData() {
+    const dataToExport = localStorage.getItem(STORAGE_KEY);
+    if (!dataToExport) {
+        alert("Nenhum dado salvo encontrado para exportar.");
+        return;
+    }
+    const blob = new Blob([dataToExport], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `Disney2026_Backup_${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function importData(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+        try {
+            const importedContent = e.target.result;
+            // Validate JSON
+            JSON.parse(importedContent);
+
+            if (confirm("Isto irá substituir todos os seus dados atuais (lista de compras, checklist, etc). Deseja continuar?")) {
+                localStorage.setItem(STORAGE_KEY, importedContent);
+                alert("Dados importados com sucesso! O aplicativo será recarregado.");
+                location.reload();
+            }
+        } catch (err) {
+            alert("Erro ao ler o arquivo. Certifique-se de que é um arquivo de backup válido do aplicativo Disney 2026.");
+        }
+    };
+    reader.readAsText(file);
+    event.target.value = ""; // Reset input
+}
+
 window.onload = () => {
     initTheme();
     loadPersistedData();
