@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disney 2026 | Gestão de Viagem</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="dark-mode">
+    <nav class="sidebar">
+        <div class="logo">
+            <span class="emoji">🏰</span>
+            <span class="text">Disney 2026</span>
+        </div>
+        <ul class="nav-links">
+            <li class="active" data-tab="today">
+                <span class="icon">✨</span> Dia Atual
+            </li>
+            <li data-tab="dashboard">
+                <span class="icon">📊</span> Dashboard
+            </li>
+            <li data-tab="itinerary">
+                <span class="icon">📅</span> Cronograma
+            </li>
+            <li data-tab="strategies">
+                <span class="icon">👶</span> Estratégias
+            </li>
+            <li data-tab="logistics">
+                <span class="icon">📍</span> Logística
+            </li>
+            <li data-tab="finance">
+                <span class="icon">💰</span> Financeiro
+            </li>
+            <li data-tab="checklist">
+                <span class="icon">🧳</span> Checklist
+            </li>
+            <li data-tab="shopping">
+                <span class="icon">🛍️</span> Compras
+            </li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <header class="top-bar">
+            <h1>Selo de Qualidade Kamilla & Família</h1>
+            <div class="countdown" id="countdown">Carregando...</div>
+        </header>
+
+        <section id="today" class="tab-content active">
+            <div class="today-header">
+                <h2>Roteiro Detalhado do Dia</h2>
+                <select id="day-selector" class="glass-select"></select>
+            </div>
+            <div id="today-content" class="today-grid">
+                <!-- Detailed content will be injected here -->
+            </div>
+        </section>
+
+        <section id="dashboard" class="tab-content">
+            <div class="stats-grid">
+                <div class="stat-card glass">
+                    <h3>Noites</h3>
+                    <p class="value">20</p>
+                </div>
+                <div class="stat-card glass">
+                    <h3>Parques</h3>
+                    <p class="value">9</p>
+                </div>
+                <div class="stat-card glass">
+                    <h3>Hóspedes</h3>
+                    <p class="value">4</p>
+                </div>
+                <div class="stat-card glass">
+                    <h3>Destinos</h3>
+                    <p class="value">4</p>
+                </div>
+            </div>
+
+            <div class="dashboard-main glass">
+                <h2>Resumo da Jornada</h2>
+                <div class="timeline-summary">
+                    <!-- Progress bar or summary list -->
+                </div>
+            </div>
+        </section>
+
+        <section id="itinerary" class="tab-content">
+            <div class="itinerary-header">
+                <h2>Cronograma Diário</h2>
+                <div class="filter-pills">
+                    <button class="pill active">Todos</button>
+                    <button class="pill">Disney</button>
+                    <button class="pill">Lazer</button>
+                </div>
+            </div>
+
+            <div class="calendar-header-row">
+                <div>Dom</div>
+                <div>Seg</div>
+                <div>Ter</div>
+                <div>Qua</div>
+                <div>Qui</div>
+                <div>Sex</div>
+                <div>Sáb</div>
+            </div>
+
+            <div id="daily-list" class="itinerary-grid">
+                <!-- Data will be injected here -->
+            </div>
+        </section>
+
+        <section id="strategies" class="tab-content">
+            <div class="strategies-grid">
+                <div class="strategy-card glass" id="vicente">
+                    <h2>Vicente (4 anos)</h2>
+                    <ul class="tips-list"></ul>
+                </div>
+                <div class="strategy-card glass" id="joaquim">
+                    <h2>Joaquim (1 ano)</h2>
+                    <ul class="tips-list"></ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="logistics" class="tab-content">
+            <div class="logistics-grid">
+                <div class="hotel-section glass">
+                    <h2>Hotéis & Estadias</h2>
+                    <div id="hotels-list"></div>
+                </div>
+                <div class="miami-section glass">
+                    <h2>Roteiro Miami (2 Dias)</h2>
+                    <div id="miami-itinerary"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="finance" class="tab-content">
+            <div class="finance-container glass">
+                <h2>Controle & Checklist</h2>
+                <!-- Finance content -->
+            </div>
+        </section>
+
+        <section id="checklist" class="tab-content">
+            <div class="checklist-container glass">
+                <h2>Checklist da Viagem</h2>
+                <div id="checklist-content" class="checklist-grid">
+                    <!-- Categories will be injected here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="shopping" class="tab-content">
+            <div class="shopping-container glass">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                    <h2>Lista de Desejos (Compras)</h2>
+                    <button class="save-btn" style="width:auto; padding:0.5rem 1rem; margin-top:0;"
+                        onclick="openWishlistModal()">+ Adicionar Item</button>
+                </div>
+                <div id="shopping-content">
+                    <!-- Wishlist items will be injected here -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-btn">&times;</span>
+            <h2>Editar Dia</h2>
+            <form id="edit-form">
+                <input type="hidden" id="edit-index">
+                <div class="form-group">
+                    <label for="edit-title">Título</label>
+                    <input type="text" id="edit-title" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-activity">Atividade Principal</label>
+                    <input type="text" id="edit-activity" required>
+                </div>
+                <div class="form-group">
+                    <label for="edit-notes">Notas / Observações</label>
+                    <textarea id="edit-notes" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-load">Carga Física</label>
+                    <select id="edit-load">
+                        <option value="leve">Leve</option>
+                        <option value="médio">Médio</option>
+                        <option value="pesado">Pesado</option>
+                        <option value="critico">Crítico</option>
+                    </select>
+                </div>
+                <button type="submit" class="save-btn">Salvar Alterações</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
