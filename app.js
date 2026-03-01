@@ -9,17 +9,16 @@ let tripData = [
         price: 83,
         carPaid: 1418,
         paid: true,
-        notes: '🛬 Pouso 06:20 FLL. 🍱 **Jantar: Marmita Kids (1)**. 🌊 **Bônus: Parque Aquático Grátis hoje!**',
+        notes: '🛬 Pouso 06:20 FLL. 🍱 **Jantar: Marmita Kids (1)**.',
         details: [
-            '🛬 Pouso FLL (06:20 AM)',
-            '🛂 Imigração e Alfândega (~1h30)',
-            '🚐 Retirada Mini Van (08:30 AM | 📍 Terminal Aeroporto)',
-            '🛣️ Viagem Turnpike (~3h30)',
-            '🍴 Almoço: Fort Drum (11:30 AM | 📍 Turnpike Mile 184)',
-            '🏨 Check-in Pop Century (PAGO | 📍 Cabana/Resort)',
-            '🌊 **Check-in Perk**: Entrada grátis no Typhoon Lagoon ou Blizzard Beach!',
-            '🍱 **Jantar: Marmita Kids (1)** (19:00)',
-            '🛍️ WalMart (18:00 | 📍 Vineland Rd)'
+            '🛬 Pouso FLL (06:20 AM | ⏱️ 1h)',
+            '🛂 Imigração e Alfândega (07:00 AM | ⏱️ 1h30)',
+            '🚐 Retirada Mini Van (08:30 AM | 📍 Terminal Aeroporto | ⏱️ 1h)',
+            '🛣️ Viagem Turnpike (10:00 AM | ⏱️ 3h30)',
+            '🍴 Almoço: Fort Drum (11:30 AM | 📍 Turnpike Mile 184 | ⏱️ 1h)',
+            '🏨 Check-in Pop Century (03:00 PM | 📍 Cabana/Resort | ⏱️ 1h)',
+            '🍱 **Jantar: Marmita Kids (1)** (19:00 | ⏱️ 45min)',
+            '🛍️ WalMart (18:00 | 📍 Vineland Rd | ⏱️ 1h30)'
         ]
     },
     {
@@ -32,9 +31,9 @@ let tripData = [
         price: 0,
         notes: 'Disney Springs. Almoço Earl of Sandwich.',
         details: [
-            '🛍️ Marshalls (10:00 AM | 📍 Lake Buena Vista)',
-            '🍔 Earl of Sandwich (12:30 PM | 📍 Marketplace)',
-            '🌲 Disney Springs (14:00 | 📍 Complexo)'
+            '🛍️ Marshalls (10:00 AM | 📍 Lake Buena Vista | ⏱️ 2h)',
+            '🍔 Earl of Sandwich (12:30 PM | 📍 Marketplace | ⏱️ 1h)',
+            '🌲 Disney Springs (14:00 | 📍 Complexo | ⏱️ 4h)'
         ]
     },
     {
@@ -49,12 +48,12 @@ let tripData = [
         notes: '🍱 **Almoço (2)**. 🍼 Papinha de bebê permitida.',
         details: [
             '🕒 Horários: 09:00 AM - 08:00 PM',
-            '🎢 Abby’s Tower (09:30 AM | 📍 Sesame Street Land)',
-            '🐧 Antarctica (11:00 AM | 📍 Antarctica Area)',
-            '🍱 **Almoço: Marmita Kids (2)** (12:30 PM | 📍 Baby Care)',
-            '🍴 Alt: Seafire Grill (📍 Waterfront)',
-            '🐋 Orca Encounter (01:00 PM | 📍 Shamu Stadium)',
-            '🐬 Dolphin Nursery (03:00 PM | 📍 Entrance Area)'
+            '🎢 Abby’s Tower (09:30 AM | 📍 Sesame Street Land | ⏱️ 45min)',
+            '🐧 Antarctica (11:00 AM | 📍 Antarctica Area | ⏱️ 1h)',
+            '🍱 **Almoço: Marmita Kids (2)** (12:30 PM | 📍 Baby Care | ⏱️ 1h)',
+            '🍴 Alt: Seafire Grill (01:00 PM | 📍 Waterfront | ⏱️ 1h)',
+            '🐋 Orca Encounter (01:00 PM | 📍 Shamu Stadium | ⏱️ 30min)',
+            '🐬 Dolphin Nursery (03:00 PM | 📍 Entrance Area | ⏱️ 30min)'
         ]
     },
     {
@@ -69,10 +68,10 @@ let tripData = [
         notes: '🍱 **Almoço (3)**. Jantar Tusker House.',
         details: [
             '🕒 Horários: 08:00 AM - 06:00 PM (Resort: 07:30 AM)',
-            '🦓 Safaris (08:30 AM | 📍 Africa)',
-            '🦁 Lion King (11:00 AM | 📍 Africa)',
-            '🍱 **Almoço: Marmita Kids (3)** (12:30 PM | 📍 Baby Care)',
-            '🍴 Tusker House (05:15 PM | 📍 Africa)'
+            '🦓 Safaris (08:30 AM | 📍 Africa | ⏱️ 1h)',
+            '🦁 Lion King (11:00 AM | 📍 Africa | ⏱️ 45min)',
+            '🍱 **Almoço: Marmita Kids (3)** (12:30 PM | 📍 Baby Care | ⏱️ 1h)',
+            '🍴 Tusker House (05:15 PM | 📍 Africa | ⏱️ 1h30)'
         ]
     },
     {
@@ -87,10 +86,11 @@ let tripData = [
         notes: '🍱 **Almoço (4)**. Crystal (Café) e Liberty (Jantar).',
         details: [
             '🕒 Horários: 09:00 AM - 09:30 PM (Resort: 08:30 AM)',
-            '☕ Crystal Palace (08:00 AM | 📍 Main Street U.S.A.)',
-            '🍱 **Almoço: Marmita Kids (4)** (12:30 PM | 📍 Baby Care)',
-            '🍴 Liberty Tree (05:40 PM | 📍 Liberty Square)',
-            '🎆 Happily Ever After (09:30 PM | 📍 Hub/Castle)'
+            '☕ Crystal Palace (08:00 AM | 📍 Main Street U.S.A. | ⏱️ 1h15)',
+            '🎢 TRON (10:00 AM | 📍 Tomorrowland | ⏱️ 1h)',
+            '🍱 **Almoço: Marmita Kids (4)** (12:30 PM | 📍 Baby Care | ⏱️ 1h)',
+            '🍴 Liberty Tree (05:40 PM | 📍 Liberty Square | ⏱️ 1h30)',
+            '🎆 Happily Ever After (09:30 PM | 📍 Hub/Castle | ⏱️ 20min)'
         ]
     },
     {
@@ -103,10 +103,11 @@ let tripData = [
         price: 156,
         notes: '🍱 **Almoço (5) / Jantar (6)**.',
         details: [
-            '☕ Chef Mickey\'s (07:45 AM | 📍 Contemporary Resort - 4th Floor)',
-            '🍱 **Almoço: Marmita Kids (5)** (13:00)',
-            '🏊 Piscina Pop (16:00 | 📍 Hippy Dippy Pool)',
-            '🍱 **Jantar: Marmita Kids (6)** (19:30)'
+            '☕ Chef Mickey\'s (07:45 AM | 📍 Contemporary Resort - 4th Floor | ⏱️ 1h30)',
+            '🏨 Resort Hopping (10:00 AM | 📍 Monorail Hotels | ⏱️ 2h)',
+            '🍱 **Almoço: Marmita Kids (5)** (13:00 | ⏱️ 1h)',
+            '🏊 Piscina Pop (16:00 | 📍 Hippy Dippy Pool | ⏱️ 2h)',
+            '🍱 **Jantar: Marmita Kids (6)** (19:30 | ⏱️ 1h)'
         ]
     },
     {
@@ -121,11 +122,11 @@ let tripData = [
         notes: '🍱 **Almoço (7)**. Jantar Rodeo.',
         details: [
             '🕒 Horários: 09:00 AM - 09:00 PM (Resort: 08:30 AM)',
-            '🧸 Toy Story Mania (10:00 AM | 📍 Toy Story Land)',
-            '🍱 **Almoço: Marmita Kids (7)** (12:30 PM | 📍 Baby Care)',
-            '🛠️ Droid Depot (05:10 PM | 📍 Galaxy\'s Edge)',
-            '🍴 Roundup Rodeo (06:55 PM | 📍 Toy Story Land)',
-            '🎬 Fantasmic! (08:30 PM | 📍 Sunset Boulevard)'
+            '🧸 Toy Story Mania (10:00 AM | 📍 Toy Story Land | ⏱️ 1h)',
+            '🍱 **Almoço: Marmita Kids (7)** (12:30 PM | 📍 Baby Care | ⏱️ 1h)',
+            '🛠️ Droid Depot (05:10 PM | 📍 Galaxy\'s Edge | ⏱️ 45min)',
+            '🍴 Roundup Rodeo (06:55 PM | 📍 Toy Story Land | ⏱️ 1h30)',
+            '🎬 Fantasmic! (08:30 PM | 📍 Sunset Boulevard | ⏱️ 30min)'
         ]
     },
     {
@@ -140,10 +141,10 @@ let tripData = [
         notes: '🍱 **Almoço (8)**. Jantar Be Our Guest.',
         details: [
             '🕒 Horários: 09:00 AM - 09:30 PM (Resort: 08:30 AM)',
-            '📸 Ensaio (09:00 AM | 📍 Front of Castle)',
-            '🍱 **Almoço: Marmita Kids (8)** (12:30 PM | 📍 Baby Care)',
-            '🍴 Be Our Guest (06:10 PM | 📍 Fantasyland)',
-            '🎆 Fogos (09:30 PM | 📍 Castle)'
+            '📸 Ensaio (09:00 AM | 📍 Front of Castle | ⏱️ 1h)',
+            '🍱 **Almoço: Marmita Kids (8)** (12:30 PM | 📍 Baby Care | ⏱️ 1h)',
+            '🍴 Be Our Guest (06:10 PM | 📍 Fantasyland | ⏱️ 1h45)',
+            '🎆 Fogos (09:30 PM | 📍 Castle | ⏱️ 20min)'
         ]
     },
     {
@@ -155,7 +156,11 @@ let tripData = [
         hours: '10:00 - 21:00',
         price: 0,
         notes: 'Dia de compras. Gastos variáveis aumentados.',
-        details: ['👜 Outlet LBV (10:00 AM | 📍 Vineland Rd)', '🍟 Almoço (01:00 PM | 📍 Food Court)']
+        details: [
+            '👜 Outlet LBV (10:00 AM | 📍 Vineland Rd | ⏱️ 4h)',
+            '🍟 Almoço (02:00 PM | 📍 Food Court | ⏱️ 1h)',
+            '🛒 WalMart Extra (05:00 PM | ⏱️ 1h30)'
+        ]
     },
     {
         date: '19/04 Dom',
@@ -169,10 +174,11 @@ let tripData = [
         notes: '🍱 **Almoço (9)**. Jantar Space 220.',
         details: [
             '🕒 Horários: 09:00 AM - 09:00 PM (Resort: 08:30 AM)',
-            '🐢 Nemo (10:00 AM | 📍 World Nature)',
-            '🍱 **Almoço: Marmita Kids (9)** (13:00 | 📍 Baby Care)',
-            '🍴 Space 220 (05:05 PM | 📍 World Discovery)',
-            '🎆 Luminous (09:00 PM | 📍 World Showcase Lagoon)'
+            '🐢 Nemo (10:00 AM | 📍 World Nature | ⏱️ 30min)',
+            '💠 Spaceship Earth (11:00 AM | ⏱️ 45min)',
+            '🍱 **Almoço: Marmita Kids (9)** (13:00 | 📍 Baby Care | ⏱️ 1h)',
+            '🍴 Space 220 (05:05 PM | 📍 World Discovery | ⏱️ 1h30)',
+            '🎆 Luminous (09:00 PM | 📍 World Showcase Lagoon | ⏱️ 15min)'
         ]
     },
     {
@@ -187,10 +193,10 @@ let tripData = [
         notes: '🍱 **Almoço (10)**. Jantar Hollywood & Vine.',
         details: [
             '🕒 Horários: 09:00 AM - 09:00 PM (Resort: 08:30 AM)',
-            '❄️ Frozen (11:30 AM | 📍 Echo Lake)',
-            '🍱 **Almoço: Marmita Kids (10)** (13:00 | 📍 Baby Care)',
-            '🍴 Hollywood & Vine (05:00 PM | 📍 Echo Lake)',
-            '🎬 Fantasmic VIP (08:30 PM | 📍 Sunset Blvd)'
+            '❄️ Frozen (11:30 AM | 📍 Echo Lake | ⏱️ 30min)',
+            '🍱 **Almoço: Marmita Kids (10)** (13:00 | 📍 Baby Care | ⏱️ 1h)',
+            '🍴 Hollywood & Vine (05:00 PM | 📍 Echo Lake | ⏱️ 1h30)',
+            '🎬 Fantasmic VIP (08:30 PM | 📍 Sunset Blvd | ⏱️ 30min)'
         ]
     },
     {
@@ -203,8 +209,8 @@ let tripData = [
         price: 0,
         notes: 'Dia de relaxar na piscina e almoço com dinossauros.',
         details: [
-            '🏊 Piscina (10:00 AM | 📍 Resort)',
-            '🦖 T-Rex Cafe (02:00 PM | 📍 Marketplace)'
+            '🏊 Piscina (10:00 AM | 📍 Resort | ⏱️ 3h)',
+            '🦖 T-Rex Cafe (02:00 PM | 📍 Marketplace | ⏱️ 1h30)'
         ]
     },
     {
@@ -220,29 +226,29 @@ let tripData = [
         notes: '🍱 **Almoço (11)**. Cinderella Jantar.',
         details: [
             '🕒 Horários: 09:00 AM - 10:00 PM (Resort: 08:30 AM)',
-            '🎡 Belle (11:00 AM | 📍 Fantasyland)',
-            '🍱 **Almoço: Marmita Kids (11)** (13:00 | 📍 Baby Care)',
-            '👑 Cinderella (05:20 PM | 📍 Inside Castle)',
-            '🎆 Fogos (09:30 PM | 📍 Castle)'
+            '🎡 Belle (11:00 AM | 📍 Fantasyland | ⏱️ 45min)',
+            '🍱 **Almoço: Marmita Kids (11)** (13:00 | 📍 Baby Care | ⏱️ 1h)',
+            '👑 Cinderella (05:20 PM | 📍 Inside Castle | ⏱️ 1h15)',
+            '🎆 Fogos (09:30 PM | 📍 Castle | ⏱️ 20min)'
         ]
     },
     {
         date: '23/04 Qui',
         title: 'Animal Kingdom Lodge - Jambo House',
-        activity: 'Mudança Hotel + 🌊 Parque Aquático',
+        activity: 'Mudança Hotel + 🌊 Blizzard Beach',
         load: 'médio',
         icon: '🦒',
         hours: 'Out: 11:00 | In: 15:00',
         price: 0,
         paid: true,
-        notes: 'Check-out Pop / Check-in AK Lodge. 🌊 **ESTA É A MELHOR CHANCE: Parque Aquático Grátis hoje!** Ir direto após o check-out do Pop.',
+        notes: 'Check-out Pop / Check-in AK Lodge. 🌊 **Nota**: Typhoon Lagoon fechado para reforma. Blizzard Beach disponível (Pago).',
         details: [
-            '🏨 Check-out Pop Century (09:00 AM)',
-            '🏨 Deixar malas no Bell Services (📍 Jambo House)',
-            '🌊 **Check-in Perk**: Dia completo no Typhoon Lagoon ou Blizzard Beach (GRÁTIS hoje!)',
-            '🛒 Devolução Carrinho (12:00 PM | 📍 Front Desk AKL)',
-            '🏨 Check-in AK Lodge (📍 Quarto disponível após 15:00)',
-            '🦒 Savana (16:30 | 📍 Sunset Savanna)'
+            '🏨 Check-out Pop Century (09:00 AM | ⏱️ 30min)',
+            '🏨 Deixar malas Bell Services (09:30 AM | 📍 Jambo House | ⏱️ 20min)',
+            '🌊 **Blizzard Beach** (10:30 AM | ⏱️ 5h)',
+            '🛒 Devolução Carrinho (04:00 PM | 📍 Front Desk AKL | ⏱️ 15min)',
+            '🏨 Check-in AK Lodge (04:30 PM | ⏱️ 30min)',
+            '🦒 Savana (05:00 PM | 📍 Sunset Savanna | ⏱️ 1h)'
         ]
     },
     {
@@ -255,9 +261,9 @@ let tripData = [
         price: 101,
         notes: '🍱 **Almoço (12)**. Café Boma.',
         details: [
-            '☕ Boma (07:45 AM | 📍 Jambo House - Bottom Floor)',
-            '🏊 Piscina (10:30 AM | 📍 Uzima Springs)',
-            '🍱 **Almoço: Marmita Kids (12)** (13:30)'
+            '☕ Boma (07:45 AM | 📍 Jambo House | ⏱️ 1h15)',
+            '🏊 Piscina (10:30 AM | 📍 Uzima Springs | ⏱️ 2h)',
+            '🍱 **Almoço: Marmita Kids (12)** (13:30 | ⏱️ 1h)'
         ]
     },
     {
@@ -270,10 +276,10 @@ let tripData = [
         price: 0,
         notes: '🍱 **Jantar (13)** em Naples.',
         details: [
-            '🏨 Out AKL (11:00 AM)',
-            '🚗 Viagem Naples (~3h)',
-            '🍱 **Jantar (13)** (19:30)',
-            '🌅 Sunset Pier (07:30 PM | 📍 Naples Pier)'
+            '🏨 Out AKL (11:00 AM | ⏱️ 30min)',
+            '🚗 Viagem Naples (11:30 AM | ⏱️ 3h)',
+            '🍱 **Jantar (13)** (07:00 PM | ⏱️ 1h)',
+            '🌅 Sunset Pier (07:30 PM | 📍 Naples Pier | ⏱️ 1h)'
         ]
     },
     {
@@ -284,7 +290,11 @@ let tripData = [
         icon: '🌊',
         price: 0,
         notes: 'Dia de praia em Naples.',
-        details: ['🌊 Praia (10:00 AM | 📍 Pier)', '🏘️ Downtown (05:00 PM | 📍 5th Ave S)']
+        details: [
+            '🌊 Praia (10:00 AM | 📍 Naples Pier | ⏱️ 4h)',
+            '🍔 Almoço (02:00 PM | ⏱️ 1h)',
+            '🏘️ Downtown (05:00 PM | 📍 5th Ave S | ⏱️ 2h)'
+        ]
     },
     {
         date: '27/04 Seg',
@@ -297,10 +307,10 @@ let tripData = [
         paid: true,
         notes: '🍱 **Jantar (14)** em Miami.',
         details: [
-            '🏨 Out Naples (11:00 AM)',
-            '🚗 Viagem Miami (~2h)',
-            '🍱 **Jantar (14)** (19:30)',
-            '🏖️ Praia (16:00 | 📍 Riu Plaza Front)'
+            '🏨 Out Naples (11:00 AM | ⏱️ 30min)',
+            '🚗 Viagem Miami (11:30 AM | ⏱️ 2h)',
+            '⛱️ Praia (02:00 PM | 📍 Riu Plaza Front | ⏱️ 3h)',
+            '🍱 **Jantar (14)** (07:30 PM | ⏱️ 1h)'
         ]
     },
     {
@@ -312,9 +322,9 @@ let tripData = [
         price: 0,
         notes: '🍱 **Almoço (15)**.',
         details: [
-            '🚗 Dolphin Mall (10:00 AM | 📍 Sweetwater)',
-            '🍱 **Almoço (15)** (14:00)',
-            '🚶 Ocean Drive (06:00 PM | 📍 South Beach)'
+            '🚗 Dolphin Mall (10:00 AM | 📍 Sweetwater | ⏱️ 4h)',
+            '🍱 **Almoço (15)** (02:30 PM | ⏱️ 1h)',
+            '🚶 Ocean Drive (06:00 PM | 📍 South Beach | ⏱️ 2h)'
         ]
     },
     {
@@ -326,7 +336,12 @@ let tripData = [
         hours: 'Carro: 04:00 | Voo: 08:20',
         price: 0,
         notes: 'Retorno para o Brasil.',
-        details: ['🚐 Devolução Alamo (04:00 AM)', '🛫 Voo (08:20 AM)', '🏠 Brasil (05:45 PM)']
+        details: [
+            '🚐 Devolução Alamo (04:00 AM | ⏱️ 45min)',
+            '🛂 Check-in FLL (05:00 AM | ⏱️ 2h)',
+            '🛫 Voo (08:20 AM | ⏱️ 9h)',
+            '🏠 Brasil (05:45 PM)'
+        ]
     }
 ];
 
@@ -355,7 +370,7 @@ const EMERGENCY_CONTACTS = [
 let wishlist = [];
 let checkedItems = [];
 
-const STORAGE_KEY = 'disneyTripData_v35'; // Advanced features v35
+const STORAGE_KEY = 'disneyTripData_v38'; // Updated for Lightning Lane costs v38
 const EXCHANGE_RATE = 5.30;
 const TOTAL_BUDGET_BRL = 25000;
 
@@ -381,6 +396,21 @@ const BABY_CARE_LOCATIONS = {
     'Animal Kingdom': '📍 Discovery Island: À esquerda do Tree of Life, antes da ponte para a África.'
 };
 
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+    }
+
+    document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    const isLight = document.body.classList.contains('light-mode');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+}
+
 function loadPersistedData() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
@@ -402,9 +432,21 @@ function persistData() {
 }
 
 function getDailyVariableEstimate(day) {
-    if (!day) return { total: 0, snacks: 0, lunch: 0 };
-    let snacksBebidasBrinquedos = 80; // Base diaria
+    if (!day) return { total: 0, snacks: 0, lunch: 0, lightningLane: 0 };
+    let snacksBebidasBrinquedos = 200; // Base diaria ($50/pessoa)
     let almoçoExtra = 0;
+    let lightningLane = 0;
+
+    const title = (day.title || "").toLowerCase();
+    const activity = (day.activity || "").toLowerCase();
+
+    // Lightning Lane / Single Pass (3 people as requested)
+    if (day.paidTickets) {
+        if (title.includes('magic kingdom')) lightningLane = 35 * 3;
+        else if (title.includes('epcot')) lightningLane = 24 * 3;
+        else if (title.includes('hollywood studios')) lightningLane = 29 * 3;
+        else if (title.includes('animal kingdom')) lightningLane = 19 * 3;
+    }
 
     // Check if day has restaurant or marmita for lunch
     const currentTitle = day.title || "";
@@ -417,7 +459,12 @@ function getDailyVariableEstimate(day) {
         almoçoExtra = 60;
     }
 
-    return { total: snacksBebidasBrinquedos + almoçoExtra, snacks: snacksBebidasBrinquedos, lunch: almoçoExtra };
+    return {
+        total: snacksBebidasBrinquedos + almoçoExtra + lightningLane,
+        snacks: snacksBebidasBrinquedos,
+        lunch: almoçoExtra,
+        lightningLane: lightningLane
+    };
 }
 
 function renderAll() {
@@ -440,13 +487,17 @@ document.addEventListener('DOMContentLoaded', () => {
     initApp();
 });
 
-function initApp() {
+function setupEventListeners() {
     setupTabs();
+    setupModalListeners();
+}
+
+function initApp() {
+    setupEventListeners();
     sanitizeData(); // Ensure consistency
     initDaySelector();
     renderAll();
     startCountdown();
-    setupModalListeners();
 }
 
 function setupTabs() {
@@ -516,17 +567,20 @@ function renderCurrentDay(index = 0) {
     (day.details || []).forEach(detail => {
         const dStr = detail || "";
         const timeMatch = dStr.match(/(\d{2}:\d{2})\s*(AM|PM)?/);
-        const locationMatch = dStr.match(/📍\s*([\w\s.\-']+)(?=\)|$)/);
-        const durationMatch = dStr.match(/\|\s*([\w\s]+)\)/);
+        const locationMatch = dStr.match(/📍\s*([^)|]+)/);
+        const durationMatch = dStr.match(/⏱️\s*([^)|]+)/);
         const isMarmita = dStr.includes('🍱');
 
         timelineHtml += `
             <div class="timeline-item">
                 <div class="timeline-dot" ${isMarmita ? 'style="background: #fb923c;"' : ''}></div>
                 <div class="timeline-content" ${isMarmita ? 'style="border-left: 4px solid #fb923c; background: rgba(251, 146, 60, 0.05);"' : ''}>
-                    <div class="timeline-time">${timeMatch ? timeMatch[0] : 'Horário Livre'} ${durationMatch ? `• ${durationMatch[1]}` : ''}</div>
-                    <p style="font-weight:700; margin-bottom:5px;">${dStr.includes('🕒') ? dStr.split('📍')[0].trim() : dStr.split('(')[0].split('|')[0].split('📍')[0].trim()}</p>
-                    ${locationMatch ? `<div style="font-size:0.75rem; color:var(--accent); font-weight:600; margin-bottom:5px;">📍 ${locationMatch[1]}</div>` : ''}
+                    <div class="timeline-time">
+                        ${timeMatch ? timeMatch[0] : 'Horário Livre'} 
+                        ${durationMatch ? `• <span style="color:var(--accent-gold)">⏱️ ${durationMatch[1].trim()}</span>` : ''}
+                    </div>
+                    <p style="font-weight:700; margin-bottom:5px;">${dStr.includes('🕒') ? dStr.split('📍')[0].trim() : dStr.split('(')[0].split('📍')[0].trim()}</p>
+                    ${locationMatch ? `<div style="font-size:0.75rem; color:var(--accent); font-weight:600; margin-bottom:5px;">📍 ${locationMatch[1].trim()}</div>` : ''}
                     ${isMarmita ? '<span style="color:#fb923c; font-size:0.7rem;">🍛 Aquecer no Baby Care / Hotel</span>' : ''}
                     ${dStr.includes('PAGO') ? '<span style="color:var(--success); font-size:0.7rem; font-weight:700;">Confirmado ✅</span>' : ''}
                 </div>
@@ -541,6 +595,7 @@ function renderCurrentDay(index = 0) {
                 <h4 style="color: var(--accent); margin-bottom: 0.5rem;">💰 Estimativa de Gastos</h4>
                 <div style="font-size:0.9rem; margin-bottom:10px;">
                     <div style="display:flex; justify-content:space-between;"><span>Snack/Drink/Mimo:</span> <strong>$${estimate.snacks}</strong></div>
+                    ${estimate.lightningLane > 0 ? `<div style="display:flex; justify-content:space-between; color:var(--accent-gold);"><span>Lightning Lane (3x):</span> <strong>$${estimate.lightningLane}</strong></div>` : ''}
                     ${estimate.lunch > 0 ? `<div style="display:flex; justify-content:space-between; color:var(--warning);"><span>Almoço Estimado:</span> <strong>$${estimate.lunch}</strong></div>` : ''}
                     <div style="display:flex; justify-content:space-between; margin-top:5px; padding-top:5px; border-top:1px solid rgba(255,255,255,0.1); font-weight:700;">
                         <span>Total Sugerido:</span> <span>$${estimate.total} (~R$ ${(estimate.total * EXCHANGE_RATE).toLocaleString('pt-BR', { maximumFractionDigits: 0 })})</span>
@@ -600,13 +655,22 @@ function renderItinerary() {
 }
 
 function setupModalListeners() {
-    const modal = document.getElementById('edit-modal');
-    const closeBtn = document.querySelector('.close-btn');
-    const form = document.getElementById('edit-form');
-    if (closeBtn) { closeBtn.onclick = () => closeModal(); }
-    window.onclick = (e) => { if (e.target == modal) closeModal(); };
-    if (form) {
-        form.onsubmit = (e) => {
+    const editModal = document.getElementById('edit-modal');
+    const editCloseBtn = document.querySelector('.close-btn');
+    const editForm = document.getElementById('edit-form');
+
+    if (editCloseBtn) { editCloseBtn.onclick = () => closeModal(); }
+
+    const wishModal = document.getElementById('wishlist-modal');
+    const wishForm = document.getElementById('wishlist-form');
+
+    window.onclick = (e) => {
+        if (e.target == editModal) closeModal();
+        if (e.target == wishModal) closeWishlistModal();
+    };
+
+    if (editForm) {
+        editForm.onsubmit = (e) => {
             e.preventDefault();
             const idx = document.getElementById('edit-index').value;
             tripData[idx].title = document.getElementById('edit-title').value;
@@ -616,6 +680,23 @@ function setupModalListeners() {
             persistData();
             renderAll();
             closeModal();
+        };
+    }
+
+    if (wishForm) {
+        wishForm.onsubmit = (e) => {
+            e.preventDefault();
+            const name = document.getElementById('wish-name').value;
+            const store = document.getElementById('wish-store').value;
+            const price = parseFloat(document.getElementById('wish-price').value);
+
+            if (name && store && !isNaN(price)) {
+                wishlist.push({ name, store, price });
+                persistData();
+                renderShopping();
+                renderFinance();
+                closeWishlistModal();
+            }
         };
     }
 }
@@ -747,12 +828,12 @@ function renderFinance() {
         <div class="stats-grid">
             <div class="stat-card glass"><h3>Orçamento</h3><p class="value">R$25k</p></div>
             <div class="stat-card glass"><h3>Pendentes (Reservas)</h3><p class="value" style="color:var(--warning);">R$${pendingBRL.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p></div>
-            <div class="stat-card glass"><h3>Projeção (Snacks/Almoço)</h3><p class="value" style="color:var(--accent-gold);">R$${variablesBRL.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p></div>
+            <div class="stat-card glass"><h3>Projeção (Snacks/LL/Almoço)</h3><p class="value" style="color:var(--accent-gold);">R$${variablesBRL.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p></div>
             <div class="stat-card glass"><h3>Saldo Livre</h3><p class="value" style="color:var(--success);">R$${remainingBRL.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p></div>
         </div>
         <div class="glass" style="margin-top:1.5rem">
             <h4>💰 Total Projetado para Extras: $${projectedVariablesUSD}</h4>
-            <div style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:1rem;">(Sugerimos reservar este valor para snacks, bebidas, mimos e almoços eventuais)</div>
+            <div style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:1rem;">(Inclui snacks $200/dia, Lightning Lane para 3 pessoas em parques Disney e almoços extras)</div>
             
             <h4>Pendências Atuais (A pagar no local):</h4>
             ${pendingItemsRaw.map(r => `<div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>${r.name}</span><strong>$${r.val}</strong></div>`).join('')}
@@ -823,16 +904,22 @@ function renderShopping() {
 }
 
 function openWishlistModal() {
-    const name = prompt("Nome do produto:");
-    if (!name) return;
-    const store = prompt("Loja (ex: Outlet, WalMart):");
-    const price = parseFloat(prompt("Preço estimado ($):"));
-    if (isNaN(price)) return;
+    const modal = document.getElementById('wishlist-modal');
+    if (modal) {
+        document.getElementById('wish-name').value = '';
+        document.getElementById('wish-store').value = '';
+        document.getElementById('wish-price').value = '';
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('active'), 10);
+    }
+}
 
-    wishlist.push({ name, store, price });
-    persistData();
-    renderShopping();
-    renderFinance(); // Update the main budget too
+function closeWishlistModal() {
+    const modal = document.getElementById('wishlist-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => modal.style.display = 'none', 300);
+    }
 }
 
 function removeItem(idx) {
@@ -860,3 +947,12 @@ function startCountdown() {
     timer();
     setInterval(timer, 60000);
 }
+
+window.onload = () => {
+    initTheme();
+    loadPersistedData();
+    sanitizeData();
+    renderAll();
+    setupEventListeners();
+    startCountdown();
+};

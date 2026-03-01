@@ -3,8 +3,18 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Disney 2026 | Gestão de Viagem</title>
+
+    <!-- Configurações de Aplicativo (PWA / iOS) -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Disney 2026">
+    <meta name="theme-color" content="#020617">
+    <link rel="apple-touch-icon" href="icon.png">
+
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,6 +26,7 @@
         <div class="logo">
             <span class="emoji">🏰</span>
             <span class="text">Disney 2026</span>
+            <button id="theme-toggle" class="theme-toggle" title="Alternar Tema" style="margin-left: auto;">🌓</button>
         </div>
         <ul class="nav-links">
             <li class="active" data-tab="today">
@@ -47,8 +58,9 @@
 
     <main class="content">
         <header class="top-bar">
-            <h1>Selo de Qualidade Kamilla & Família</h1>
-            <div class="countdown" id="countdown">Carregando...</div>
+            <div style="display: flex; align-items: center; gap: 1rem; margin-left: auto;">
+                <div class="countdown" id="countdown">Carregando...</div>
+            </div>
         </header>
 
         <section id="today" class="tab-content active">
@@ -169,6 +181,30 @@
             </div>
         </section>
     </main>
+
+    <!-- Wishlist Modal -->
+    <div id="wishlist-modal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-wishlist-btn" onclick="closeWishlistModal()"
+                style="position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer; opacity: 0.5;">&times;</span>
+            <h2>Adicionar Item à Lista</h2>
+            <form id="wishlist-form">
+                <div class="form-group">
+                    <label for="wish-name">Produto</label>
+                    <input type="text" id="wish-name" placeholder="Ex: iPad Air" required>
+                </div>
+                <div class="form-group">
+                    <label for="wish-store">Loja</label>
+                    <input type="text" id="wish-store" placeholder="Ex: Apple Store / WalMart" required>
+                </div>
+                <div class="form-group">
+                    <label for="wish-price">Preço Estimado ($)</label>
+                    <input type="number" id="wish-price" step="0.01" placeholder="0.00" required>
+                </div>
+                <button type="submit" class="save-btn">Adicionar à Lista</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Edit Modal -->
     <div id="edit-modal" class="modal">

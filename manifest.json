@@ -1,0 +1,9 @@
+{
+  "name": "Gestão de Viagem Disney 2026",
+  "short_name": "Disney 2026",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "description": "Painel de controle e roteiro para a viagem da família para a Disney em 2026."
+}
