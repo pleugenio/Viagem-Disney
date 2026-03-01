@@ -633,20 +633,33 @@ body {
         display: flex !important;
         flex-direction: row !important;
         width: 100vw !important;
-        justify-content: space-around !important;
+        justify-content: flex-start !important;
         align-items: center !important;
         height: 100% !important;
         margin: 0 !important;
         padding: 0 0.5rem !important;
+        overflow-x: auto;
+        /* Allow horizontal scrolling */
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        /* Smooth scrolling on iOS */
+        gap: 0.5rem;
+    }
+
+    .nav-links::-webkit-scrollbar {
+        display: none;
+        /* Hide scrollbar for cleaner look */
     }
 
     .nav-links li {
         font-size: 0 !important;
         /* Hides the text */
-        padding: 0.5rem !important;
+        padding: 0.5rem 1rem !important;
         margin-bottom: 0 !important;
         border-radius: 8px !important;
-        flex-grow: 1 !important;
+        flex-shrink: 0 !important;
+        /* Prevent icons from squishing */
+        flex-grow: 0 !important;
         justify-content: center !important;
     }
 
