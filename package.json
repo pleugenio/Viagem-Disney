@@ -1,0 +1,24 @@
+{
+  "name": "viagem-disney",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pleugenio/Viagem-Disney.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/pleugenio/Viagem-Disney/issues"
+  },
+  "homepage": "https://github.com/pleugenio/Viagem-Disney#readme",
+  "dependencies": {
+    "gh-pages": "^6.3.0"
+  }
+}
