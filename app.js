@@ -345,7 +345,7 @@ let tripData = [
     }
 ];
 
-const PACKING_LIST = {
+let checklistData = {
     'Documentos': ['Passaportes', 'Vistos/ESTA', 'Seguro Viagem', 'Reservas Impressas', 'Cartão Internacional (Nomad/Wise)'],
     'Eletrônicos': ['Cabos e Carregadores', 'Power Bank (Crucial!)', 'Adaptador de Tomada', 'Fone de Ouvido (Joaquim/Vicente)'],
     'Joaquim (1 ano)': ['Fraldas Piscina', 'Leite em Pó/Fórmula', 'Mamadeiras', 'Carrinho Confortável', 'Remédios (Antitérmico, etc)'],
@@ -353,11 +353,15 @@ const PACKING_LIST = {
     'Higiene/Saúde': ['Protetor Solar', 'Repelente', 'Kit Primeiros Socorros', 'Termômetro', 'Lenços Umedecidos']
 };
 
-const GENIE_TIPS = {
-    'Magic Kingdom': '7 AM: Marcar **Tiana’s** ou **Space Mountain**. 11 AM: Segunda reserva.',
-    'Hollywood Studios': '7 AM: Marcar **Slinky Dog Dash** (acaba rápido!) ou **Rise of the Resistance**.',
-    'Animal Kingdom': '7 AM: Marcar **Safari** ou **Navi River**. Comprar Individual LL para **Avatar Flight of Passage**.',
-    'Epcot': 'Equipe de Fila Virtual para **Guardians of the Galaxy** (7 AM). Genie+ para **Remy** ou **Frozen**.'
+let strategiesData = {
+    'Joaquim (1 ano)': ["Troca roupa SeaWorld.", "Pausa carrinho.", "Baby Care.", "Dolphin Nursery."],
+    'Vicente (4 anos)': ["Dollar Tree: Brinquedos.", "SeaWorld: Abby’s Tower.", "Marmitas.", "Fone fogos."],
+    '✨ Estratégia Genie+ (Prioridades 07:00 AM)': [
+        "**Magic Kingdom**: 7 AM: Marcar Tiana’s ou Space Mountain. 11 AM: Segunda reserva.",
+        "**Hollywood Studios**: 7 AM: Marcar Slinky Dog Dash (acaba rápido!) ou Rise of the Resistance.",
+        "**Animal Kingdom**: 7 AM: Marcar Safari ou Navi River. Comprar Individual LL para Avatar Flight of Passage.",
+        "**Epcot**: Equipe de Fila Virtual para Guardians of the Galaxy (7 AM). Genie+ para Remy ou Frozen."
+    ]
 };
 
 const EMERGENCY_CONTACTS = [
@@ -440,6 +444,8 @@ function loadPersistedData() {
                 if (Array.isArray(data.wishlist)) wishlist = data.wishlist;
                 if (Array.isArray(data.checkedItems)) checkedItems = data.checkedItems;
                 if (Array.isArray(data.pendenciesList)) pendenciesList = data.pendenciesList;
+                if (data.checklistData) checklistData = data.checklistData;
+                if (data.strategiesData) strategiesData = data.strategiesData;
 
                 // Re-render the application when new data arrives from any device
                 sanitizeData();
@@ -454,6 +460,8 @@ function loadPersistedData() {
                         if (Array.isArray(parsed.wishlist)) wishlist = parsed.wishlist;
                         if (Array.isArray(parsed.checkedItems)) checkedItems = parsed.checkedItems;
                         if (Array.isArray(parsed.pendenciesList)) pendenciesList = parsed.pendenciesList;
+                        if (parsed.checklistData) checklistData = parsed.checklistData;
+                        if (parsed.strategiesData) strategiesData = parsed.strategiesData;
                         persistData(); // Push migrated data to Firebase
                     } catch (e) { console.error('Error loading local data', e); }
                 }
@@ -480,6 +488,8 @@ function fallbackToLocal() {
             if (Array.isArray(parsed.wishlist)) wishlist = parsed.wishlist;
             if (Array.isArray(parsed.checkedItems)) checkedItems = parsed.checkedItems;
             if (Array.isArray(parsed.pendenciesList)) pendenciesList = parsed.pendenciesList;
+            if (parsed.checklistData) checklistData = parsed.checklistData;
+            if (parsed.strategiesData) strategiesData = parsed.strategiesData;
         } catch (e) { console.error('Error loading data', e); }
     }
     sanitizeData();
@@ -491,7 +501,9 @@ function persistData() {
         tripData,
         wishlist,
         checkedItems,
-        pendenciesList
+        pendenciesList,
+        checklistData,
+        strategiesData
     };
 
     // Save to Firebase (triggers .on('value') on all connected clients)
@@ -814,9 +826,15 @@ function setupModalListeners() {
     if (pendencyForm) {
         pendencyForm.onsubmit = (e) => {
             e.preventDefault();
-            const name = document.getElementById('pendency-name').value;
+            const name = document.getElementById('pendency-name').value.trim();
+            const idx = parseInt(document.getElementById('pendency-index').value);
+
             if (name) {
-                pendenciesList.push({ name, done: false });
+                if (idx >= 0) {
+                    pendenciesList[idx].name = name;
+                } else {
+                    pendenciesList.push({ name, done: false });
+                }
                 persistData();
                 renderPendencies();
                 closePendencyModal();
@@ -841,33 +859,91 @@ function openEditModal(index) {
 function closeModal() { const modal = document.getElementById('edit-modal'); if (modal) { modal.classList.remove('active'); setTimeout(() => modal.style.display = 'none', 300); } }
 
 function renderStrategies() {
-    const vTips = ["Dollar Tree: Brinquedos.", "SeaWorld: Abby’s Tower.", "Marmitas.", "Fone fogos."];
-    const jTips = ["Troca roupa SeaWorld.", "Pausa carrinho.", "Baby Care.", "Dolphin Nursery."];
-    const vList = document.querySelector('#vicente .tips-list');
-    const jList = document.querySelector('#joaquim .tips-list');
+    const container = document.querySelector('.strategies-grid');
+    if (!container) return;
 
-    if (vList) vList.innerHTML = vTips.map(t => `<li>${t}</li>`).join('');
-    if (jList) jList.innerHTML = jTips.map(t => `<li>${t}</li>`).join('');
-
-    // Add Genie+ Content
-    const strategiesGrid = document.querySelector('.strategies-grid');
-    if (strategiesGrid && !document.getElementById('genie-strategy')) {
-        const genieCard = document.createElement('div');
-        genieCard.className = 'strategy-card glass';
-        genieCard.id = 'genie-strategy';
-        genieCard.style.gridColumn = '1 / -1';
-        genieCard.innerHTML = `
-            <h2>✨ Estratégia Genie+ (Prioridades 07:00 AM)</h2>
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:1rem; margin-top:1rem;">
-                ${Object.entries(GENIE_TIPS).map(([park, tip]) => `
-                    <div style="background:rgba(255,bbf,36,0.03); padding:1rem; border-radius:12px; border-left:4px solid var(--accent-gold);">
-                        <strong style="color:var(--accent-gold);">${park}</strong>
-                        <p style="font-size:0.8rem; margin-top:0.5rem; opacity:0.8;">${tip}</p>
-                    </div>
-                `).join('')}
+    container.innerHTML = Object.entries(strategiesData).map(([cat, items]) => `
+        <div class="strategy-card glass" style="grid-column: ${cat.includes('Genie') ? '1 / -1' : 'span 1'}">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                <h2 style="margin:0;">${cat}</h2>
+                <div style="display:flex; gap:0.5rem; flex-shrink:0;">
+                    <span style="cursor:pointer; font-size:1.2rem; opacity:0.8;" title="Adicionar Dica" onclick="addStrategyTip('${cat}')">➕</span>
+                    <span style="cursor:pointer; font-size:1.2rem; color:var(--accent);" title="Editar Categoria" onclick="editStrategyCategory('${cat}')">✏️</span>
+                    <span style="cursor:pointer; font-size:1.2rem; color:var(--danger);" title="Apagar Categoria" onclick="deleteStrategyCategory('${cat}')">🗑️</span>
+                </div>
             </div>
-        `;
-        strategiesGrid.appendChild(genieCard);
+            <ul class="tips-list">
+                ${items.map((item, idx) => `
+                    <li style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.5rem;">
+                        <span style="flex:1;">${item}</span>
+                        <div style="display:flex; gap:0.5rem; margin-left:1rem; flex-shrink:0;">
+                            <span style="cursor:pointer; opacity:0.6;" onclick="editStrategyTip('${cat}', ${idx})">✏️</span>
+                            <span class="wishlist-delete" onclick="deleteStrategyTip('${cat}', ${idx})">&times;</span>
+                        </div>
+                    </li>
+                `).join('')}
+            </ul>
+        </div>
+    `).join('');
+}
+
+function addStrategyCategory() {
+    const cat = prompt("Nome do novo bloco de estratégias:");
+    if (cat && !strategiesData[cat]) {
+        strategiesData[cat] = [];
+        persistData();
+        renderStrategies();
+    } else if (strategiesData[cat]) {
+        alert("Já existe um bloco com este nome.");
+    }
+}
+
+function editStrategyCategory(oldCat) {
+    const newCat = prompt("Renomear bloco de estratégias:", oldCat);
+    if (newCat && newCat !== oldCat) {
+        if (strategiesData[newCat]) {
+            alert("Já existe um bloco com este nome.");
+            return;
+        }
+        strategiesData[newCat] = strategiesData[oldCat];
+        delete strategiesData[oldCat];
+        persistData();
+        renderStrategies();
+    }
+}
+
+function deleteStrategyCategory(cat) {
+    if (confirm(`Tem certeza que deseja apagar o bloco "${cat}" e todas as suas dicas?`)) {
+        delete strategiesData[cat];
+        persistData();
+        renderStrategies();
+    }
+}
+
+function addStrategyTip(cat) {
+    const tip = prompt("Adicionar nova dica:");
+    if (tip && tip.trim() !== '') {
+        strategiesData[cat].push(tip.trim());
+        persistData();
+        renderStrategies();
+    }
+}
+
+function editStrategyTip(cat, tipIdx) {
+    const oldTip = strategiesData[cat][tipIdx];
+    const newTip = prompt("Renomear dica:", oldTip);
+    if (newTip && newTip.trim() !== '') {
+        strategiesData[cat][tipIdx] = newTip.trim();
+        persistData();
+        renderStrategies();
+    }
+}
+
+function deleteStrategyTip(cat, tipIdx) {
+    if (confirm("Apagar esta dica?")) {
+        strategiesData[cat].splice(tipIdx, 1);
+        persistData();
+        renderStrategies();
     }
 }
 
@@ -875,16 +951,16 @@ function renderStrategies() {
 function renderLogistics() {
     const hotels = [{ p: '10–23 Abr', n: 'Pop Century (PAGO)' }, { p: '23–25 Abr', n: 'AK Lodge (PAGO)' }, { p: '25–27 Abr', n: 'Naples Beach' }, { p: '27–29 Abr', n: 'Riu Miami (PAGO)' }];
     const hList = document.getElementById('hotels-list');
-    if (hList) { hList.innerHTML = hotels.map(h => `<div style="margin-bottom:0.8rem; border-left:4px solid var(--accent); padding-left:0.8rem;"><div style="font-size:0.7rem; opacity:0.6;">${h.p}</div><div>${h.n}</div></div>`).join(''); }
+    if (hList) { hList.innerHTML = hotels.map(h => `< div style = "margin-bottom:0.8rem; border-left:4px solid var(--accent); padding-left:0.8rem;" ><div style="font-size:0.7rem; opacity:0.6;">${h.p}</div><div>${h.n}</div></div > `).join(''); }
 
     const miamiList = document.getElementById('miami-itinerary');
     if (miamiList) {
         miamiList.innerHTML = `
-            <div style="opacity:0.8; font-size:0.85rem;">
+    < div style = "opacity:0.8; font-size:0.85rem;" >
                 <p>• 27/04: Dia de Praia no Riu Plaza.</p>
                 <p>• 28/04: Compras Dolphin Mall + Ocean Drive.</p>
                 <p>• 29/04: Retorno FLL 08:20 AM.</p>
-            </div>
+            </div >
         `;
     }
 
@@ -896,16 +972,16 @@ function renderLogistics() {
         emergencyDiv.id = 'emergency-section';
         emergencyDiv.style.gridColumn = '1 / -1';
         emergencyDiv.innerHTML = `
-            <h2>🆘 SOS Emergência & Saúde</h2>
-            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:1.5rem; margin-top:1rem;">
-                ${EMERGENCY_CONTACTS.map(c => `
+        < h2 >🆘 SOS Emergência & Saúde</h2 >
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:1.5rem; margin-top:1rem;">
+        ${EMERGENCY_CONTACTS.map(c => `
                     <div style="background:rgba(248,113,113,0.05); border-left:4px solid var(--danger); padding:1rem; border-radius:12px;">
                         <div style="font-weight:700;">${c.name}</div>
                         <div style="font-size:1.1rem; color:var(--danger); margin:0.5rem 0;">${c.phone}</div>
                         ${c.loc ? `<div style="font-size:0.75rem; opacity:0.7;">${c.loc}</div>` : ''}
                     </div>
                 `).join('')}
-            </div>
+    </div>
         `;
         logisticsGrid.appendChild(emergencyDiv);
     }
@@ -923,7 +999,7 @@ function renderFinance() {
         const dPrice = day.price || 0;
 
         if (day.carPaid) { paidItems.push({ name: '🚗 Carro', val: day.carPaid }); }
-        if (day.paidTickets) { paidItems.push({ name: `🎫 Ingressos (${dTitle.split('-')[0] || "Park"})`, val: 'PAGO' }); }
+        if (day.paidTickets) { paidItems.push({ name: `🎫 Ingressos(${dTitle.split('-')[0] || "Park"})`, val: 'PAGO' }); }
         if (day.paid) { paidItems.push({ name: dTitle.includes('Resort') || dTitle.includes('Miami') || dTitle.includes('naples') ? `🏨 Hotel ${dTitle.split('-')[1] || dTitle}` : dTitle, val: 'PAGO' }); }
         else if (dPrice > 0) {
             if (dDate.includes('14/04')) {
@@ -948,7 +1024,7 @@ function renderFinance() {
     if (!fContainer) return;
 
     fContainer.innerHTML = `
-        <h2>Controle & Checklist</h2>
+    < h2 > Controle & Checklist</h2 >
         <div class="stats-grid">
             <div class="stat-card glass"><h3>Orçamento</h3><p class="value">R$25k</p></div>
             <div class="stat-card glass"><h3>Pendentes (Reservas)</h3><p class="value" style="color:var(--warning);">R$${pendingBRL.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p></div>
@@ -972,20 +1048,100 @@ function renderChecklist() {
     const container = document.getElementById('checklist-content');
     if (!container) return;
 
-    container.innerHTML = Object.entries(PACKING_LIST).map(([cat, items]) => `
-        <div class="checklist-category">
-            <h3>${cat}</h3>
-            ${items.map(item => {
+    container.innerHTML = Object.entries(checklistData).map(([cat, items]) => `
+        < div class= "checklist-category" style = "position:relative;" >
+        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); padding-bottom:0.5rem; margin-bottom:1rem;">
+            <h3 style="margin:0;">${cat}</h3>
+            <div style="display:flex; gap:0.5rem;">
+                <span style="cursor:pointer; font-size:1.2rem; opacity:0.8;" title="Adicionar Item" onclick="addChecklistItem('${cat}')">➕</span>
+                <span style="cursor:pointer; font-size:1.2rem; color:var(--accent);" title="Editar Categoria" onclick="editChecklistCategory('${cat}')">✏️</span>
+                <span style="cursor:pointer; font-size:1.2rem; color:var(--danger);" title="Apagar Categoria" onclick="deleteChecklistCategory('${cat}')">🗑️</span>
+            </div>
+        </div>
+            ${items.map((item, idx) => {
         const isChecked = checkedItems.includes(item);
         return `
-                    <div class="checklist-item ${isChecked ? 'checked' : ''}" onclick="toggleChecklist('${item}')">
-                        <input type="checkbox" ${isChecked ? 'checked' : ''}>
-                        <span>${item}</span>
+                    <div class="checklist-item ${isChecked ? 'checked' : ''}" style="display:flex; justify-content:space-between;">
+                        <div style="flex:1; cursor:pointer; display:flex; align-items:center; gap:0.5rem;" onclick="toggleChecklist('${item}')">
+                            <input type="checkbox" ${isChecked ? 'checked' : ''}>
+                            <span>${item}</span>
+                        </div>
+                        <div style="display:flex; gap:0.5rem; margin-left:1rem;">
+                            <span style="cursor:pointer; opacity:0.6;" onclick="editChecklistItem('${cat}', ${idx})">✏️</span>
+                            <span class="wishlist-delete" onclick="deleteChecklistItem('${cat}', ${idx})">&times;</span>
+                        </div>
                     </div>
                 `;
-    }).join('')}
-        </div>
-    `).join('');
+    }).join('')
+        }
+        </div >
+        `).join('');
+}
+
+function addChecklistCategory() {
+    const cat = prompt("Nome da nova categoria:");
+    if (cat && !checklistData[cat]) {
+        checklistData[cat] = [];
+        persistData();
+        renderChecklist();
+    } else if (checklistData[cat]) {
+        alert("Esta categoria já existe.");
+    }
+}
+
+function editChecklistCategory(oldCat) {
+    const newCat = prompt("Renomear categoria:", oldCat);
+    if (newCat && newCat !== oldCat) {
+        if (checklistData[newCat]) {
+            alert("Já existe uma categoria com este nome.");
+            return;
+        }
+        checklistData[newCat] = checklistData[oldCat];
+        delete checklistData[oldCat];
+        persistData();
+        renderChecklist();
+    }
+}
+
+function deleteChecklistCategory(cat) {
+    if (confirm(`Tem certeza que deseja apagar a categoria "${cat}" e todos os seus itens ? `)) {
+        delete checklistData[cat];
+        persistData();
+        renderChecklist();
+    }
+}
+
+function addChecklistItem(cat) {
+    const item = prompt(`Adicionar item em "${cat}": `);
+    if (item && item.trim() !== '') {
+        checklistData[cat].push(item.trim());
+        persistData();
+        renderChecklist();
+    }
+}
+
+function editChecklistItem(cat, itemIdx) {
+    const oldItem = checklistData[cat][itemIdx];
+    const newItem = prompt("Renomear item:", oldItem);
+    if (newItem && newItem.trim() !== '') {
+        checklistData[cat][itemIdx] = newItem.trim();
+        // Update check state if it was checked
+        if (checkedItems.includes(oldItem)) {
+            checkedItems = checkedItems.map(i => i === oldItem ? newItem.trim() : i);
+        }
+        persistData();
+        renderChecklist();
+    }
+}
+
+function deleteChecklistItem(cat, itemIdx) {
+    if (confirm("Apagar este item?")) {
+        const item = checklistData[cat][itemIdx];
+        checklistData[cat].splice(itemIdx, 1);
+        checkedItems = checkedItems.filter(i => i !== item); // Remove from checked items
+        persistData();
+        renderChecklist();
+    }
 }
 
 function toggleChecklist(item) {
@@ -1005,8 +1161,8 @@ function renderShopping() {
     const totalUSD = wishlist.reduce((acc, item) => acc + item.price, 0);
 
     container.innerHTML = `
-        <div class="wishlist-table">
-            ${wishlist.map((item, idx) => `
+    < div class= "wishlist-table" >
+    ${wishlist.map((item, idx) => `
                 <div class="wishlist-item">
                     <div class="wishlist-info">
                         <strong>${item.name}</strong>
@@ -1017,9 +1173,10 @@ function renderShopping() {
                         <span class="wishlist-delete" onclick="removeItem(${idx})">&times;</span>
                     </div>
                 </div>
-            `).join('')}
+            `).join('')
+        }
             ${wishlist.length === 0 ? '<p style="opacity:0.5; text-align:center; padding:2rem;">Nenhum item na lista.</p>' : ''}
-        </div>
+        </div >
         <div style="margin-top:2rem; padding:1.5rem; background:rgba(255,bbf,36,0.1); border-radius:16px; border:1px solid var(--accent-gold); display:flex; justify-content:space-between; align-items:center;">
             <span style="font-weight:700;">TOTAL ESTIMADO (WISHLIST):</span>
             <span style="font-size:1.5rem; font-weight:700; color:var(--accent-gold);">$${totalUSD} (~R$ ${(totalUSD * EXCHANGE_RATE).toLocaleString('pt-BR', { maximumFractionDigits: 0 })})</span>
@@ -1059,25 +1216,33 @@ function renderPendencies() {
     if (!list) return;
 
     list.innerHTML = `
-        <div style="background:var(--bg-card); border-radius:16px; width:100%;">
-            ${pendenciesList.map((item, idx) => `
+        < div style = "background:var(--bg-card); border-radius:16px; width:100%;" >
+        ${pendenciesList.map((item, idx) => `
                 <div class="wishlist-item" style="display:flex; justify-content:space-between; align-items:center; padding:1rem; border-bottom:1px solid var(--glass-border); ${item.done ? 'opacity:0.5;' : ''}">
                     <div style="display:flex; align-items:center; gap:1rem; flex:1; cursor:pointer;" onclick="togglePendency(${idx})">
                         <input type="checkbox" ${item.done ? 'checked' : ''} style="width:20px; height:20px; accent-color:var(--accent);">
                         <span style="${item.done ? 'text-decoration:line-through;' : ''}">${item.name}</span>
                     </div>
-                    <span class="wishlist-delete" onclick="deletePendency(${idx})">&times;</span>
+                    <div style="display:flex; gap:1rem;">
+                        <span style="color:var(--accent); cursor:pointer; font-size:1.2rem;" onclick="openPendencyModal(${idx})">✏️</span>
+                        <span class="wishlist-delete" onclick="deletePendency(${idx})">&times;</span>
+                    </div>
                 </div>
-            `).join('')}
+            `).join('')
+        }
             ${pendenciesList.length === 0 ? '<p style="opacity:0.5; text-align:center; padding:2rem;">Nenhuma pendência. Parabéns!</p>' : ''}
-        </div>
-    `;
+        </div >
+        `;
 }
 
-function openPendencyModal() {
+function openPendencyModal(idx = -1) {
     const modal = document.getElementById('pendency-modal');
     if (modal) {
-        document.getElementById('pendency-name').value = '';
+        const isEdit = idx >= 0;
+        document.getElementById('pendency-modal-title').innerText = isEdit ? 'Editar Pendência' : 'Adicionar Pendência';
+        document.getElementById('pendency-name').value = isEdit ? pendenciesList[idx].name : '';
+        document.getElementById('pendency-index').value = idx;
+
         modal.style.display = 'flex';
         setTimeout(() => modal.classList.add('active'), 10);
     }
@@ -1098,9 +1263,49 @@ function togglePendency(idx) {
 }
 
 function deletePendency(idx) {
-    pendenciesList.splice(idx, 1);
-    persistData();
-    renderPendencies();
+    if (confirm("Tem certeza que deseja apagar essa pendência?")) {
+        pendenciesList.splice(idx, 1);
+        persistData();
+        renderPendencies();
+    }
+}
+
+// --- News Functions ---
+async function fetchNews() {
+    const container = document.getElementById('news-content');
+    if (!container) return;
+
+    try {
+        const rssUrl = "https://wdwnt.com/feed/";
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error("Network issue");
+
+        const data = await response.json();
+        if (data.status !== "ok" || !data.items) throw new Error("JSON parsing error");
+
+        const postsHtml = data.items.slice(0, 10).map(item => {
+            const pubDate = new Date(item.pubDate).toLocaleDateString("pt-BR", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+            // RSS2JSON often extracts thumbnail
+            const imgHtml = item.thumbnail ? `<img src="${item.thumbnail}" style="width:100%; height:200px; object-fit:cover; border-radius:12px; margin-bottom:1rem;" alt="News thumbnail">` : '';
+            return `
+                <div class="info-card glass" style="padding:1.5rem; margin-bottom:0;">
+                    ${imgHtml}
+                    <h3 style="color:var(--accent); margin-bottom:0.5rem; font-size:1.3rem;">
+                        <a href="${item.link}" target="_blank" style="color:inherit; text-decoration:none;">${item.title}</a>
+                    </h3>
+                    <p style="font-size:0.8rem; opacity:0.6; margin-bottom:1rem;">${pubDate} • WDWNT</p>
+                    <a href="${item.link}" target="_blank" class="save-btn" style="display:inline-block; text-align:center; text-decoration:none; padding:0.75rem 1rem; width:auto;">Leia mais</a>
+                </div>
+            `;
+        }).join('');
+
+        container.innerHTML = postsHtml;
+    } catch (e) {
+        console.error("News fetch error:", e);
+        container.innerHTML = `<p style="text-align:center; padding: 2rem; color:var(--danger);">Não foi possível carregar as notícias no momento.</p>`;
+    }
 }
 
 function startCountdown() {
@@ -1178,4 +1383,5 @@ window.onload = () => {
     loadPersistedData(); // This now async handles sanitizeData() and renderAll()
     setupEventListeners();
     startCountdown();
+    fetchNews(); // Load news immediately
 };

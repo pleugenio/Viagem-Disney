@@ -148,7 +148,7 @@ body {
 .sidebar {
     width: 300px;
     /* Wider for bigger text */
-    background: rgba(15, 23, 42, 0.98);
+    background: var(--bg-sidebar);
     border-right: 1px solid var(--glass-border);
     padding: 3rem 2rem;
     /* More space */
