@@ -1,2 +1,2 @@
 project: .
-domain: trip-2026-pleugenio.surge.sh
+domain: www.trip-2026-pleugenio.surge.sh
