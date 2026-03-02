@@ -557,6 +557,40 @@ document.addEventListener('DOMContentLoaded', () => {
 function setupEventListeners() {
     setupTabs();
     setupModalListeners();
+    setupAuth();
+}
+
+function setupAuth() {
+    const authStatus = sessionStorage.getItem('disney_auth');
+    const loginModal = document.getElementById('login-modal');
+
+    if (loginModal) {
+        if (authStatus !== 'true') {
+            loginModal.style.display = 'flex';
+            setTimeout(() => loginModal.classList.add('active'), 10);
+        } else {
+            loginModal.style.display = 'none';
+        }
+
+        const loginForm = document.getElementById('login-form');
+        if (loginForm) {
+            loginForm.onsubmit = (e) => {
+                e.preventDefault();
+                const user = document.getElementById('login-user').value.trim();
+                const pass = document.getElementById('login-password').value.trim();
+                const errorMsg = document.getElementById('login-error');
+
+                if (user.toLowerCase() === 'plopes' && pass === 'disney2026') {
+                    sessionStorage.setItem('disney_auth', 'true');
+                    errorMsg.style.display = 'none';
+                    loginModal.classList.remove('active');
+                    setTimeout(() => loginModal.style.display = 'none', 300);
+                } else {
+                    errorMsg.style.display = 'block';
+                }
+            };
+        }
+    }
 }
 
 function initApp() {
