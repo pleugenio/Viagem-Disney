@@ -79,6 +79,9 @@
             <li data-tab="shopping">
                 <span class="icon">🛍️</span> Compras
             </li>
+            <li data-tab="pendencies">
+                <span class="icon">⚠️</span> Pendências
+            </li>
         </ul>
     </nav>
 
@@ -217,6 +220,19 @@
                 </div>
             </div>
         </section>
+
+        <section id="pendencies" class="tab-content">
+            <div class="checklist-container glass">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                    <h2>Pendências Pré-Viagem</h2>
+                    <button class="save-btn" style="width:auto; padding:0.5rem 1rem; margin-top:0;"
+                        onclick="openPendencyModal()">+ Nova Pendência</button>
+                </div>
+                <div id="pendencies-content" class="checklist-grid" style="grid-template-columns: 1fr;">
+                    <!-- Pendencies will be injected here -->
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Wishlist Modal -->
@@ -239,6 +255,22 @@
                     <input type="number" id="wish-price" step="0.01" placeholder="0.00" required>
                 </div>
                 <button type="submit" class="save-btn">Adicionar à Lista</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pendency Modal -->
+    <div id="pendency-modal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-pendency-btn" onclick="closePendencyModal()"
+                style="position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer; opacity: 0.5;">&times;</span>
+            <h2>Adicionar Pendência</h2>
+            <form id="pendency-form">
+                <div class="form-group">
+                    <label for="pendency-name">O que precisa ser feito/comprado antes da viagem?</label>
+                    <input type="text" id="pendency-name" placeholder="Ex: Comprar adaptador de tomada" required>
+                </div>
+                <button type="submit" class="save-btn">Salvar Pendência</button>
             </form>
         </div>
     </div>

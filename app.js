@@ -369,6 +369,7 @@ const EMERGENCY_CONTACTS = [
 
 let wishlist = [];
 let checkedItems = [];
+let pendenciesList = [];
 
 const STORAGE_KEY = 'disneyTripData_v38'; // Updated for Lightning Lane costs v38
 const EXCHANGE_RATE = 5.30;
@@ -438,6 +439,7 @@ function loadPersistedData() {
                 if (Array.isArray(data.tripData)) tripData = data.tripData;
                 if (Array.isArray(data.wishlist)) wishlist = data.wishlist;
                 if (Array.isArray(data.checkedItems)) checkedItems = data.checkedItems;
+                if (Array.isArray(data.pendenciesList)) pendenciesList = data.pendenciesList;
 
                 // Re-render the application when new data arrives from any device
                 sanitizeData();
@@ -451,6 +453,7 @@ function loadPersistedData() {
                         if (Array.isArray(parsed.tripData)) tripData = parsed.tripData;
                         if (Array.isArray(parsed.wishlist)) wishlist = parsed.wishlist;
                         if (Array.isArray(parsed.checkedItems)) checkedItems = parsed.checkedItems;
+                        if (Array.isArray(parsed.pendenciesList)) pendenciesList = parsed.pendenciesList;
                         persistData(); // Push migrated data to Firebase
                     } catch (e) { console.error('Error loading local data', e); }
                 }
@@ -476,6 +479,7 @@ function fallbackToLocal() {
             if (Array.isArray(parsed.tripData)) tripData = parsed.tripData;
             if (Array.isArray(parsed.wishlist)) wishlist = parsed.wishlist;
             if (Array.isArray(parsed.checkedItems)) checkedItems = parsed.checkedItems;
+            if (Array.isArray(parsed.pendenciesList)) pendenciesList = parsed.pendenciesList;
         } catch (e) { console.error('Error loading data', e); }
     }
     sanitizeData();
@@ -486,7 +490,8 @@ function persistData() {
     const dataToSave = {
         tripData,
         wishlist,
-        checkedItems
+        checkedItems,
+        pendenciesList
     };
 
     // Save to Firebase (triggers .on('value') on all connected clients)
@@ -545,6 +550,7 @@ function renderAll() {
         renderFinance();
         renderChecklist();
         renderShopping();
+        renderPendencies();
         console.log('--- Render Complete ---');
     } catch (e) { console.error('CRITICAL RENDER ERROR:', e); }
 }
@@ -765,9 +771,13 @@ function setupModalListeners() {
     const wishModal = document.getElementById('wishlist-modal');
     const wishForm = document.getElementById('wishlist-form');
 
+    const pendencyModal = document.getElementById('pendency-modal');
+    const pendencyForm = document.getElementById('pendency-form');
+
     window.onclick = (e) => {
         if (e.target == editModal) closeModal();
         if (e.target == wishModal) closeWishlistModal();
+        if (e.target == pendencyModal) closePendencyModal();
     };
 
     if (editForm) {
@@ -797,6 +807,19 @@ function setupModalListeners() {
                 renderShopping();
                 renderFinance();
                 closeWishlistModal();
+            }
+        };
+    }
+
+    if (pendencyForm) {
+        pendencyForm.onsubmit = (e) => {
+            e.preventDefault();
+            const name = document.getElementById('pendency-name').value;
+            if (name) {
+                pendenciesList.push({ name, done: false });
+                persistData();
+                renderPendencies();
+                closePendencyModal();
             }
         };
     }
@@ -1028,6 +1051,56 @@ function removeItem(idx) {
     persistData();
     renderShopping();
     renderFinance();
+}
+
+// --- Pendencies Functions ---
+function renderPendencies() {
+    const list = document.getElementById('pendencies-content');
+    if (!list) return;
+
+    list.innerHTML = `
+        <div style="background:var(--bg-card); border-radius:16px; width:100%;">
+            ${pendenciesList.map((item, idx) => `
+                <div class="wishlist-item" style="display:flex; justify-content:space-between; align-items:center; padding:1rem; border-bottom:1px solid var(--glass-border); ${item.done ? 'opacity:0.5;' : ''}">
+                    <div style="display:flex; align-items:center; gap:1rem; flex:1; cursor:pointer;" onclick="togglePendency(${idx})">
+                        <input type="checkbox" ${item.done ? 'checked' : ''} style="width:20px; height:20px; accent-color:var(--accent);">
+                        <span style="${item.done ? 'text-decoration:line-through;' : ''}">${item.name}</span>
+                    </div>
+                    <span class="wishlist-delete" onclick="deletePendency(${idx})">&times;</span>
+                </div>
+            `).join('')}
+            ${pendenciesList.length === 0 ? '<p style="opacity:0.5; text-align:center; padding:2rem;">Nenhuma pendência. Parabéns!</p>' : ''}
+        </div>
+    `;
+}
+
+function openPendencyModal() {
+    const modal = document.getElementById('pendency-modal');
+    if (modal) {
+        document.getElementById('pendency-name').value = '';
+        modal.style.display = 'flex';
+        setTimeout(() => modal.classList.add('active'), 10);
+    }
+}
+
+function closePendencyModal() {
+    const modal = document.getElementById('pendency-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => modal.style.display = 'none', 300);
+    }
+}
+
+function togglePendency(idx) {
+    pendenciesList[idx].done = !pendenciesList[idx].done;
+    persistData();
+    renderPendencies();
+}
+
+function deletePendency(idx) {
+    pendenciesList.splice(idx, 1);
+    persistData();
+    renderPendencies();
 }
 
 function startCountdown() {
