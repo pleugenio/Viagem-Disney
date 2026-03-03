@@ -1052,7 +1052,7 @@ function renderFinance() {
     if (!fContainer) return;
 
     fContainer.innerHTML = `
-    < h2 > Controle & Checklist</h2 >
+    <h2>Controle & Checklist</h2>
         <div class="stats-grid">
             <div class="stat-card glass"><h3>Orçamento</h3><p class="value">R$25k</p></div>
             <div class="stat-card glass"><h3>Pendentes (Reservas)</h3><p class="value" style="color:var(--warning);">R$${pendingBRL.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p></div>
