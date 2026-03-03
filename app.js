@@ -605,6 +605,7 @@ function setupAuth() {
     const authStatus = sessionStorage.getItem('disney_auth');
     const loginModal = document.getElementById('login-modal');
     const loginQuote = document.getElementById('login-quote');
+    const bgContainer = document.getElementById('bg-video-container');
 
     if (loginModal) {
         if (authStatus !== 'true') {
@@ -612,10 +613,18 @@ function setupAuth() {
                 const randomQuote = DISNEY_QUOTES[Math.floor(Math.random() * DISNEY_QUOTES.length)];
                 loginQuote.textContent = randomQuote;
             }
+            if (bgContainer) {
+                // IDs of cinematic Disney World YouTube Shorts
+                const videoIds = ["0sdltizdXGA", "1qOHtT7nxsQ", "2oBsnEGYDR0", "3NJD3WGPHlI", "4bkCZ4WGxaw"];
+                const selectedVideo = videoIds[Math.floor(Math.random() * videoIds.length)];
+                // Playout as looping background video, scaled to hide edges
+                bgContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${selectedVideo}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${selectedVideo}" frameborder="0" allow="autoplay; fullscreen" style="width: 100vw; height: 100vh; transform: scale(1.3); pointer-events: none; opacity: 0.65;"></iframe>`;
+            }
             loginModal.style.display = 'flex';
             setTimeout(() => loginModal.classList.add('active'), 10);
         } else {
             loginModal.style.display = 'none';
+            if (bgContainer) bgContainer.innerHTML = ''; // Clean up heavy iframe
         }
 
         const loginForm = document.getElementById('login-form');
