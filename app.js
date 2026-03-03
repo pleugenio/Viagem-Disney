@@ -645,6 +645,16 @@ function setupAuth() {
                 }
             };
         }
+
+        const logoutBtn = document.getElementById('logout-btn');
+        if (logoutBtn) {
+            logoutBtn.onclick = () => {
+                if (confirm("Tem certeza que deseja sair?")) {
+                    sessionStorage.removeItem('disney_auth');
+                    location.reload();
+                }
+            };
+        }
     }
 }
 
