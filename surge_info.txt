@@ -1,2 +1,0 @@
-project: .
-domain: www.trip-2026-pleugenio.surge.sh
