@@ -601,6 +601,43 @@ function setupEventListeners() {
     setupAuth();
 }
 
+let bgPlayer = null;
+
+function initYTPlayer() {
+    const videoIds = ["s57WZHLeL64", "7dHaK8nIFJ0", "rQKylT4AvzU"];
+    const selectedVideo = videoIds[Math.floor(Math.random() * videoIds.length)];
+
+    bgPlayer = new YT.Player('yt-player-inner', {
+        videoId: selectedVideo,
+        playerVars: {
+            'autoplay': 1,
+            'controls': 0,
+            'disablekb': 1,
+            'fs': 0,
+            'mute': 1,
+            'showinfo': 0,
+            'rel': 0,
+            'loop': 1,
+            'playlist': selectedVideo,
+            'playsinline': 1
+        },
+        events: {
+            'onReady': (event) => {
+                event.target.setPlaybackRate(0.6); // Slows down the video significantly
+                event.target.playVideo();
+                const iframe = document.getElementById('yt-player-inner');
+                if (iframe) {
+                    iframe.style.width = '100vw';
+                    iframe.style.height = '100vh';
+                    iframe.style.transform = 'scale(1.5)';
+                    iframe.style.pointerEvents = 'none';
+                    iframe.style.opacity = '0.65';
+                }
+            }
+        }
+    });
+}
+
 function setupAuth() {
     const authStatus = sessionStorage.getItem('disney_auth');
     const loginModal = document.getElementById('login-modal');
@@ -614,17 +651,28 @@ function setupAuth() {
                 loginQuote.textContent = randomQuote;
             }
             if (bgContainer) {
-                // IDs of cinematic Disney World YouTube Shorts chosen by the user
-                const videoIds = ["s57WZHLeL64", "7dHaK8nIFJ0", "rQKylT4AvzU"];
-                const selectedVideo = videoIds[Math.floor(Math.random() * videoIds.length)];
-                // Playout as looping background video, scaled to hide edges
-                bgContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${selectedVideo}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${selectedVideo}" frameborder="0" allow="autoplay; fullscreen" style="width: 100vw; height: 100vh; transform: scale(1.3); pointer-events: none; opacity: 0.65;"></iframe>`;
+                bgContainer.innerHTML = '<div id="yt-player-inner"></div>';
+
+                // Load YT IFrame API if not already loaded
+                if (typeof YT === 'undefined' || typeof YT.Player === 'undefined') {
+                    window.onYouTubeIframeAPIReady = () => initYTPlayer();
+                    const tag = document.createElement('script');
+                    tag.src = "https://www.youtube.com/iframe_api";
+                    const firstScriptTag = document.getElementsByTagName('script')[0];
+                    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                } else {
+                    initYTPlayer();
+                }
             }
             loginModal.style.display = 'flex';
             setTimeout(() => loginModal.classList.add('active'), 10);
         } else {
             loginModal.style.display = 'none';
-            if (bgContainer) bgContainer.innerHTML = ''; // Clean up heavy iframe
+            if (bgContainer) bgContainer.innerHTML = '';
+            if (bgPlayer && typeof bgPlayer.destroy === 'function') {
+                bgPlayer.destroy();
+                bgPlayer = null;
+            }
         }
 
         const loginForm = document.getElementById('login-form');
