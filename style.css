@@ -147,15 +147,15 @@ body {
 /* Sidebar Styling */
 .sidebar {
     width: 300px;
-    /* Wider for bigger text */
     background: var(--bg-sidebar);
     border-right: 1px solid var(--glass-border);
     padding: 3rem 2rem;
-    /* More space */
     display: flex;
     flex-direction: column;
     position: fixed;
     height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .logo {

@@ -1271,6 +1271,18 @@ function deletePendency(idx) {
 }
 
 // --- News Functions ---
+async function translateText(text) {
+    try {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pt&dt=t&q=${encodeURIComponent(text)}`;
+        const res = await fetch(url);
+        const json = await res.json();
+        return json[0].map(part => part[0]).join('');
+    } catch (e) {
+        console.error("Translation fail", e);
+        return text;
+    }
+}
+
 async function fetchNews() {
     const container = document.getElementById('news-content');
     if (!container) return;
@@ -1285,23 +1297,28 @@ async function fetchNews() {
         const data = await response.json();
         if (data.status !== "ok" || !data.items) throw new Error("JSON parsing error");
 
-        const postsHtml = data.items.slice(0, 10).map(item => {
+        const slicedItems = data.items.slice(0, 10);
+
+        const postsHtmlArray = await Promise.all(slicedItems.map(async item => {
             const pubDate = new Date(item.pubDate).toLocaleDateString("pt-BR", { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-            // RSS2JSON often extracts thumbnail
             const imgHtml = item.thumbnail ? `<img src="${item.thumbnail}" style="width:100%; height:200px; object-fit:cover; border-radius:12px; margin-bottom:1rem;" alt="News thumbnail">` : '';
+
+            // Translate the English title to Portuguese
+            const translatedTitle = await translateText(item.title);
+
             return `
                 <div class="info-card glass" style="padding:1.5rem; margin-bottom:0;">
                     ${imgHtml}
                     <h3 style="color:var(--accent); margin-bottom:0.5rem; font-size:1.3rem;">
-                        <a href="${item.link}" target="_blank" style="color:inherit; text-decoration:none;">${item.title}</a>
+                        <a href="${item.link}" target="_blank" style="color:inherit; text-decoration:none;">${translatedTitle}</a>
                     </h3>
                     <p style="font-size:0.8rem; opacity:0.6; margin-bottom:1rem;">${pubDate} • WDWNT</p>
                     <a href="${item.link}" target="_blank" class="save-btn" style="display:inline-block; text-align:center; text-decoration:none; padding:0.75rem 1rem; width:auto;">Leia mais</a>
                 </div>
             `;
-        }).join('');
+        }));
 
-        container.innerHTML = postsHtml;
+        container.innerHTML = postsHtmlArray.join('');
     } catch (e) {
         console.error("News fetch error:", e);
         container.innerHTML = `<p style="text-align:center; padding: 2rem; color:var(--danger);">Não foi possível carregar as notícias no momento.</p>`;
