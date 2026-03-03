@@ -13,12 +13,16 @@ let tripData = [
         details: [
             '🛬 Pouso FLL (06:20 AM | ⏱️ 1h)',
             '🛂 Imigração e Alfândega (07:00 AM | ⏱️ 1h30)',
-            '🚐 Retirada Mini Van (08:30 AM | 📍 Terminal Aeroporto | ⏱️ 1h)',
-            '🛣️ Viagem Turnpike (10:00 AM | ⏱️ 3h30)',
-            '🍴 Almoço: Fort Drum (11:30 AM | 📍 Turnpike Mile 184 | ⏱️ 1h)',
-            '🏨 Check-in Pop Century (03:00 PM | 📍 Cabana/Resort | ⏱️ 1h)',
-            '🍱 **Jantar: Marmita Kids (1)** (19:00 | ⏱️ 45min)',
-            '🛍️ WalMart (18:00 | 📍 Vineland Rd | ⏱️ 1h30)'
+            '🚌 Ônibus Shuttle p/ Locadora (08:30 AM | 📍 Terminal | ⏱️ 30min)',
+            '🚐 Retirada Mini Van (09:00 AM | 📍 Locadora de Veículos | ⏱️ 30min)',
+            '⛽ Abastecer/Comprar Lanchinhos (09:30 AM | 📍 Posto Prox. | ⏱️ 30min)',
+            '🛣️ Pegar a Estrada Florida Turnpike (10:00 AM | ⏱️ 1h30)',
+            '🍴 Almoço Family Friendly (11:30 AM | 📍 Parada na Estrada | ⏱️ 1h30)',
+            '🛣️ Continuar Viagem p/ Orlando (01:00 PM | ⏱️ 2h)',
+            '🏨 Check-in Hotel Disney (03:00 PM | 📍 Recepção | ⏱️ 45min)',
+            '👶 Retirar Carrinho de Bebê (03:45 PM | 📍 Bell Services | ⏱️ 15min)',
+            '🍱 Jantar: Checar Marmitas na Geladeira (04:00 PM | 📍 Quarto | ⏱️ 10min)',
+            '🛍️ Passeio/Compras Livres (05:00 PM | ⏱️ Livre)'
         ]
     },
     {
