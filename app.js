@@ -371,6 +371,28 @@ const EMERGENCY_CONTACTS = [
     { name: 'Consulado Brasileiro Miami', phone: '(305) 285-6200' }
 ];
 
+const DISNEY_QUOTES = [
+    '"Ao infinito e além!" — Buzz Lightyear',
+    '"Continue a nadar." — Dory',
+    '"Se você pode sonhar, você pode fazer." — Walt Disney',
+    '"O passado pode doer, mas você pode fugir dele ou aprender com ele." — Rafiki',
+    '"Algumas coisas valem a pena derreter por elas." — Olaf',
+    '"Lembre-se de quem você é." — Mufasa',
+    '"O infinito é o limite!" — Toy Story',
+    '"A aventura está lá fora!" — Charles Muntz (Up)',
+    '"Hakuna Matata!" — Timão e Pumba'
+];
+
+const SHOWS_DATA = [
+    { park: 'Magic Kingdom', name: 'Happily Ever After', type: 'Fogos de Artifício', time: 'Noturno (geralmente 20:45 ou 21:00)', description: 'O clássico espetáculo de fogos e projeções no Castelo da Cinderela. Chegue de 45 a 60 min mais cedo para conseguir um bom lugar na Main Street.' },
+    { park: 'Magic Kingdom', name: 'Festival of Fantasy Parade', type: 'Desfile', time: 'Geralmente às 15:00', description: 'O desfile principal do MK com os personagens clássicos. A melhor visão é da Frontierland ou Liberty Square (com menos sol na cara).' },
+    { park: 'Hollywood Studios', name: 'Fantasmic!', type: 'Show Noturno', time: 'Depende do dia (geralmente 20:30 ou 21:00)', description: 'Show incrível do Mickey lutando contra vilões com água, fogo e lasers. O anfiteatro lota rápido, chegue muito cedo no final do dia ou use o Fantasmic Dining Package.' },
+    { park: 'Hollywood Studios', name: 'Beauty and the Beast', type: 'Musical', time: 'Vários horários no dia', description: 'Teatro estilo Broadway da Bela e a Fera. Ótimo para descansar no meio do dia.' },
+    { park: 'Epcot', name: 'Luminous The Symphony of Us', type: 'Fogos Noturnos', time: 'Geralmente às 21:00', description: 'Show noturno do Epcot na lagoa do World Showcase. Boas vistas do Japão, Itália, ou na ponte entre Reino Unido e França.' },
+    { park: 'Animal Kingdom', name: 'Festival of the Lion King', type: 'Show Musical', time: 'Vários ao longo do dia', description: 'Um dos melhores musicais da Disney! Fica na África. As filas podem ser longas, fique atento ao Genie+ ou chegue cedo.' },
+    { park: 'Animal Kingdom', name: 'Finding Nemo: The Big Blue... and Beyond!', type: 'Musical Teatral', time: 'Vários ao longo do dia', description: 'Espetáculo de marionetes e música do Procurando Nemo. Teatro fechado com ar-condicionado.' }
+];
+
 let wishlist = [];
 let checkedItems = [];
 let pendenciesList = [];
@@ -563,6 +585,7 @@ function renderAll() {
         renderChecklist();
         renderShopping();
         renderPendencies();
+        renderShows();
         console.log('--- Render Complete ---');
     } catch (e) { console.error('CRITICAL RENDER ERROR:', e); }
 }
@@ -581,9 +604,14 @@ function setupEventListeners() {
 function setupAuth() {
     const authStatus = sessionStorage.getItem('disney_auth');
     const loginModal = document.getElementById('login-modal');
+    const loginQuote = document.getElementById('login-quote');
 
     if (loginModal) {
         if (authStatus !== 'true') {
+            if (loginQuote) {
+                const randomQuote = DISNEY_QUOTES[Math.floor(Math.random() * DISNEY_QUOTES.length)];
+                loginQuote.textContent = randomQuote;
+            }
             loginModal.style.display = 'flex';
             setTimeout(() => loginModal.classList.add('active'), 10);
         } else {
@@ -1343,6 +1371,36 @@ function startCountdown() {
     timer();
     setInterval(timer, 60000);
 }
+
+// --- Shows ---
+function renderShows() {
+    const showsContainer = document.getElementById('shows-content');
+    if (!showsContainer) return;
+
+    // Group shows by park
+    const groupedShows = SHOWS_DATA.reduce((acc, show) => {
+        if (!acc[show.park]) acc[show.park] = [];
+        acc[show.park].push(show);
+        return acc;
+    }, {});
+
+    showsContainer.innerHTML = Object.entries(groupedShows).map(([park, shows]) => `
+        <div class="strategy-card glass" style="grid-column: span 1">
+            <h2 style="color:var(--accent-gold); border-bottom:1px solid var(--glass-border); padding-bottom:0.5rem;">${park}</h2>
+            <div style="display:flex; flex-direction:column; gap:1.5rem; margin-top:1rem;">
+                ${shows.map(s => `
+                    <div>
+                        <strong style="font-size:1.1rem; display:block; color:var(--text-primary);">${s.name}</strong>
+                        <span style="font-size:0.75rem; background:rgba(56,189,248,0.1); color:var(--accent); padding:0.1rem 0.5rem; border-radius:12px; margin-bottom:0.5rem; display:inline-block;">${s.type}</span>
+                        <div style="font-size:0.85rem; color:var(--text-secondary); margin-bottom:0.3rem;">🕒 <strong>${s.time}</strong></div>
+                        <p style="font-size:0.85rem; opacity:0.8; margin:0; line-height:1.4;">${s.description}</p>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
 
 // --- Data Export & Import ---
 function exportData() {
