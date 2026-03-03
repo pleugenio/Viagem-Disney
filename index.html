@@ -226,16 +226,17 @@
             </div>
         </section>
 
-        <div class="checklist-container glass">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-                <h2>Pendências Pré-Viagem</h2>
-                <button class="save-btn" style="width:auto; padding:0.5rem 1rem; margin-top:0;"
-                    onclick="openPendencyModal()">+ Nova Pendência</button>
+        <section id="pendencies" class="tab-content">
+            <div class="checklist-container glass">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+                    <h2>Pendências Pré-Viagem</h2>
+                    <button class="save-btn" style="width:auto; padding:0.5rem 1rem; margin-top:0;"
+                        onclick="openPendencyModal()">+ Nova Pendência</button>
+                </div>
+                <div id="pendencies-content" class="checklist-grid" style="grid-template-columns: 1fr;">
+                    <!-- Pendencies will be injected here -->
+                </div>
             </div>
-            <div id="pendencies-content" class="checklist-grid" style="grid-template-columns: 1fr;">
-                <!-- Pendencies will be injected here -->
-            </div>
-        </div>
         </section>
 
         <section id="news" class="tab-content">
