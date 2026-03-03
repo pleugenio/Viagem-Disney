@@ -951,16 +951,16 @@ function deleteStrategyTip(cat, tipIdx) {
 function renderLogistics() {
     const hotels = [{ p: '10–23 Abr', n: 'Pop Century (PAGO)' }, { p: '23–25 Abr', n: 'AK Lodge (PAGO)' }, { p: '25–27 Abr', n: 'Naples Beach' }, { p: '27–29 Abr', n: 'Riu Miami (PAGO)' }];
     const hList = document.getElementById('hotels-list');
-    if (hList) { hList.innerHTML = hotels.map(h => `< div style = "margin-bottom:0.8rem; border-left:4px solid var(--accent); padding-left:0.8rem;" ><div style="font-size:0.7rem; opacity:0.6;">${h.p}</div><div>${h.n}</div></div > `).join(''); }
+    if (hList) { hList.innerHTML = hotels.map(h => `<div style="margin-bottom:0.8rem; border-left:4px solid var(--accent); padding-left:0.8rem;"><div style="font-size:0.7rem; opacity:0.6;">${h.p}</div><div>${h.n}</div></div>`).join(''); }
 
     const miamiList = document.getElementById('miami-itinerary');
     if (miamiList) {
         miamiList.innerHTML = `
-    < div style = "opacity:0.8; font-size:0.85rem;" >
+            <div style="opacity:0.8; font-size:0.85rem;">
                 <p>• 27/04: Dia de Praia no Riu Plaza.</p>
                 <p>• 28/04: Compras Dolphin Mall + Ocean Drive.</p>
                 <p>• 29/04: Retorno FLL 08:20 AM.</p>
-            </div >
+            </div>
         `;
     }
 
@@ -972,7 +972,7 @@ function renderLogistics() {
         emergencyDiv.id = 'emergency-section';
         emergencyDiv.style.gridColumn = '1 / -1';
         emergencyDiv.innerHTML = `
-        < h2 >🆘 SOS Emergência & Saúde</h2 >
+            <h2>🆘 SOS Emergência & Saúde</h2>
     <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap:1.5rem; margin-top:1rem;">
         ${EMERGENCY_CONTACTS.map(c => `
                     <div style="background:rgba(248,113,113,0.05); border-left:4px solid var(--danger); padding:1rem; border-radius:12px;">
@@ -1049,7 +1049,7 @@ function renderChecklist() {
     if (!container) return;
 
     container.innerHTML = Object.entries(checklistData).map(([cat, items]) => `
-        < div class= "checklist-category" style = "position:relative;" >
+        <div class="checklist-category" style="position:relative;">
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); padding-bottom:0.5rem; margin-bottom:1rem;">
             <h3 style="margin:0;">${cat}</h3>
             <div style="display:flex; gap:0.5rem;">
@@ -1074,7 +1074,7 @@ function renderChecklist() {
                 `;
     }).join('')
         }
-        </div >
+        </div>
         `).join('');
 }
 
@@ -1161,7 +1161,7 @@ function renderShopping() {
     const totalUSD = wishlist.reduce((acc, item) => acc + item.price, 0);
 
     container.innerHTML = `
-    < div class= "wishlist-table" >
+        <div class="wishlist-table">
     ${wishlist.map((item, idx) => `
                 <div class="wishlist-item">
                     <div class="wishlist-info">
@@ -1176,7 +1176,7 @@ function renderShopping() {
             `).join('')
         }
             ${wishlist.length === 0 ? '<p style="opacity:0.5; text-align:center; padding:2rem;">Nenhum item na lista.</p>' : ''}
-        </div >
+        </div>
         <div style="margin-top:2rem; padding:1.5rem; background:rgba(255,bbf,36,0.1); border-radius:16px; border:1px solid var(--accent-gold); display:flex; justify-content:space-between; align-items:center;">
             <span style="font-weight:700;">TOTAL ESTIMADO (WISHLIST):</span>
             <span style="font-size:1.5rem; font-weight:700; color:var(--accent-gold);">$${totalUSD} (~R$ ${(totalUSD * EXCHANGE_RATE).toLocaleString('pt-BR', { maximumFractionDigits: 0 })})</span>
@@ -1216,7 +1216,7 @@ function renderPendencies() {
     if (!list) return;
 
     list.innerHTML = `
-        < div style = "background:var(--bg-card); border-radius:16px; width:100%;" >
+        <div style="background:var(--bg-card); border-radius:16px; width:100%;">
         ${pendenciesList.map((item, idx) => `
                 <div class="wishlist-item" style="display:flex; justify-content:space-between; align-items:center; padding:1rem; border-bottom:1px solid var(--glass-border); ${item.done ? 'opacity:0.5;' : ''}">
                     <div style="display:flex; align-items:center; gap:1rem; flex:1; cursor:pointer;" onclick="togglePendency(${idx})">
@@ -1231,7 +1231,7 @@ function renderPendencies() {
             `).join('')
         }
             ${pendenciesList.length === 0 ? '<p style="opacity:0.5; text-align:center; padding:2rem;">Nenhuma pendência. Parabéns!</p>' : ''}
-        </div >
+        </div>
         `;
 }
 
