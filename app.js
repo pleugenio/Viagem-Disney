@@ -1316,7 +1316,7 @@ async function fetchNews() {
     if (!container) return;
 
     try {
-        const rssUrl = "https://wdwnt.com/feed/";
+        const rssUrl = "https://wdwnt.com/category/walt-disney-world/feed/";
         const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
 
         const response = await fetch(apiUrl);
