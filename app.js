@@ -614,8 +614,8 @@ function setupAuth() {
                 loginQuote.textContent = randomQuote;
             }
             if (bgContainer) {
-                // IDs of cinematic Disney World YouTube Shorts
-                const videoIds = ["0sdltizdXGA", "1qOHtT7nxsQ", "2oBsnEGYDR0", "3NJD3WGPHlI", "4bkCZ4WGxaw"];
+                // IDs of cinematic Disney World YouTube Shorts chosen by the user
+                const videoIds = ["s57WZHLeL64", "7dHaK8nIFJ0", "rQKylT4AvzU"];
                 const selectedVideo = videoIds[Math.floor(Math.random() * videoIds.length)];
                 // Playout as looping background video, scaled to hide edges
                 bgContainer.innerHTML = `<iframe src="https://www.youtube.com/embed/${selectedVideo}?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&loop=1&playlist=${selectedVideo}" frameborder="0" allow="autoplay; fullscreen" style="width: 100vw; height: 100vh; transform: scale(1.3); pointer-events: none; opacity: 0.65;"></iframe>`;
