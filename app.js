@@ -467,11 +467,11 @@ function loadPersistedData() {
             const data = snapshot.val();
             if (data) {
                 if (Array.isArray(data.tripData)) tripData = data.tripData;
-                if (Array.isArray(data.wishlist)) wishlist = data.wishlist;
-                if (Array.isArray(data.checkedItems)) checkedItems = data.checkedItems;
-                if (Array.isArray(data.pendenciesList)) pendenciesList = data.pendenciesList;
-                if (data.checklistData) checklistData = data.checklistData;
-                if (data.strategiesData) strategiesData = data.strategiesData;
+                if (data.wishlist) wishlist = Array.isArray(data.wishlist) ? data.wishlist : Object.values(data.wishlist); else wishlist = [];
+                if (data.checkedItems) checkedItems = Array.isArray(data.checkedItems) ? data.checkedItems : Object.values(data.checkedItems); else checkedItems = [];
+                if (data.pendenciesList) pendenciesList = Array.isArray(data.pendenciesList) ? data.pendenciesList : Object.values(data.pendenciesList); else pendenciesList = [];
+                if (data.checklistData) checklistData = data.checklistData; else checklistData = {};
+                if (data.strategiesData) strategiesData = data.strategiesData; else strategiesData = {};
 
                 // Re-render the application when new data arrives from any device
                 sanitizeData();
@@ -1147,40 +1147,44 @@ function renderChecklist() {
     const container = document.getElementById('checklist-content');
     if (!container) return;
 
-    container.innerHTML = Object.entries(checklistData).map(([cat, items]) => `
+    container.innerHTML = Object.entries(checklistData).map(([cat, items]) => {
+        const safeCat = cat.replace(/'/g, "\\'");
+        return `
         <div class="checklist-category" style="position:relative;">
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--glass-border); padding-bottom:0.5rem; margin-bottom:1rem;">
             <h3 style="margin:0;">${cat}</h3>
             <div style="display:flex; gap:0.5rem;">
-                <span style="cursor:pointer; font-size:1.2rem; opacity:0.8;" title="Adicionar Item" onclick="addChecklistItem('${cat}')">➕</span>
-                <span style="cursor:pointer; font-size:1.2rem; color:var(--accent);" title="Editar Categoria" onclick="editChecklistCategory('${cat}')">✏️</span>
-                <span style="cursor:pointer; font-size:1.2rem; color:var(--danger);" title="Apagar Categoria" onclick="deleteChecklistCategory('${cat}')">🗑️</span>
+                <span style="cursor:pointer; font-size:1.2rem; opacity:0.8;" title="Adicionar Item" onclick="addChecklistItem('${safeCat}')">➕</span>
+                <span style="cursor:pointer; font-size:1.2rem; color:var(--accent);" title="Editar Categoria" onclick="editChecklistCategory('${safeCat}')">✏️</span>
+                <span style="cursor:pointer; font-size:1.2rem; color:var(--danger);" title="Apagar Categoria" onclick="deleteChecklistCategory('${safeCat}')">🗑️</span>
             </div>
         </div>
             ${items.map((item, idx) => {
         const isChecked = checkedItems.includes(item);
+        const safeItem = item.replace(/'/g, "\\'");
         return `
                     <div class="checklist-item ${isChecked ? 'checked' : ''}" style="display:flex; justify-content:space-between;">
-                        <div style="flex:1; cursor:pointer; display:flex; align-items:center; gap:0.5rem;" onclick="toggleChecklist('${item}')">
+                        <div style="flex:1; cursor:pointer; display:flex; align-items:center; gap:0.5rem;" onclick="toggleChecklist('${safeItem}')">
                             <input type="checkbox" ${isChecked ? 'checked' : ''}>
                             <span>${item}</span>
                         </div>
                         <div style="display:flex; gap:0.5rem; margin-left:1rem;">
-                            <span style="cursor:pointer; opacity:0.6;" onclick="editChecklistItem('${cat}', ${idx})">✏️</span>
-                            <span class="wishlist-delete" onclick="deleteChecklistItem('${cat}', ${idx})">&times;</span>
+                            <span style="cursor:pointer; opacity:0.6;" onclick="editChecklistItem('${safeCat}', ${idx})">✏️</span>
+                            <span class="wishlist-delete" onclick="deleteChecklistItem('${safeCat}', ${idx})">&times;</span>
                         </div>
                     </div>
                 `;
     }).join('')
         }
         </div>
-        `).join('');
+        `;
+    }).join('');
 }
 
 function addChecklistCategory() {
     const cat = prompt("Nome da nova categoria:");
     if (cat && !checklistData[cat]) {
-        checklistData[cat] = [];
+        checklistData[cat] = ["Novo Item"];
         persistData();
         renderChecklist();
     } else if (checklistData[cat]) {
