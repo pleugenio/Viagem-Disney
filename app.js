@@ -615,7 +615,8 @@ function injectUserCategories() {
             '🔌 Adaptador de Tomada / Cabos Extras',
             '💳 Cartão Nomad / Cash em Dólar',
             '🧴 Protetor Solar / Pós-Sol',
-            '⌚ Smartwatch / MagicBand'
+            '⌚ Smartwatch / MagicBand',
+            '🔋 Pilhas AA e AAA extras (para ventilador/brinquedos)'
         ];
         injected = true;
     }
