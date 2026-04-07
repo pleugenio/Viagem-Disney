@@ -610,14 +610,25 @@ function loadPersistedData() {
                 if (data.checkedItems) checkedItems = Array.isArray(data.checkedItems) ? data.checkedItems : Object.values(data.checkedItems); else checkedItems = [];
                 if (data.pendenciesList) pendenciesList = Array.isArray(data.pendenciesList) ? data.pendenciesList : Object.values(data.pendenciesList); else pendenciesList = [];
                 if (data.checklistData) {
-                    // Firebase converts arrays to objects – normalize back to arrays
                     const raw = data.checklistData;
                     checklistData = {};
                     Object.keys(raw).forEach(cat => {
                         const v = raw[cat];
                         checklistData[cat] = Array.isArray(v) ? v : Object.values(v);
                     });
-                } else { checklistData = {}; }
+                } else { 
+                    // CRITICAL: If missing in cloud, try to keep local data instead of wiping it
+                    // especially important during version transitions
+                    if (Object.keys(checklistData).length === 0) {
+                        const saved = localStorage.getItem(STORAGE_KEY);
+                        if (saved) {
+                            try {
+                                const parsed = JSON.parse(saved);
+                                if (parsed.checklistData) checklistData = parsed.checklistData;
+                            } catch(e){}
+                        }
+                    }
+                }
 
                 if (data.strategiesData) {
                     const raw = data.strategiesData;
@@ -1627,8 +1638,9 @@ function renderChecklist() {
     const container = document.getElementById('checklist-content');
     if (!container) return;
 
+    const reservedPrefixes = ['⚡ LL Prioridades:'];
     container.innerHTML = Object.entries(checklistData)
-        .filter(([cat]) => !cat.startsWith('⚡ LL Prioridades:'))
+        .filter(([cat]) => !reservedPrefixes.some(p => cat.startsWith(p)))
         .map(([cat, items]) => {
         const safeCat = cat.replace(/'/g, "\\'");
         return `
