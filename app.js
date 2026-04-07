@@ -945,16 +945,20 @@ function setupModalListeners() {
         inputForm.onsubmit = (e) => {
             e.preventDefault();
             const val = document.getElementById('input-value').value;
-            if (currentInputCallback) currentInputCallback(val);
+            const cb = currentInputCallback;
+            currentInputCallback = null;
             closeInputModal();
+            if (cb) cb(val);
         };
     }
 
     const confirmBtn = document.getElementById('confirm-submit-btn');
     if (confirmBtn) {
         confirmBtn.onclick = () => {
-            if (currentConfirmCallback) currentConfirmCallback(true);
+            const cb = currentConfirmCallback;
+            currentConfirmCallback = null;
             closeConfirmModal();
+            if (cb) cb(true);
         };
     }
 
@@ -1039,7 +1043,7 @@ function renderStrategies() {
                 </div>
             </div>
             <ul class="tips-list">
-                ${items.map((item, idx) => `
+                ${(Array.isArray(items) ? items : Object.values(items)).map((item, idx) => `
                     <li style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.5rem;">
                         <span style="flex:1;">${item}</span>
                         <div style="display:flex; gap:0.5rem; margin-left:1rem; flex-shrink:0;">
@@ -1055,11 +1059,12 @@ function renderStrategies() {
 
 function addStrategyCategory() {
     requestInput("Nome do novo bloco de estratégias:", "", (cat) => {
-        if (cat && !strategiesData[cat]) {
-            strategiesData[cat] = [];
+        const catTrimmed = cat ? cat.trim() : "";
+        if (catTrimmed && !strategiesData[catTrimmed]) {
+            strategiesData[catTrimmed] = [];
             persistData();
             renderStrategies();
-        } else if (strategiesData[cat]) {
+        } else if (catTrimmed && strategiesData[catTrimmed]) {
             alert("Já existe um bloco com este nome.");
         }
     });
@@ -1239,7 +1244,7 @@ function renderChecklist() {
                 <span style="cursor:pointer; font-size:1.2rem; color:var(--danger);" title="Apagar Categoria" onclick="deleteChecklistCategory('${safeCat}')">🗑️</span>
             </div>
         </div>
-            ${items.map((item, idx) => {
+            ${(Array.isArray(items) ? items : Object.values(items)).map((item, idx) => {
         const isChecked = checkedItems.includes(item);
         const safeItem = item.replace(/'/g, "\\'");
         return `
@@ -1263,11 +1268,12 @@ function renderChecklist() {
 
 function addChecklistCategory() {
     requestInput("Nome da nova categoria:", "", (cat) => {
-        if (cat && !checklistData[cat]) {
-            checklistData[cat] = ["Novo Item"];
+        const catTrimmed = cat ? cat.trim() : "";
+        if (catTrimmed && !checklistData[catTrimmed]) {
+            checklistData[catTrimmed] = ["Novo Item"];
             persistData();
             renderChecklist();
-        } else if (checklistData[cat]) {
+        } else if (catTrimmed && checklistData[catTrimmed]) {
             alert("Esta categoria já existe.");
         }
     });
