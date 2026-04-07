@@ -599,6 +599,44 @@ function autoCheckBookedAttractions() {
     }
 }
 
+function injectUserCategories() {
+    let injected = false;
+    const pKey = '🎒 Checklist: Paulo';
+    const kKey = '🎒 Checklist: Kamilla';
+
+    if (!checklistData[pKey]) {
+        checklistData[pKey] = [
+            '📱 Powerbank (Carregador Portátil)',
+            '📄 Documentos e Reservas (Impresso/Digital)',
+            '💊 Kit Primeiros Socorros / Remédios Uso Diário',
+            '🧢 Boné / Óculos de Sol',
+            '🔌 Adaptador de Tomada / Cabos Extras',
+            '💳 Cartão Nomad / Cash em Dólar',
+            '🧴 Protetor Solar / Pós-Sol',
+            '⌚ Smartwatch / MagicBand'
+        ];
+        injected = true;
+    }
+
+    if (!checklistData[kKey]) {
+        checklistData[kKey] = [
+            '🐭 Orelhinhas (Minnie Ears)',
+            '🎒 Mochila de Parque Organizada',
+            '🧣 Casaco Leve (Ar Condicionado/Noite)',
+            '🧺 Lenços Umedecidos / Álcool em Gel',
+            '🍼 Itens Extras das Crianças (Vicente/Joaquim)',
+            '💄 Protetor Labial / Hidratante',
+            '🪭 Ventilador de Mão / Spray de Água',
+            '👟 Tênis Reserva (Trocar se molhar)'
+        ];
+        injected = true;
+    }
+
+    if (injected) {
+        persistData();
+    }
+}
+
 function loadPersistedData() {
     if (database) {
         // Listen for realtime updates from Firebase
@@ -640,6 +678,7 @@ function loadPersistedData() {
                 } else { strategiesData = {}; }
 
                 injectLLPriorities();
+                injectUserCategories();
                 autoCheckBookedAttractions();
 
                 // Re-render the application when new data arrives from any device
@@ -688,6 +727,7 @@ function fallbackToLocal() {
         } catch (e) { console.error('Error loading data', e); }
     }
     injectLLPriorities();
+    injectUserCategories();
     autoCheckBookedAttractions();
     sanitizeData();
     renderAll();
