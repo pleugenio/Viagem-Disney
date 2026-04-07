@@ -555,6 +555,41 @@ function injectLLPriorities() {
     }
 }
 
+function autoCheckBookedAttractions() {
+    let changed = false;
+    const allDetails = tripData.flatMap(day => day.details || []);
+    
+    // Helper to find the matching checklist item string
+    const findMatch = (attrName) => {
+        for (const cat in checklistData) {
+            if (cat.startsWith('⚡ LL Prioridades:')) {
+                const match = checklistData[cat].find(item => 
+                    item.toLowerCase().includes(attrName.toLowerCase())
+                );
+                if (match) return match;
+            }
+        }
+        return null;
+    };
+
+    const booked = [
+        'TRON', 'Seven Dwarfs', 'Peter Pan', 'Pirates', 'Haunted Mansion',
+        'Everest', 'Kilimanjaro', 'Navi River', 'Flight of Passage'
+    ];
+
+    booked.forEach(name => {
+        const fullItem = findMatch(name);
+        if (fullItem && !checkedItems.includes(fullItem)) {
+            checkedItems.push(fullItem);
+            changed = true;
+        }
+    });
+
+    if (changed) {
+        persistData();
+    }
+}
+
 function loadPersistedData() {
     if (database) {
         // Listen for realtime updates from Firebase
@@ -585,6 +620,7 @@ function loadPersistedData() {
                 } else { strategiesData = {}; }
 
                 injectLLPriorities();
+                autoCheckBookedAttractions();
 
                 // Re-render the application when new data arrives from any device
                 sanitizeData();
@@ -632,6 +668,7 @@ function fallbackToLocal() {
         } catch (e) { console.error('Error loading data', e); }
     }
     injectLLPriorities();
+    autoCheckBookedAttractions();
     sanitizeData();
     renderAll();
 }
