@@ -601,6 +601,8 @@ function autoCheckBookedAttractions() {
 
 function injectUserCategories() {
     let injected = false;
+    const pKey = '🎒 Checklist: Paulo';
+    const kKey = '🎒 Checklist: Kamilla';
     const jKey = '👶 Checklist: Joaquim';
     const vKey = '👦 Checklist: Vicente';
 
