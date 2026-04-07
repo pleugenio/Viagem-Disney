@@ -1009,9 +1009,46 @@ function renderCurrentDay(index = 0) {
         else { dotColor='var(--accent)'; borderColor='var(--glass-border)'; bgColor='transparent'; typeLabel=''; }
 
         const endMatch = dStr.match(/[–\-]\s*(\d{1,2}:\d{2})\s*(AM|PM)?/);
+        let endVal = null;
+        if (endMatch) {
+            endVal = endMatch[1] + (endMatch[2] ? ' '+endMatch[2] : '');
+        } else if (timeMatch && durationMatch) {
+            // Infer end from start + duration
+            const dText = durationMatch[1].toLowerCase();
+            let dMins = 0;
+            const hMatch = dText.match(/(\d+)h/);
+            const mMatch = dText.match(/(\d+)min/);
+            if (hMatch) dMins += parseInt(hMatch[1]) * 60;
+            if (mMatch) dMins += parseInt(mMatch[1]);
+            if (!hMatch && !mMatch && dText.includes('h')) dMins = parseInt(dText) * 60; // fallback for "1h"
+
+            if (dMins > 0) {
+                const sTime = timeMatch[0].trim();
+                const pmMatch = sTime.toUpperCase().includes('PM');
+                const amMatch = sTime.toUpperCase().includes('AM');
+                const parts = sTime.replace(/[A-Za-z]/g, '').trim().split(':');
+                let h = parseInt(parts[0]) || 0;
+                let m = parseInt(parts[1]) || 0;
+                if (pmMatch && h < 12) h += 12;
+                if (amMatch && h === 12) h = 0;
+                if (!pmMatch && !amMatch && h < 8) h += 12;
+                
+                const totalMins = h * 60 + m + dMins;
+                let endH = Math.floor(totalMins / 60);
+                let endM = totalMins % 60;
+                let suffix = 'AM';
+                if (endH >= 12) {
+                    suffix = 'PM';
+                    if (endH > 12) endH -= 12;
+                }
+                if (endH === 0) endH = 12;
+                endVal = `${endH}:${String(endM).padStart(2, '0')} ${suffix}`;
+            }
+        }
+
         if (timeMatch) bookedSlots.push({
             start: timeMatch[0].trim(),
-            end: endMatch ? (endMatch[1] + (endMatch[2] ? ' '+endMatch[2] : '')) : null,
+            end: endVal,
             label: dStr.split('(')[0].split('📍')[0].trim().substring(0, 35)
         });
 
