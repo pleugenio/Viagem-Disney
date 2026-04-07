@@ -395,6 +395,36 @@ let strategiesData = {
         "**Hollywood Studios**: 7 AM: Marcar Slinky Dog Dash (acaba rápido!) ou Rise of the Resistance.",
         "**Animal Kingdom**: 7 AM: Marcar Safari ou Navi River. Comprar Individual LL para Avatar Flight of Passage.",
         "**Epcot**: Equipe de Fila Virtual para Guardians of the Galaxy (7 AM). Genie+ para Remy ou Frozen."
+    ],
+    '🇺🇸 Inglês: Hotel e Reservas': [
+        "**Check-in**: I have a reservation under Paulo Lopes (Tenho uma reserva no nome de Paulo Lopes).",
+        "**Quarto pronto?**: Is our room ready? (Nosso quarto está pronto?)",
+        "**Check-out**: What time is check-out? (Que horas é o check-out?)",
+        "**Ajuda com malas**: Can you help us with our luggage? (Pode nos ajudar com as malas?)",
+        "**Wi-Fi**: What is the Wi-Fi password? (Qual é a senha do Wi-Fi?)"
+    ],
+    '🇺🇸 Inglês: Restaurantes': [
+        "**Mesa**: A table for four, please (Uma mesa para quatro, por favor).",
+        "**Reserva**: We have a reservation at 5 PM (Temos uma reserva às 17h).",
+        "**Cadeira alta**: Can we have a high chair for the baby? (Pode nos dar um cadeirão para o bebê?)",
+        "**Pedido**: I would like the [dish name] (Eu gostaria do [nome do prato]).",
+        "**Conta**: Check, please / Can I have the bill? (A conta, por favor).",
+        "**Água**: Just tap water, please (Apenas água da torneira/grátis, por favor)."
+    ],
+    '🇺🇸 Inglês: Parques e Filas': [
+        "**Espera**: How long is the wait? (Quanto tempo de espera?)",
+        "**Banheiro**: Where is the nearest restroom? (Onde fica o banheiro mais próximo?)",
+        "**Fila**: Is this the line for [Ride Name]? (Esta é a fila para [Atração]?)",
+        "**Foto**: Can you take a photo for us? (Pode tirar uma foto para nós?)",
+        "**Localização**: How do I get to [Place]? (Como chego em [Lugar]?)",
+        "**Criança perdida**: I lost my son. He is wearing a blue shirt (Perdi meu filho. Ele está de camisa azul)."
+    ],
+    '🇺🇸 Inglês: Emergências e Ajuda': [
+        "**Ajuda**: Can you help me? (Pode me ajudar?)",
+        "**Médico**: I need a doctor / Where is the First Aid? (Preciso de um médico / Onde fica o Primeiro Socorros?)",
+        "**Telefone**: Can I use your phone? It's an emergency (Posso usar seu telefone? É uma emergência).",
+        "**Segurança**: Where is the Security? (Onde fica a segurança?)",
+        "**Polícia**: Call the police (Chame a polícia)."
     ]
 };
 
