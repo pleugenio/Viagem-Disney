@@ -493,42 +493,62 @@ function injectLLPriorities() {
     const akKey = '⚡ LL Prioridades: Animal Kingdom';
     const epKey = '⚡ LL Prioridades: Epcot';
 
-    if (!checklistData[mkKey]) {
-        checklistData[mkKey] = [
-            '1️⃣ TRON Lightcycle / Tiana\'s Bayou / Seven Dwarfs (Dificílimo)',
-            '2️⃣ Peter Pan\'s Flight / Space Mountain / Jungle Cruise (Difícil)',
-            '3️⃣ Haunted Mansion / Big Thunder / Pirates (Médio)',
-            '4️⃣ Buzz Lightyear / It\'s a Small World / Winnie the Pooh (Fácil)'
-        ];
-        injected = true;
-    }
-    if (!checklistData[hsKey]) {
-        checklistData[hsKey] = [
-            '1️⃣ Slinky Dog Dash / Rise of the Resistance (Dificílimo)',
-            '2️⃣ Mickey & Minnie Runaway Railway (Difícil)',
-            '3️⃣ Tower of Terror / Toy Story Mania / Millennium Falcon (Médio)',
-            '4️⃣ Rock n Roller Coaster / Alien Swirling Saucers (Fácil)'
-        ];
-        injected = true;
-    }
-    if (!checklistData[akKey]) {
-        checklistData[akKey] = [
-            '1️⃣ Avatar Flight of Passage (Dificílimo)',
-            '2️⃣ Navi River Journey (Difícil)',
-            '3️⃣ Kilimanjaro Safaris / Expedition Everest (Médio)',
-            '4️⃣ Dinosaur / Kali River Rapids (Fácil)'
-        ];
-        injected = true;
-    }
-    if (!checklistData[epKey]) {
-        checklistData[epKey] = [
-            '1️⃣ Guardians of the Galaxy / Remy Ratatouille (Dificílimo)',
-            '2️⃣ Frozen Ever After (Difícil)',
-            '3️⃣ Test Track / Soarin (Médio)',
-            '4️⃣ Spaceship Earth / Mission Space (Fácil)'
-        ];
-        injected = true;
-    }
+    const mkItems = [
+        '⚡ TRON Lightcycle Run (Dificílimo)',
+        '⚡ Tiana\'s Bayou Adventure (Dificílimo)',
+        '⚡ Seven Dwarfs Mine Train (Dificílimo)',
+        '⚡ Peter Pan\'s Flight (Difícil)',
+        '⚡ Space Mountain (Difícil)',
+        '⚡ Jungle Cruise (Difícil)',
+        '⚡ Haunted Mansion (Médio)',
+        '⚡ Big Thunder Mountain (Médio)',
+        '⚡ Pirates of the Caribbean (Médio)',
+        '⚡ Buzz Lightyear (Fácil)',
+        '⚡ It\'s a Small World (Fácil)',
+        '⚡ Many Adventures of Winnie the Pooh (Fácil)'
+    ];
+    const hsItems = [
+        '⚡ Slinky Dog Dash (Dificílimo)',
+        '⚡ Rise of the Resistance (Dificílimo)',
+        '⚡ Mickey & Minnie Runaway Railway (Difícil)',
+        '⚡ Tower of Terror (Médio)',
+        '⚡ Toy Story Mania (Médio)',
+        '⚡ Millennium Falcon (Médio)',
+        '⚡ Rock n Roller Coaster (Fácil)',
+        '⚡ Alien Swirling Saucers (Fácil)'
+    ];
+    const akItems = [
+        '⚡ Avatar Flight of Passage (Dificílimo)',
+        '⚡ Navi River Journey (Difícil)',
+        '⚡ Kilimanjaro Safaris (Médio)',
+        '⚡ Expedition Everest (Médio)',
+        '⚡ Dinosaur (Fácil)',
+        '⚡ Kali River Rapids (Fácil)'
+    ];
+    const epItems = [
+        '⚡ Guardians of the Galaxy (Dificílimo)',
+        '⚡ Remy Ratatouille (Dificílimo)',
+        '⚡ Frozen Ever After (Difícil)',
+        '⚡ Test Track (Médio)',
+        '⚡ Soarin (Médio)',
+        '⚡ Spaceship Earth (Fácil)',
+        '⚡ Mission Space (Fácil)'
+    ];
+
+    // Migration/Fix: If existing items contain a "/" (old format), we reset the category
+    [
+        { key: mkKey, items: mkItems },
+        { key: hsKey, items: hsItems },
+        { key: akKey, items: akItems },
+        { key: epKey, items: epItems }
+    ].forEach(conf => {
+        const current = checklistData[conf.key];
+        const isOldFormat = current && current.some(i => i.includes('/'));
+        if (!current || isOldFormat) {
+            checklistData[conf.key] = conf.items;
+            injected = true;
+        }
+    });
 
     if (injected) {
         persistData();
