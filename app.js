@@ -1050,6 +1050,32 @@ function renderCurrentDay(index = 0) {
                 ${day.paidTickets ? '<p style="color:var(--success); font-size:0.8rem;">✅ Ingressos PAGO</p>' : ''}
             </div>
             ${babyCare ? `<div class="baby-care-tip"><h4 style="color: #c084fc;">🤱 Baby Care Center</h4><p>${babyCare}</p></div>` : ''}
+            
+            ${(() => {
+                const priorityKey = `⚡ LL Prioridades: ${park}`;
+                const priorities = checklistData[priorityKey];
+                if (!priorities) return '';
+                return `
+                <div class="info-card glass" style="margin-top: 1.5rem; border-left-color: var(--accent-gold); background: rgba(250, 204, 21, 0.05);">
+                    <h4 style="color: var(--accent-gold); margin-bottom: 0.8rem;">⚡ Prioridades Genie+</h4>
+                    <div style="display:flex; flex-direction:column; gap:0.5rem;">
+                        ${priorities.map(item => {
+                            const isChecked = checkedItems.includes(item);
+                            const safeItem = item.replace(/'/g, "\\'");
+                            return `
+                                <div class="checklist-item ${isChecked ? 'checked' : ''}" 
+                                     style="display:flex; align-items:center; gap:0.6rem; font-size:0.8rem; cursor:pointer;" 
+                                     onclick="toggleChecklist('${safeItem}', ${index})">
+                                    <input type="checkbox" ${isChecked ? 'checked' : ''} style="accent-color:var(--accent-gold);">
+                                    <span style="${isChecked ? 'text-decoration:line-through; opacity:0.5;' : ''}">${item}</span>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                    <div style="font-size:0.65rem; opacity:0.5; margin-top:0.6rem;">Ordem por dificuldade de agendamento (Nível 1 é o mais concorrido).</div>
+                </div>`;
+            })()}
+
             <div class="info-card glass" style="margin-top: 1.5rem;">
                 <h4>📝 Notas</h4>
                 <p style="font-size:0.85rem; line-height:1.5;">${day.notes || 'Sem observações.'}</p>
@@ -1498,7 +1524,9 @@ function renderChecklist() {
     const container = document.getElementById('checklist-content');
     if (!container) return;
 
-    container.innerHTML = Object.entries(checklistData).map(([cat, items]) => {
+    container.innerHTML = Object.entries(checklistData)
+        .filter(([cat]) => !cat.startsWith('⚡ LL Prioridades:'))
+        .map(([cat, items]) => {
         const safeCat = cat.replace(/'/g, "\\'");
         return `
         <div class="checklist-category" style="position:relative;">
@@ -1616,7 +1644,7 @@ function deleteChecklistItem(cat, itemIdx) {
     });
 }
 
-function toggleChecklist(item) {
+function toggleChecklist(item, currentDayIdx = null) {
     if (checkedItems.includes(item)) {
         checkedItems = checkedItems.filter(i => i !== item);
     } else {
@@ -1624,6 +1652,9 @@ function toggleChecklist(item) {
     }
     persistData();
     renderChecklist();
+    if (currentDayIdx !== null) {
+        renderCurrentDay(currentDayIdx);
+    }
 }
 
 function renderShopping() {
