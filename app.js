@@ -141,12 +141,13 @@ let tripData = [
         notes: '🍱 **Almoço (7)**. Jantar Rodeo.',
         details: [
             '🕒 Horários: 09:00 AM - 09:00 PM (Resort: 08:30 AM)',
-            '🧸 Toy Story Mania (10:00 AM | 📍 Toy Story Land | ⏱️ 1h | sem altura mínima)',
-            '🎭 Indiana Jones Epic Stunt Spectacular (10:45 AM | 📍 Echo Lake | ⏱️ 30min | sem altura mínima | ⚠️ Show ao Vivo)',
-            '🎭 Beauty and the Beast Live (11:00 AM | 📍 Sunset Blvd | ⏱️ 25min | sem altura mínima)',
+            '🎢 LL Slinky Dog Dash (09:30–10:30 AM | 📍 Toy Story Land | 👤 Kamilla, Vicente | ⏱️ 1h | 📏 Alt: 97cm)',
+            '🧸 LL Toy Story Mania (ENTRAR JUNTOS: 10:25–10:55 AM | 📍 Toy Story Land | 👤 Família Toda | ⏱️ 1h | sem altura mínima)',
+            '🚀 LL Star Wars: Rise of the Resistance (ENTRAR JUNTOS: 11:15–11:40 AM | 📍 Galaxy\'s Edge | 👤 Paulo, Kamilla, Vicente | ⏱️ 1h | 📏 Alt: 102cm)',
             '🍱 **Almoço: Marmita Kids (7)** (12:30 PM | 📍 Baby Care | ⏱️ 1h)',
-            '🎭 Indiana Jones Epic Stunt Spectacular (13:15 PM | 📍 Echo Lake | ⏱️ 30min | show alternativo)',
-            '🫱 Stormtroopers Galaxy\'s Edge (patrulham o dia todo | 📍 Batuu | sem horário fixo)',
+            '🎭 Indiana Jones Epic Stunt Spectacular (01:15 PM | 📍 Echo Lake | ⏱️ 30min | sem altura mínima)',
+            '🎢 LL Slinky Dog Dash (01:45–02:45 PM | 📍 Toy Story Land | 👤 Paulo | ⏱️ 1h | 📏 Alt: 97cm)',
+            '🎭 Beauty and the Beast Live (04:00 PM | 📍 Sunset Blvd | ⏱️ 25min | sem altura mínima)',
             '🛠️ Droid Depot (05:10 PM | 📍 Galaxy\'s Edge | ⏱️ 45min)',
             '🍴 Roundup Rodeo BBQ (06:55 PM | 📍 Toy Story Land | ⏱️ 1h30)',
             '🎬 Fantasmic! (08:30 PM | 📍 Sunset Blvd | ⏱️ 30min | sem altura mínima | ⚠️ 8:30PM até 23/04)'
