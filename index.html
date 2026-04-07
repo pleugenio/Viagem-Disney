@@ -346,6 +346,34 @@
         </div>
     </div>
 
+    <!-- Generic Input Modal -->
+    <div id="input-modal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-input-btn" onclick="closeInputModal()"
+                style="position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer; opacity: 0.5;">&times;</span>
+            <h2 id="input-modal-title">Entrada de Dados</h2>
+            <form id="input-form">
+                <div class="form-group">
+                    <input type="text" id="input-value" required>
+                </div>
+                <button type="submit" class="save-btn">Confirmar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Generic Confirm Modal -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content glass">
+            <span class="close-confirm-btn" onclick="closeConfirmModal()"
+                style="position: absolute; top: 1rem; right: 1.5rem; font-size: 2rem; cursor: pointer; opacity: 0.5;">&times;</span>
+            <h2 id="confirm-modal-title" style="margin-bottom: 1.5rem;">Certeza?</h2>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <button onclick="closeConfirmModal()" class="save-btn" style="background: rgba(255,255,255,0.1); color: var(--text-primary); margin-top: 0;">Cancelar</button>
+                <button id="confirm-submit-btn" class="save-btn" style="background: rgba(248, 113, 113, 0.2); color: var(--danger); border: 1px solid var(--danger); margin-top: 0;">Sim, continuar</button>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Firebase SDKs -->
