@@ -576,16 +576,14 @@ function getDailyVariableEstimate(day) {
 
 function renderAll() {
     try {
-        console.log('--- Render Start (v35) ---');
+        console.log('--- Render Start (v40) ---');
         renderDashboard();
         renderCurrentDay(parseInt(document.getElementById('day-selector')?.value || 0));
         renderItinerary();
         renderStrategies();
-        renderLogistics();
         renderFinance();
         renderChecklist();
         renderShopping();
-        renderPendencies();
         renderShows();
         console.log('--- Render Complete ---');
     } catch (e) { console.error('CRITICAL RENDER ERROR:', e); }
@@ -769,6 +767,29 @@ function renderDashboard() {
                 <div class="marmita-count" id="marmita-count">15 / 15</div>
             </div>
         </div>
+
+        <div style="margin-top:2rem; border-top:1px solid var(--glass-border); padding-top:1.5rem;">
+            <h3 style="margin-bottom:1rem;">🏨 Hotéis & Estadias</h3>
+            <div style="display:flex; flex-direction:column; gap:0.6rem;">
+                <div style="border-left:4px solid var(--accent); padding-left:0.8rem;"><div style="font-size:0.7rem; opacity:0.6;">10–23 Abr</div><div>Pop Century (PAGO)</div></div>
+                <div style="border-left:4px solid var(--accent); padding-left:0.8rem;"><div style="font-size:0.7rem; opacity:0.6;">23–25 Abr</div><div>AK Lodge (PAGO)</div></div>
+                <div style="border-left:4px solid var(--accent); padding-left:0.8rem;"><div style="font-size:0.7rem; opacity:0.6;">25–27 Abr</div><div>Naples Beach</div></div>
+                <div style="border-left:4px solid var(--accent); padding-left:0.8rem;"><div style="font-size:0.7rem; opacity:0.6;">27–29 Abr</div><div>Riu Miami (PAGO)</div></div>
+            </div>
+        </div>
+
+        <div style="margin-top:2rem; border-top:1px solid var(--glass-border); padding-top:1.5rem;">
+            <h3 style="margin-bottom:1rem; color:var(--danger);">🆘 Contatos de Emergência</h3>
+            <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:0.8rem;">
+                ${EMERGENCY_CONTACTS.map(c => `
+                    <div style="background:rgba(248,113,113,0.05); border-left:4px solid var(--danger); padding:0.8rem; border-radius:10px;">
+                        <div style="font-weight:700; font-size:0.85rem;">${c.name}</div>
+                        <div style="font-size:1rem; color:var(--danger);">${c.phone}</div>
+                        ${c.loc ? `<div style="font-size:0.72rem; opacity:0.6;">${c.loc}</div>` : ''}
+                    </div>
+                `).join('')}
+            </div>
+        </div>
     `;
 }
 
@@ -781,20 +802,27 @@ function renderCurrentDay(index = 0) {
     const estimate = getDailyVariableEstimate(day);
 
     let timelineHtml = `<div class="timeline-container">`;
-    (day.details || []).forEach(detail => {
+    (day.details || []).forEach((detail, detailIdx) => {
         const dStr = detail || "";
         const timeMatch = dStr.match(/(\d{2}:\d{2})\s*(AM|PM)?/);
         const locationMatch = dStr.match(/📍\s*([^)|]+)/);
         const durationMatch = dStr.match(/⏱️\s*([^)|]+)/);
         const isMarmita = dStr.includes('🍱');
+        const safeDetail = dStr.replace(/'/g, "\\'");
 
         timelineHtml += `
-            <div class="timeline-item">
+            <div class="timeline-item" style="position:relative;">
                 <div class="timeline-dot" ${isMarmita ? 'style="background: #fb923c;"' : ''}></div>
                 <div class="timeline-content" ${isMarmita ? 'style="border-left: 4px solid #fb923c; background: rgba(251, 146, 60, 0.05);"' : ''}>
-                    <div class="timeline-time">
-                        ${timeMatch ? timeMatch[0] : 'Horário Livre'} 
-                        ${durationMatch ? `• <span style="color:var(--accent-gold)">⏱️ ${durationMatch[1].trim()}</span>` : ''}
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                        <div class="timeline-time">
+                            ${timeMatch ? timeMatch[0] : 'Horário Livre'}
+                            ${durationMatch ? `• <span style="color:var(--accent-gold)">⏱️ ${durationMatch[1].trim()}</span>` : ''}
+                        </div>
+                        <div style="display:flex; gap:0.4rem; flex-shrink:0; margin-left:0.5rem;">
+                            <span style="cursor:pointer; opacity:0.6; font-size:0.9rem;" onclick="editDayDetail(${index}, ${detailIdx})">✏️</span>
+                            <span style="cursor:pointer; color:var(--danger); font-size:0.9rem;" onclick="deleteDayDetail(${index}, ${detailIdx})">🗑️</span>
+                        </div>
                     </div>
                     <p style="font-weight:700; margin-bottom:5px;">${dStr.includes('🕒') ? dStr.split('📍')[0].trim() : dStr.split('(')[0].split('📍')[0].trim()}</p>
                     ${locationMatch ? `<div style="font-size:0.75rem; color:var(--accent); font-weight:600; margin-bottom:5px;">📍 ${locationMatch[1].trim()}</div>` : ''}
@@ -803,7 +831,12 @@ function renderCurrentDay(index = 0) {
                 </div>
             </div>`;
     });
-    timelineHtml += `</div>`;
+    timelineHtml += `
+        <div class="timeline-item">
+            <div class="timeline-dot" style="background:var(--accent); opacity:0.4;"></div>
+            <button onclick="addDayDetail(${index})" class="save-btn" style="margin:0; padding:0.4rem 1rem; width:auto; font-size:0.85rem; opacity:0.8;">+ Adicionar Evento</button>
+        </div>
+    </div>`;
 
     container.innerHTML = `
         <div class="timeline-column">${timelineHtml}</div>
@@ -830,6 +863,37 @@ function renderCurrentDay(index = 0) {
                 <p style="font-size:0.85rem; line-height:1.5;">${day.notes || 'Sem observações.'}</p>
             </div>
         </div>`;
+}
+
+function addDayDetail(dayIdx) {
+    requestInput('Novo evento (ex: 10:00 AM - Passeio | 📍 Local | ⏱️ 1h):', '', (val) => {
+        const v = val ? val.trim() : '';
+        if (!v) return;
+        if (!Array.isArray(tripData[dayIdx].details)) tripData[dayIdx].details = [];
+        tripData[dayIdx].details.push(v);
+        persistData();
+        renderCurrentDay(dayIdx);
+    });
+}
+
+function editDayDetail(dayIdx, detailIdx) {
+    const old = tripData[dayIdx].details[detailIdx] || '';
+    requestInput('Editar evento:', old, (val) => {
+        const v = val ? val.trim() : '';
+        if (!v) return;
+        tripData[dayIdx].details[detailIdx] = v;
+        persistData();
+        renderCurrentDay(dayIdx);
+    });
+}
+
+function deleteDayDetail(dayIdx, detailIdx) {
+    requestConfirm('Apagar este evento?', (res) => {
+        if (!res) return;
+        tripData[dayIdx].details.splice(detailIdx, 1);
+        persistData();
+        renderCurrentDay(dayIdx);
+    });
 }
 
 function renderItinerary() {
@@ -1383,8 +1447,9 @@ function renderShopping() {
                         <strong>${item.name}</strong>
                         <span style="font-size:0.75rem; opacity:0.6;">📍 ${item.store}</span>
                     </div>
-                    <div style="display:flex; align-items:center;">
+                    <div style="display:flex; align-items:center; gap:0.5rem;">
                         <span class="wishlist-price">$${item.price}</span>
+                        <span style="cursor:pointer; opacity:0.7; font-size:1rem;" onclick="editWishlistItem(${idx})">✏️</span>
                         <span class="wishlist-delete" onclick="removeItem(${idx})">&times;</span>
                     </div>
                 </div>
@@ -1392,11 +1457,29 @@ function renderShopping() {
         }
             ${wishlist.length === 0 ? '<p style="opacity:0.5; text-align:center; padding:2rem;">Nenhum item na lista.</p>' : ''}
         </div>
-        <div style="margin-top:2rem; padding:1.5rem; background:rgba(255,bbf,36,0.1); border-radius:16px; border:1px solid var(--accent-gold); display:flex; justify-content:space-between; align-items:center;">
+        <div style="margin-top:2rem; padding:1.5rem; background:rgba(255,200,36,0.1); border-radius:16px; border:1px solid var(--accent-gold); display:flex; justify-content:space-between; align-items:center;">
             <span style="font-weight:700;">TOTAL ESTIMADO (WISHLIST):</span>
             <span style="font-size:1.5rem; font-weight:700; color:var(--accent-gold);">$${totalUSD} (~R$ ${(totalUSD * EXCHANGE_RATE).toLocaleString('pt-BR', { maximumFractionDigits: 0 })})</span>
         </div>
     `;
+}
+
+function editWishlistItem(idx) {
+    const item = wishlist[idx];
+    if (!item) return;
+    requestInput('Novo nome do item:', item.name, (name) => {
+        if (!name || !name.trim()) return;
+        requestInput('Nova loja:', item.store, (store) => {
+            requestInput('Novo preço (só número):', String(item.price), (priceStr) => {
+                const price = parseFloat(priceStr);
+                if (isNaN(price)) return;
+                wishlist[idx] = { name: name.trim(), store: store ? store.trim() : item.store, price };
+                persistData();
+                renderShopping();
+                renderFinance();
+            });
+        });
+    });
 }
 
 function openWishlistModal() {
