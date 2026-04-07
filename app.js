@@ -997,8 +997,27 @@ function renderDashboard() {
                         <div style="font-weight:700; font-size:0.85rem;">${c.name}</div>
                         <div style="font-size:1rem; color:var(--danger);">${c.phone}</div>
                         ${c.loc ? `<div style="font-size:0.72rem; opacity:0.6;">${c.loc}</div>` : ''}
-                    </div>
+                        </div>
                 `).join('')}
+            </div>
+        </div>
+
+        <div style="margin-top:2rem; border-top:1px solid var(--glass-border); padding-top:1.5rem;">
+            <h3 style="margin-bottom:1rem; color:var(--accent);">📱 Comunicação Internacional</h3>
+            <div style="display:flex; flex-direction:column; gap:0.8rem; font-size:0.8rem;">
+                <div style="background:rgba(96,165,250,0.05); border-left:4px solid var(--accent); padding:0.8rem; border-radius:10px;">
+                    <strong style="display:block; margin-bottom:4px;">Ligar do Brasil para você (Roaming):</strong>
+                    Diar normalmente: 0 + Op + DDD + Seu Número
+                </div>
+                <div style="background:rgba(96,165,250,0.05); border-left:4px solid var(--accent); padding:0.8rem; border-radius:10px;">
+                    <strong style="display:block; margin-bottom:4px;">Ligar do Brasil para você (Chip EUA):</strong>
+                    00 + Op + 1 + (Area Code) + Número
+                </div>
+                <div style="background:rgba(96,165,250,0.05); border-left:4px solid var(--accent); padding:0.8rem; border-radius:10px;">
+                    <strong style="display:block; margin-bottom:4px;">Ligar de você para o Brasil:</strong>
+                    Mantenha a tecla 0 apertada para o **+** e disque: <br>
+                    <strong style="color:var(--accent);">+55 (DDD) NÚMERO</strong>
+                </div>
             </div>
         </div>
     `;
