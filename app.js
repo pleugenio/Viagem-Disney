@@ -1015,10 +1015,10 @@ function renderDashboard() {
                     Segure o **0** para fazer o **+** e disque: <br>
                     <strong style="color:var(--accent);">+55 (DDD) NÚMERO</strong>
                 </div>
-                <div style="background:rgba(96,165,250,0.05); border-left:4px solid var(--accent); padding:0.8rem; border-radius:10px;">
-                    <strong style="display:block; margin-bottom:4px;">Chip Americano (Se tiver):</strong>
-                    Quem liga do Brasil usa: <br>
-                    <strong style="color:var(--accent);">00 + Op + 1 + (Area Code) + Número</strong>
+                <div style="background:rgba(248,113,113,0.1); border-left:4px solid var(--danger); padding:0.8rem; border-radius:10px;">
+                    <strong style="display:block; margin-bottom:4px; color:var(--danger);">⚠️ EMERGÊNCIA: Se alguém te ligar dos EUA:</strong>
+                    Se um Americano (ou Cast Member) precisar te ligar, mostre ou use este número: <br>
+                    <strong style="font-size:1.1rem; color:var(--danger);">011 55 11 98388-0450</strong>
                 </div>
             </div>
         </div>
