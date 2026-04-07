@@ -217,11 +217,12 @@ let tripData = [
         notes: '🍱 **Almoço (10)**. Jantar Hollywood & Vine.',
         details: [
             '🕒 Horários: 09:00 AM - 09:00 PM (Resort: 08:30 AM)',
-            '❄️ Frozen: A Musical Spectacular (11:30 AM | 📍 Echo Lake | ⏱️ 30min | sem altura mínima)',
-            '🎭 Indiana Jones Epic Stunt Spectacular (13:15 PM | 📍 Echo Lake | ⏱️ 30min | sem altura mínima)',
-            '🍱 **Almoço: Marmita Kids (10)** (13:00 | 📍 Baby Care | ⏱️ 1h)',
-            '🎭 Beauty and the Beast Live (14:00 PM | 📍 Sunset Blvd | ⏱️ 25min | sem altura mínima)',
-            '🍴 Hollywood & Vine (05:00 PM | 📍 Echo Lake | ⏱️ 1h30)',
+            '🚀 LL Millennium Falcon: Smugglers Run (09:00–10:00 AM | 📍 Galaxy\'s Edge | ⏱️ 1h | 📏 Alt: 97cm)',
+            '🎭 Indiana Jones Epic Stunt Spectacular (📍 Echo Lake | ⚠️ Chegada: 10:15 AM | Showtime: 10:45 AM)',
+            '🧸 LL Toy Story Mania (11:15–12:15 PM | 📍 Toy Story Land | ⏱️ 1h | sem altura mínima)',
+            '🍱 **Almoço: Marmita Kids (10)** (01:00 PM | 📍 Baby Care | ⏱️ 1h)',
+            '🎭 Beauty and the Beast Live (02:00 PM | 📍 Sunset Blvd | ⏱️ 25min | sem altura mínima)',
+            '🍴 Hollywood & Vine (05:00 PM | 📍 Echo Lake | ⏱️ 1h30 | 🍽️ Fantasmic Dining Package)',
             '🎬 Fantasmic! VIP (08:30 PM | 📍 Sunset Blvd | ⏱️ 30min | ⚠️ 8:30PM até 23/04)'
         ]
     },
