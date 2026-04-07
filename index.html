@@ -64,19 +64,16 @@
         </div>
         <ul class="nav-links">
             <li class="active" data-tab="today">
-                <span class="icon">✨</span> Dia Atual
+                <span class="icon">✨</span> Roteiro Diário
             </li>
             <li data-tab="dashboard">
-                <span class="icon">📊</span> Dashboard
+                <span class="icon">📊</span> Painel
             </li>
             <li data-tab="itinerary">
                 <span class="icon">📅</span> Cronograma
             </li>
             <li data-tab="strategies">
                 <span class="icon">👶</span> Estratégias
-            </li>
-            <li data-tab="logistics">
-                <span class="icon">📍</span> Logística
             </li>
             <li data-tab="finance">
                 <span class="icon">💰</span> Financeiro
@@ -87,11 +84,8 @@
             <li data-tab="shopping">
                 <span class="icon">🛍️</span> Compras
             </li>
-            <li data-tab="pendencies">
-                <span class="icon">⚠️</span> Pendências
-            </li>
             <li data-tab="shows">
-                <span class="icon">🎆</span> Shows & Paradas
+                <span class="icon">🎆</span> Shows
             </li>
             <li data-tab="news">
                 <span class="icon">📰</span> Notícias
@@ -194,18 +188,6 @@
             </div>
         </section>
 
-        <section id="logistics" class="tab-content">
-            <div class="logistics-grid">
-                <div class="hotel-section glass">
-                    <h2>Hotéis & Estadias</h2>
-                    <div id="hotels-list"></div>
-                </div>
-                <div class="miami-section glass">
-                    <h2>Roteiro Miami (2 Dias)</h2>
-                    <div id="miami-itinerary"></div>
-                </div>
-            </div>
-        </section>
 
         <section id="finance" class="tab-content">
             <div class="finance-container glass">
@@ -240,18 +222,6 @@
             </div>
         </section>
 
-        <section id="pendencies" class="tab-content">
-            <div class="checklist-container glass">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
-                    <h2>Pendências Pré-Viagem</h2>
-                    <button class="save-btn" style="width:auto; padding:0.5rem 1rem; margin-top:0;"
-                        onclick="openPendencyModal()">+ Nova Pendência</button>
-                </div>
-                <div id="pendencies-content" class="checklist-grid" style="grid-template-columns: 1fr;">
-                    <!-- Pendencies will be injected here -->
-                </div>
-            </div>
-        </section>
 
         <section id="news" class="tab-content">
             <div class="news-container glass">
@@ -380,7 +350,7 @@
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
 
-    <script src="app.js?v=10"></script>
+    <script src="app.js?v=12"></script>
 </body>
 
 </html>
