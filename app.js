@@ -470,8 +470,24 @@ function loadPersistedData() {
                 if (data.wishlist) wishlist = Array.isArray(data.wishlist) ? data.wishlist : Object.values(data.wishlist); else wishlist = [];
                 if (data.checkedItems) checkedItems = Array.isArray(data.checkedItems) ? data.checkedItems : Object.values(data.checkedItems); else checkedItems = [];
                 if (data.pendenciesList) pendenciesList = Array.isArray(data.pendenciesList) ? data.pendenciesList : Object.values(data.pendenciesList); else pendenciesList = [];
-                if (data.checklistData) checklistData = data.checklistData; else checklistData = {};
-                if (data.strategiesData) strategiesData = data.strategiesData; else strategiesData = {};
+                if (data.checklistData) {
+                    // Firebase converts arrays to objects – normalize back to arrays
+                    const raw = data.checklistData;
+                    checklistData = {};
+                    Object.keys(raw).forEach(cat => {
+                        const v = raw[cat];
+                        checklistData[cat] = Array.isArray(v) ? v : Object.values(v);
+                    });
+                } else { checklistData = {}; }
+
+                if (data.strategiesData) {
+                    const raw = data.strategiesData;
+                    strategiesData = {};
+                    Object.keys(raw).forEach(cat => {
+                        const v = raw[cat];
+                        strategiesData[cat] = Array.isArray(v) ? v : Object.values(v);
+                    });
+                } else { strategiesData = {}; }
 
                 // Re-render the application when new data arrives from any device
                 sanitizeData();
