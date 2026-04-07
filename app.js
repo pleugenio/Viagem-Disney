@@ -486,6 +486,55 @@ if (typeof firebase !== 'undefined') {
 const database = typeof firebase !== 'undefined' ? firebase.database() : null;
 const DB_REF = '/disneyTripData_v2'; // Bumped version to ensure clean slate if needed
 
+function injectLLPriorities() {
+    let injected = false;
+    const mkKey = '⚡ LL Prioridades: Magic Kingdom';
+    const hsKey = '⚡ LL Prioridades: Hollywood Studios';
+    const akKey = '⚡ LL Prioridades: Animal Kingdom';
+    const epKey = '⚡ LL Prioridades: Epcot';
+
+    if (!checklistData[mkKey]) {
+        checklistData[mkKey] = [
+            '1️⃣ TRON Lightcycle / Tiana\'s Bayou / Seven Dwarfs (Dificílimo)',
+            '2️⃣ Peter Pan\'s Flight / Space Mountain / Jungle Cruise (Difícil)',
+            '3️⃣ Haunted Mansion / Big Thunder / Pirates (Médio)',
+            '4️⃣ Buzz Lightyear / It\'s a Small World / Winnie the Pooh (Fácil)'
+        ];
+        injected = true;
+    }
+    if (!checklistData[hsKey]) {
+        checklistData[hsKey] = [
+            '1️⃣ Slinky Dog Dash / Rise of the Resistance (Dificílimo)',
+            '2️⃣ Mickey & Minnie Runaway Railway (Difícil)',
+            '3️⃣ Tower of Terror / Toy Story Mania / Millennium Falcon (Médio)',
+            '4️⃣ Rock n Roller Coaster / Alien Swirling Saucers (Fácil)'
+        ];
+        injected = true;
+    }
+    if (!checklistData[akKey]) {
+        checklistData[akKey] = [
+            '1️⃣ Avatar Flight of Passage (Dificílimo)',
+            '2️⃣ Navi River Journey (Difícil)',
+            '3️⃣ Kilimanjaro Safaris / Expedition Everest (Médio)',
+            '4️⃣ Dinosaur / Kali River Rapids (Fácil)'
+        ];
+        injected = true;
+    }
+    if (!checklistData[epKey]) {
+        checklistData[epKey] = [
+            '1️⃣ Guardians of the Galaxy / Remy Ratatouille (Dificílimo)',
+            '2️⃣ Frozen Ever After (Difícil)',
+            '3️⃣ Test Track / Soarin (Médio)',
+            '4️⃣ Spaceship Earth / Mission Space (Fácil)'
+        ];
+        injected = true;
+    }
+
+    if (injected) {
+        persistData();
+    }
+}
+
 function loadPersistedData() {
     if (database) {
         // Listen for realtime updates from Firebase
@@ -514,6 +563,8 @@ function loadPersistedData() {
                         strategiesData[cat] = Array.isArray(v) ? v : Object.values(v);
                     });
                 } else { strategiesData = {}; }
+
+                injectLLPriorities();
 
                 // Re-render the application when new data arrives from any device
                 sanitizeData();
@@ -560,6 +611,7 @@ function fallbackToLocal() {
             if (parsed.strategiesData) strategiesData = parsed.strategiesData;
         } catch (e) { console.error('Error loading data', e); }
     }
+    injectLLPriorities();
     sanitizeData();
     renderAll();
 }
