@@ -701,10 +701,12 @@ function setupAuth() {
         const logoutBtn = document.getElementById('logout-btn');
         if (logoutBtn) {
             logoutBtn.onclick = () => {
-                if (confirm("Tem certeza que deseja sair?")) {
-                    sessionStorage.removeItem('disney_auth');
-                    location.reload();
-                }
+                requestConfirm("Tem certeza que deseja sair?", (res) => {
+                    if (res) {
+                        sessionStorage.removeItem('disney_auth');
+                        location.reload();
+                    }
+                });
             };
         }
     }
@@ -872,6 +874,51 @@ function renderItinerary() {
     if (remaining < 7) { for (let i = 0; i < remaining; i++) { const empty = document.createElement('div'); empty.className = 'calendar-cell calendar-empty'; dailyList.appendChild(empty); } }
 }
 
+let currentInputCallback = null;
+let currentConfirmCallback = null;
+
+function requestInput(title, defaultValue, callback) {
+    const modal = document.getElementById('input-modal');
+    if (!modal) {
+        const res = prompt(title, defaultValue);
+        return callback(res);
+    }
+    document.getElementById('input-modal-title').innerText = title;
+    document.getElementById('input-value').value = defaultValue || '';
+    currentInputCallback = callback;
+    modal.style.display = 'flex';
+    setTimeout(() => modal.classList.add('active'), 10);
+    setTimeout(() => document.getElementById('input-value').focus(), 100);
+}
+
+function closeInputModal() {
+    const modal = document.getElementById('input-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => modal.style.display = 'none', 300);
+    }
+}
+
+function requestConfirm(message, callback) {
+    const modal = document.getElementById('confirm-modal');
+    if (!modal) {
+        const res = confirm(message);
+        return callback(res);
+    }
+    document.getElementById('confirm-modal-title').innerText = message;
+    currentConfirmCallback = callback;
+    modal.style.display = 'flex';
+    setTimeout(() => modal.classList.add('active'), 10);
+}
+
+function closeConfirmModal() {
+    const modal = document.getElementById('confirm-modal');
+    if (modal) {
+        modal.classList.remove('active');
+        setTimeout(() => modal.style.display = 'none', 300);
+    }
+}
+
 function setupModalListeners() {
     const editModal = document.getElementById('edit-modal');
     const editCloseBtn = document.querySelector('.close-btn');
@@ -885,11 +932,34 @@ function setupModalListeners() {
     const pendencyModal = document.getElementById('pendency-modal');
     const pendencyForm = document.getElementById('pendency-form');
 
+    const inputModal = document.getElementById('input-modal');
+    const confirmModal = document.getElementById('confirm-modal');
+
     window.onclick = (e) => {
         if (e.target == editModal) closeModal();
         if (e.target == wishModal) closeWishlistModal();
         if (e.target == pendencyModal) closePendencyModal();
+        if (e.target == inputModal) closeInputModal();
+        if (e.target == confirmModal) closeConfirmModal();
     };
+
+    const inputForm = document.getElementById('input-form');
+    if (inputForm) {
+        inputForm.onsubmit = (e) => {
+            e.preventDefault();
+            const val = document.getElementById('input-value').value;
+            if (currentInputCallback) currentInputCallback(val);
+            closeInputModal();
+        };
+    }
+
+    const confirmBtn = document.getElementById('confirm-submit-btn');
+    if (confirmBtn) {
+        confirmBtn.onclick = () => {
+            if (currentConfirmCallback) currentConfirmCallback(true);
+            closeConfirmModal();
+        };
+    }
 
     if (editForm) {
         editForm.onsubmit = (e) => {
@@ -987,63 +1057,71 @@ function renderStrategies() {
 }
 
 function addStrategyCategory() {
-    const cat = prompt("Nome do novo bloco de estratégias:");
-    if (cat && !strategiesData[cat]) {
-        strategiesData[cat] = [];
-        persistData();
-        renderStrategies();
-    } else if (strategiesData[cat]) {
-        alert("Já existe um bloco com este nome.");
-    }
+    requestInput("Nome do novo bloco de estratégias:", "", (cat) => {
+        if (cat && !strategiesData[cat]) {
+            strategiesData[cat] = [];
+            persistData();
+            renderStrategies();
+        } else if (strategiesData[cat]) {
+            alert("Já existe um bloco com este nome.");
+        }
+    });
 }
 
 function editStrategyCategory(oldCat) {
-    const newCat = prompt("Renomear bloco de estratégias:", oldCat);
-    if (newCat && newCat !== oldCat) {
-        if (strategiesData[newCat]) {
-            alert("Já existe um bloco com este nome.");
-            return;
+    requestInput("Renomear bloco de estratégias:", oldCat, (newCat) => {
+        if (newCat && newCat !== oldCat) {
+            if (strategiesData[newCat]) {
+                alert("Já existe um bloco com este nome.");
+                return;
+            }
+            strategiesData[newCat] = strategiesData[oldCat];
+            delete strategiesData[oldCat];
+            persistData();
+            renderStrategies();
         }
-        strategiesData[newCat] = strategiesData[oldCat];
-        delete strategiesData[oldCat];
-        persistData();
-        renderStrategies();
-    }
+    });
 }
 
 function deleteStrategyCategory(cat) {
-    if (confirm(`Tem certeza que deseja apagar o bloco "${cat}" e todas as suas dicas?`)) {
-        delete strategiesData[cat];
-        persistData();
-        renderStrategies();
-    }
+    requestConfirm(`Tem certeza que deseja apagar o bloco "${cat}" e todas as suas dicas?`, (res) => {
+        if (res) {
+            delete strategiesData[cat];
+            persistData();
+            renderStrategies();
+        }
+    });
 }
 
 function addStrategyTip(cat) {
-    const tip = prompt("Adicionar nova dica:");
-    if (tip && tip.trim() !== '') {
-        strategiesData[cat].push(tip.trim());
-        persistData();
-        renderStrategies();
-    }
+    requestInput("Adicionar nova dica:", "", (tip) => {
+        if (tip && tip.trim() !== '') {
+            strategiesData[cat].push(tip.trim());
+            persistData();
+            renderStrategies();
+        }
+    });
 }
 
 function editStrategyTip(cat, tipIdx) {
     const oldTip = strategiesData[cat][tipIdx];
-    const newTip = prompt("Renomear dica:", oldTip);
-    if (newTip && newTip.trim() !== '') {
-        strategiesData[cat][tipIdx] = newTip.trim();
-        persistData();
-        renderStrategies();
-    }
+    requestInput("Renomear dica:", oldTip, (newTip) => {
+        if (newTip && newTip.trim() !== '') {
+            strategiesData[cat][tipIdx] = newTip.trim();
+            persistData();
+            renderStrategies();
+        }
+    });
 }
 
 function deleteStrategyTip(cat, tipIdx) {
-    if (confirm("Apagar esta dica?")) {
-        strategiesData[cat].splice(tipIdx, 1);
-        persistData();
-        renderStrategies();
-    }
+    requestConfirm("Apagar esta dica?", (res) => {
+        if (res) {
+            strategiesData[cat].splice(tipIdx, 1);
+            persistData();
+            renderStrategies();
+        }
+    });
 }
 
 
@@ -1182,69 +1260,77 @@ function renderChecklist() {
 }
 
 function addChecklistCategory() {
-    const cat = prompt("Nome da nova categoria:");
-    if (cat && !checklistData[cat]) {
-        checklistData[cat] = ["Novo Item"];
-        persistData();
-        renderChecklist();
-    } else if (checklistData[cat]) {
-        alert("Esta categoria já existe.");
-    }
+    requestInput("Nome da nova categoria:", "", (cat) => {
+        if (cat && !checklistData[cat]) {
+            checklistData[cat] = ["Novo Item"];
+            persistData();
+            renderChecklist();
+        } else if (checklistData[cat]) {
+            alert("Esta categoria já existe.");
+        }
+    });
 }
 
 function editChecklistCategory(oldCat) {
-    const newCat = prompt("Renomear categoria:", oldCat);
-    if (newCat && newCat !== oldCat) {
-        if (checklistData[newCat]) {
-            alert("Já existe uma categoria com este nome.");
-            return;
+    requestInput("Renomear categoria:", oldCat, (newCat) => {
+        if (newCat && newCat !== oldCat) {
+            if (checklistData[newCat]) {
+                alert("Já existe uma categoria com este nome.");
+                return;
+            }
+            checklistData[newCat] = checklistData[oldCat];
+            delete checklistData[oldCat];
+            persistData();
+            renderChecklist();
         }
-        checklistData[newCat] = checklistData[oldCat];
-        delete checklistData[oldCat];
-        persistData();
-        renderChecklist();
-    }
+    });
 }
 
 function deleteChecklistCategory(cat) {
-    if (confirm(`Tem certeza que deseja apagar a categoria "${cat}" e todos os seus itens ? `)) {
-        delete checklistData[cat];
-        persistData();
-        renderChecklist();
-    }
+    requestConfirm(`Tem certeza que deseja apagar a categoria "${cat}" e todos os seus itens ? `, (res) => {
+        if (res) {
+            delete checklistData[cat];
+            persistData();
+            renderChecklist();
+        }
+    });
 }
 
 function addChecklistItem(cat) {
-    const item = prompt(`Adicionar item em "${cat}": `);
-    if (item && item.trim() !== '') {
-        checklistData[cat].push(item.trim());
-        persistData();
-        renderChecklist();
-    }
+    requestInput(`Adicionar item em "${cat}": `, "", (item) => {
+        if (item && item.trim() !== '') {
+            checklistData[cat].push(item.trim());
+            persistData();
+            renderChecklist();
+        }
+    });
 }
 
 function editChecklistItem(cat, itemIdx) {
     const oldItem = checklistData[cat][itemIdx];
-    const newItem = prompt("Renomear item:", oldItem);
-    if (newItem && newItem.trim() !== '') {
-        checklistData[cat][itemIdx] = newItem.trim();
-        // Update check state if it was checked
-        if (checkedItems.includes(oldItem)) {
-            checkedItems = checkedItems.map(i => i === oldItem ? newItem.trim() : i);
+    requestInput("Renomear item:", oldItem, (newItem) => {
+        if (newItem && newItem.trim() !== '') {
+            checklistData[cat][itemIdx] = newItem.trim();
+            // Update check state if it was checked
+            if (checkedItems.includes(oldItem)) {
+                checkedItems = checkedItems.map(i => i === oldItem ? newItem.trim() : i);
+            }
+            persistData();
+            renderChecklist();
         }
-        persistData();
-        renderChecklist();
-    }
+    });
 }
 
 function deleteChecklistItem(cat, itemIdx) {
-    if (confirm("Apagar este item?")) {
-        const item = checklistData[cat][itemIdx];
-        checklistData[cat].splice(itemIdx, 1);
-        checkedItems = checkedItems.filter(i => i !== item); // Remove from checked items
-        persistData();
-        renderChecklist();
-    }
+    requestConfirm("Apagar este item?", (res) => {
+        if (res) {
+            const item = checklistData[cat][itemIdx];
+            checklistData[cat].splice(itemIdx, 1);
+            checkedItems = checkedItems.filter(i => i !== item); // Remove from checked items
+            persistData();
+            renderChecklist();
+        }
+    });
 }
 
 function toggleChecklist(item) {
@@ -1366,11 +1452,13 @@ function togglePendency(idx) {
 }
 
 function deletePendency(idx) {
-    if (confirm("Tem certeza que deseja apagar essa pendência?")) {
-        pendenciesList.splice(idx, 1);
-        persistData();
-        renderPendencies();
-    }
+    requestConfirm("Tem certeza que deseja apagar essa pendência?", (res) => {
+        if (res) {
+            pendenciesList.splice(idx, 1);
+            persistData();
+            renderPendencies();
+        }
+    });
 }
 
 // --- News Functions ---
