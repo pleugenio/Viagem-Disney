@@ -72,16 +72,18 @@ let tripData = [
         notes: '🍱 **Almoço (3)**. Jantar Tusker House.',
         details: [
             '🕒 Horários: 08:00 AM - 06:00 PM (Resort: 07:30 AM)',
-            '🎢 LL Expedition Everest (08:15–09:15 AM | 📍 Asia | 👤 Kamilla, Vicente | ⏱️ 1h)',
-            '🦒 LL Kilimanjaro Safaris (08:55–09:55 AM | 📍 Africa | 👤 Paulo | ⏱️ 1h)',
-            '🦒 LL Kilimanjaro Safaris (09:10–10:10 AM | 📍 Africa | 👤 Kamilla, Vicente, Joaquim | ⏱️ 1h)',
-            '🎢 LL Expedition Everest (09:55–10:55 AM | 📍 Asia | 👤 Paulo | ⏱️ 1h)',
+            '🎢 LL Expedition Everest (08:15–09:15 AM | 📍 Asia | 👤 Kamilla, Vicente | ⏱️ 1h | 📏 Altura mín: 112cm)',
+            '🦒 LL Kilimanjaro Safaris (08:55–09:55 AM | 📍 Africa | 👤 Paulo | ⏱️ 1h | sem altura mínima)',
+            '🦒 LL Kilimanjaro Safaris (09:10–10:10 AM | 📍 Africa | 👤 Kamilla, Vicente, Joaquim | ⏱️ 1h | sem altura mínima)',
+            '🎢 LL Expedition Everest (09:55–10:55 AM | 📍 Asia | 👤 Paulo | ⏱️ 1h | 📏 Altura mín: 112cm)',
             '🍱 **Almoço: Marmita Kids (3)** (11:00 AM | 📍 Baby Care | ⏱️ 1h)',
-            '🌊 LL Navi River Journey (11:10–12:10 PM | 📍 Pandora | 👤 Kamilla, Vicente, Joaquim | ⏱️ 1h)',
-            '🚀 LL Avatar Flight of Passage (11:45–12:45 PM | 📍 Pandora | 👤 Kamilla, Vicente | ⏱️ 1h)',
-            '🚀 LL Avatar Flight of Passage (11:55–12:55 PM | 📍 Pandora | 👤 Paulo | ⏱️ 1h)',
-            '🌊 LL Navi River Journey (12:05–13:05 PM | 📍 Pandora | 👤 Paulo | ⏱️ 1h)',
-            '🦁 Festival of the Lion King (02:30 PM | 📍 Africa | ⏱️ 30min)',
+            '🌊 LL Navi River Journey (11:10–12:10 PM | 📍 Pandora | 👤 Kamilla, Vicente, Joaquim | ⏱️ 1h | sem altura mínima)',
+            '🚀 LL Avatar Flight of Passage (11:45–12:45 PM | 📍 Pandora | 👤 Kamilla, Vicente | ⏱️ 1h | 📏 Altura mín: 112cm)',
+            '🚀 LL Avatar Flight of Passage (11:55–12:55 PM | 📍 Pandora | 👤 Paulo | ⏱️ 1h | 📏 Altura mín: 112cm)',
+            '🌊 LL Navi River Journey (12:05–13:05 PM | 📍 Pandora | 👤 Paulo | ⏱️ 1h | sem altura mínima)',
+            '🦜 Feathered Friends in Flight! (13:45 PM | 📍 Asia-Anandapur | ⏱️ 30min | sem altura mínima | ⚠️ Chegue 20min antes)',
+            '🦁 Festival of the Lion King (14:30 PM | 📍 Africa | ⏱️ 30min | sem altura mínima)',
+            '🐟 Finding Nemo: The Big Blue (15:30 PM | 📍 Discovery Island | ⏱️ 40min | sem altura mínima)',
             '🍴 Tusker House Dinner (05:15 PM | 📍 Africa | ⏱️ 1h30)'
         ]
     },
@@ -133,11 +135,15 @@ let tripData = [
         notes: '🍱 **Almoço (7)**. Jantar Rodeo.',
         details: [
             '🕒 Horários: 09:00 AM - 09:00 PM (Resort: 08:30 AM)',
-            '🧸 Toy Story Mania (10:00 AM | 📍 Toy Story Land | ⏱️ 1h)',
+            '🧸 Toy Story Mania (10:00 AM | 📍 Toy Story Land | ⏱️ 1h | sem altura mínima)',
+            '🎭 Indiana Jones Epic Stunt Spectacular (10:45 AM | 📍 Echo Lake | ⏱️ 30min | sem altura mínima | ⚠️ Show ao Vivo)',
+            '🎭 Beauty and the Beast Live (11:00 AM | 📍 Sunset Blvd | ⏱️ 25min | sem altura mínima)',
             '🍱 **Almoço: Marmita Kids (7)** (12:30 PM | 📍 Baby Care | ⏱️ 1h)',
+            '🎭 Indiana Jones Epic Stunt Spectacular (13:15 PM | 📍 Echo Lake | ⏱️ 30min | show alternativo)',
+            '🫱 Stormtroopers Galaxy\'s Edge (patrulham o dia todo | 📍 Batuu | sem horário fixo)',
             '🛠️ Droid Depot (05:10 PM | 📍 Galaxy\'s Edge | ⏱️ 45min)',
-            '🍴 Roundup Rodeo (06:55 PM | 📍 Toy Story Land | ⏱️ 1h30)',
-            '🎬 Fantasmic! (08:30 PM | 📍 Sunset Boulevard | ⏱️ 30min)'
+            '🍴 Roundup Rodeo BBQ (06:55 PM | 📍 Toy Story Land | ⏱️ 1h30)',
+            '🎬 Fantasmic! (08:30 PM | 📍 Sunset Blvd | ⏱️ 30min | sem altura mínima | ⚠️ 8:30PM até 23/04)'
         ]
     },
     {
@@ -204,10 +210,12 @@ let tripData = [
         notes: '🍱 **Almoço (10)**. Jantar Hollywood & Vine.',
         details: [
             '🕒 Horários: 09:00 AM - 09:00 PM (Resort: 08:30 AM)',
-            '❄️ Frozen (11:30 AM | 📍 Echo Lake | ⏱️ 30min)',
+            '❄️ Frozen: A Musical Spectacular (11:30 AM | 📍 Echo Lake | ⏱️ 30min | sem altura mínima)',
+            '🎭 Indiana Jones Epic Stunt Spectacular (13:15 PM | 📍 Echo Lake | ⏱️ 30min | sem altura mínima)',
             '🍱 **Almoço: Marmita Kids (10)** (13:00 | 📍 Baby Care | ⏱️ 1h)',
+            '🎭 Beauty and the Beast Live (14:00 PM | 📍 Sunset Blvd | ⏱️ 25min | sem altura mínima)',
             '🍴 Hollywood & Vine (05:00 PM | 📍 Echo Lake | ⏱️ 1h30)',
-            '🎬 Fantasmic VIP (08:30 PM | 📍 Sunset Blvd | ⏱️ 30min)'
+            '🎬 Fantasmic! VIP (08:30 PM | 📍 Sunset Blvd | ⏱️ 30min | ⚠️ 8:30PM até 23/04)'
         ]
     },
     {
@@ -395,13 +403,18 @@ const DISNEY_QUOTES = [
 ];
 
 const SHOWS_DATA = [
-    { park: 'Magic Kingdom', name: 'Happily Ever After', type: 'Fogos de Artifício', time: 'Noturno (geralmente 20:45 ou 21:00)', description: 'O clássico espetáculo de fogos e projeções no Castelo da Cinderela. Chegue de 45 a 60 min mais cedo para conseguir um bom lugar na Main Street.' },
-    { park: 'Magic Kingdom', name: 'Festival of Fantasy Parade', type: 'Desfile', time: 'Geralmente às 15:00', description: 'O desfile principal do MK com os personagens clássicos. A melhor visão é da Frontierland ou Liberty Square (com menos sol na cara).' },
-    { park: 'Hollywood Studios', name: 'Fantasmic!', type: 'Show Noturno', time: 'Depende do dia (geralmente 20:30 ou 21:00)', description: 'Show incrível do Mickey lutando contra vilões com água, fogo e lasers. O anfiteatro lota rápido, chegue muito cedo no final do dia ou use o Fantasmic Dining Package.' },
-    { park: 'Hollywood Studios', name: 'Beauty and the Beast', type: 'Musical', time: 'Vários horários no dia', description: 'Teatro estilo Broadway da Bela e a Fera. Ótimo para descansar no meio do dia.' },
-    { park: 'Epcot', name: 'Luminous The Symphony of Us', type: 'Fogos Noturnos', time: 'Geralmente às 21:00', description: 'Show noturno do Epcot na lagoa do World Showcase. Boas vistas do Japão, Itália, ou na ponte entre Reino Unido e França.' },
-    { park: 'Animal Kingdom', name: 'Festival of the Lion King', type: 'Show Musical', time: 'Vários ao longo do dia', description: 'Um dos melhores musicais da Disney! Fica na África. As filas podem ser longas, fique atento ao Genie+ ou chegue cedo.' },
-    { park: 'Animal Kingdom', name: 'Finding Nemo: The Big Blue... and Beyond!', type: 'Musical Teatral', time: 'Vários ao longo do dia', description: 'Espetáculo de marionetes e música do Procurando Nemo. Teatro fechado com ar-condicionado.' }
+    { park: 'Magic Kingdom', name: 'Happily Ever After (Fogos)', type: 'Fogos de Artifício', time: '21:30 PM', description: 'Espetáculo de fogos e projeções no Castelo da Cinderela. Chegue 45–60min antes. Melhor vista: frente do castelo na Main Street.' },
+    { park: 'Magic Kingdom', name: 'Festival of Fantasy Parade', type: 'Desfile', time: '15:00 PM (1x por dia)', description: 'Desfile principal com personagens clássicos. Melhor vista: Frontierland ou Liberty Square (menos sol).' },
+    { park: 'Magic Kingdom', name: 'Disney Starlight: Dream the Night Away', type: 'Desfile Noturno', time: '20:30 PM (Ter–Qui: só 1x) | Sex–Sáb: 20:30 + 22:30', description: '2ª apresentação é mais vazia. Percurso: Main Street → Frontierland (2ª: sentido inverso).' },
+    { park: 'Hollywood Studios', name: 'Fantasmic!', type: 'Show Noturno', time: '20:30 PM (até 23/04) | 21:00 PM (a partir 24/04)', description: 'Show do Mickey com água, fogo e lasers. Lota! Use Fantasmic Dining Package ou chegue 1h antes. Sem altura mínima.' },
+    { park: 'Hollywood Studios', name: 'Beauty and the Beast – Live on Stage', type: 'Musical', time: '11:00 / 13:00 / 14:00 / 16:00 / 17:00', description: 'Musical ao ar livre no Theater of the Stars. Chegar 25–35min antes. Sujeito a cancelamento por chuva. Sem altura mínima.' },
+    { park: 'Hollywood Studios', name: 'Indiana Jones Epic Stunt Spectacular', type: 'Show de Acrobacias', time: '10:45 / 12:00 / 13:15 / 15:15 / 16:30', description: 'Show de acrobacias e pirotecnia com o Indy. Anfiteatro coberto. Sem altura mínima.' },
+    { park: 'Hollywood Studios', name: 'Frozen: A Musical Spectacular', type: 'Musical', time: 'Vários horários (ver app Disney)', description: 'Musical do Frozen no Teatro Hyperion. Sem altura mínima. AC gelado — ótimo para o meio-dia.' },
+    { park: 'Hollywood Studios', name: 'Stormtroopers (Primeira Ordem)', type: 'Encontro / Patrulha', time: 'Patrulham Galaxy\'s Edge o dia todo (sem horário fixo)', description: 'Não há mais marcha programada. Stormtroopers circulam por Batuu interagindo com os visitantes.' },
+    { park: 'Epcot', name: 'Luminous The Symphony of Us', type: 'Show Noturno', time: '21:00 PM', description: 'Show de fogos na lagoa do World Showcase. Vistas: Japão, Itália, ou ponte RU–França.' },
+    { park: 'Animal Kingdom', name: 'Festival of the Lion King', type: 'Show Musical', time: 'A cada 1h das 10:00 às 16:00', description: 'Um dos melhores shows da Disney! Fica na África. Sem altura mínima. Chegue 15min antes.' },
+    { park: 'Animal Kingdom', name: 'Finding Nemo: The Big Blue... and Beyond!', type: 'Musical Teatral', time: 'Vários ao longo do dia', description: 'Marionetes e música do Nemo. Teatro fechado com AC. Sem altura mínima.' },
+    { park: 'Animal Kingdom', name: 'Feathered Friends in Flight!', type: 'Show de Aves', time: '10:45 / 11:45 / 13:45 / 14:45 / 15:45', description: 'Show incrível de aves exóticas voando sobre a plateia no Anandapur. Sem altura mínima. Chegue 20min antes.' }
 ];
 
 let wishlist = [];
