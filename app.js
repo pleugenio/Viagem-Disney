@@ -552,10 +552,7 @@ function getDailyVariableEstimate(day) {
 
     // Lightning Lane / Single Pass (3 people as requested)
     if (day.paidTickets) {
-        if (title.includes('magic kingdom')) lightningLane = 35 * 3;
-        else if (title.includes('epcot')) lightningLane = 24 * 3;
-        else if (title.includes('hollywood studios')) lightningLane = 29 * 3;
-        else if (title.includes('animal kingdom')) lightningLane = 19 * 3;
+        lightningLane = 0; // Já foram comprados!
     }
 
     // Check if day has restaurant or marmita for lunch
@@ -1167,7 +1164,11 @@ function renderLogistics() {
 function renderFinance() {
     let pendingUSD = 0;
     let projectedVariablesUSD = 0;
-    const paidItems = [];
+    const paidItems = [
+        { name: '🎢 LL Multi Pass Disney (1)', val: 'PAGO R$ 677,77 ($119.28 + IOF)' },
+        { name: '🎢 LL Multi Pass Disney (2)', val: 'PAGO R$ 859,48 ($151.26 + IOF)' },
+        { name: '🎢 LL Multi Pass Disney (3)', val: 'PAGO R$ 484,12 ($85.20 + IOF)' }
+    ];
     const pendingItemsRaw = [];
 
     tripData.forEach(day => {
@@ -1195,7 +1196,8 @@ function renderFinance() {
 
     const pendingBRL = pendingUSD * EXCHANGE_RATE;
     const variablesBRL = projectedVariablesUSD * EXCHANGE_RATE;
-    const remainingBRL = TOTAL_BUDGET_BRL - pendingBRL - variablesBRL;
+    const paidLLBRL = 677.77 + 859.48 + 484.12; // Lightning Lanes fixos com IOF
+    const remainingBRL = TOTAL_BUDGET_BRL - pendingBRL - variablesBRL - paidLLBRL;
 
     const fContainer = document.querySelector('.finance-container');
     if (!fContainer) return;
@@ -1205,18 +1207,18 @@ function renderFinance() {
         <div class="stats-grid">
             <div class="stat-card glass"><h3>Orçamento</h3><p class="value">R$25k</p></div>
             <div class="stat-card glass"><h3>Pendentes (Reservas)</h3><p class="value" style="color:var(--warning);">R$${pendingBRL.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p></div>
-            <div class="stat-card glass"><h3>Projeção (Snacks/LL/Almoço)</h3><p class="value" style="color:var(--accent-gold);">R$${variablesBRL.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p></div>
+            <div class="stat-card glass"><h3>Projeção (Snacks/Almoço)</h3><p class="value" style="color:var(--accent-gold);">R$${variablesBRL.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p></div>
             <div class="stat-card glass"><h3>Saldo Livre</h3><p class="value" style="color:var(--success);">R$${remainingBRL.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p></div>
         </div>
         <div class="glass" style="margin-top:1.5rem">
             <h4>💰 Total Projetado para Extras: $${projectedVariablesUSD}</h4>
-            <div style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:1rem;">(Inclui snacks $200/dia, Lightning Lane para 3 pessoas em parques Disney e almoços extras)</div>
+            <div style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:1rem;">(Inclui snacks $200/dia e almoços extras. Lightning Lanes já pagos!)</div>
             
             <h4>Pendências Atuais (A pagar no local):</h4>
             ${pendingItemsRaw.map(r => `<div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;"><span>${r.name}</span><strong>$${r.val}</strong></div>`).join('')}
             
             <h4 style="margin-top:1.5rem">Já Confirmado:</h4>
-            ${paidItems.map(r => `<div style="display:flex; justify-content:space-between; margin-bottom:0.5rem; opacity:0.6;"><span>${r.name}</span><span style="color:var(--success)">CONCLUÍDO</span></div>`).join('')}
+            ${paidItems.map(r => `<div style="display:flex; justify-content:space-between; margin-bottom:0.5rem; opacity:0.6;"><span>${r.name}</span><span style="color:var(--success)">${r.val === 'PAGO' ? 'CONCLUÍDO' : r.val}</span></div>`).join('')}
         </div>
     `;
 }
