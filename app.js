@@ -99,10 +99,19 @@ let tripData = [
         notes: '🍱 **Almoço (4)**. Crystal (Café) e Liberty (Jantar).',
         details: [
             '🕒 Horários: 09:00 AM - 09:30 PM (Resort: 08:30 AM)',
-            '☕ Crystal Palace (08:00 AM | 📍 Main Street U.S.A. | ⏱️ 1h15)',
-            '🎢 TRON (10:00 AM | 📍 Tomorrowland | ⏱️ 1h)',
+            '☕ Crystal Palace Character Breakfast (08:10 AM | 📍 Main Street U.S.A. | ⏱️ 1h15)',
+            '🏴‍☠️ LL Pirates of the Caribbean (09:35–10:35 AM | 📍 Adventureland | 👤 Kamilla, Vicente, Joaquim | ⏱️ 1h | sem altura mínima)',
+            '👻 LL Haunted Mansion (10:15–11:15 AM | 📍 Liberty Square | 👤 Kamilla, Vicente, Joaquim, Paulo | ⏱️ 1h | sem altura mínima)',
+            '🎢 LL Seven Dwarfs Mine Train (10:30–11:30 AM | 📍 Fantasyland | 👤 Kamilla, Vicente | ⏱️ 1h | 📏 Alt: 97cm)',
+            '✨ LL Peter Pan\'s Flight (10:55–11:55 AM | 📍 Fantasyland | 👤 Kamilla, Vicente, Joaquim | ⏱️ 1h | sem altura mínima)',
+            '🏴‍☠️ LL Pirates of the Caribbean (11:15–12:15 PM | 📍 Adventureland | 👤 Paulo | ⏱️ 1h | sem altura mínima)',
             '🍱 **Almoço: Marmita Kids (4)** (12:30 PM | 📍 Baby Care | ⏱️ 1h)',
-            '🍴 Liberty Tree (05:40 PM | 📍 Liberty Square | ⏱️ 1h30)',
+            '✨ LL Peter Pan\'s Flight (01:15–02:15 PM | 📍 Fantasyland | 👤 Paulo | ⏱️ 1h | sem altura mínima)',
+            '🏍️ LL TRON Lightcycle Run (01:35–02:35 PM | 📍 Tomorrowland | 👤 Kamilla, Vicente, Paulo | ⏱️ 1h | 📏 Alt: 122cm)',
+            '🎢 LL Seven Dwarfs Mine Train (02:35–03:35 PM | 📍 Fantasyland | 👤 Paulo | ⏱️ 1h | 📏 Alt: 97cm)',
+            '🎡 Festival of Fantasy Parade (03:00 PM | 📍 Liberty Square | ⏱️ 20min)',
+            '🍴 Jungle Navigation Co. LTD Skipper Canteen (05:20 PM | 📍 Adventureland | ⏱️ 1h30)',
+            '✨ Disney Starlight Parade (08:30 PM | 📍 Main Street | ⏱️ 20min)',
             '🎆 Happily Ever After (09:30 PM | 📍 Hub/Castle | ⏱️ 20min)'
         ]
     },
