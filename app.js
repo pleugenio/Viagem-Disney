@@ -198,9 +198,13 @@ let tripData = [
         notes: '🍱 **Almoço (9)**. Jantar Space 220.',
         details: [
             '🕒 Horários: 09:00 AM - 09:00 PM (Resort: 08:30 AM)',
-            '🐢 Nemo (10:00 AM | 📍 World Nature | ⏱️ 30min)',
-            '💠 Spaceship Earth (11:00 AM | ⏱️ 45min)',
-            '🍱 **Almoço: Marmita Kids (9)** (13:00 | 📍 Baby Care | ⏱️ 1h)',
+            '🐭 LL Remy\'s Ratatouille Adventure (10:00–11:00 AM | 📍 France | ⏱️ 1h | sem altura mínima)',
+            '🦅 LL Soarin\' Around the World (11:05–12:05 PM | 📍 World Nature | ⏱️ 1h | 📏 Alt: 102cm)',
+            '💠 Spaceship Earth (📍 World Celebration | Opcional / Fila Comum)',
+            '🍱 **Almoço: Marmita Kids (9)** (01:00 PM | 📍 Baby Care | ⏱️ 1h)',
+            '🌊 LL The Seas with Nemo & Friends (03:20–04:20 PM | 📍 World Nature | ⏱️ 1h | sem altura mínima)',
+            '🌌 VQ/LL Guardians of the Galaxy: Cosmic Rewind (04:05–05:05 PM | 📍 World Discovery | ⏱️ 1h | 📏 Alt: 107cm)',
+            '✨ ENTRAR JUNTOS (Nemo+Guardians): 04:05–04:20 PM',
             '🍴 Space 220 (05:05 PM | 📍 World Discovery | ⏱️ 1h30)',
             '🎆 Luminous (09:00 PM | 📍 World Showcase Lagoon | ⏱️ 15min)'
         ]
