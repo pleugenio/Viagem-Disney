@@ -601,8 +601,8 @@ function autoCheckBookedAttractions() {
 
 function injectUserCategories() {
     let injected = false;
-    const pKey = '🎒 Checklist: Paulo';
-    const kKey = '🎒 Checklist: Kamilla';
+    const jKey = '👶 Checklist: Joaquim';
+    const vKey = '👦 Checklist: Vicente';
 
     if (!checklistData[pKey]) {
         checklistData[pKey] = [
@@ -628,6 +628,34 @@ function injectUserCategories() {
             '💄 Protetor Labial / Hidratante',
             '🪭 Ventilador de Mão / Spray de Água',
             '👟 Tênis Reserva (Trocar se molhar)'
+        ];
+        injected = true;
+    }
+
+    if (!checklistData[jKey]) {
+        checklistData[jKey] = [
+            '👶 Fraldas (Diapers) - Quantidade para o dia',
+            '🧺 Lenços Umedecidos (Wipes)',
+            '👕 Muda de roupa extra (Spare clothes)',
+            '🌬️ Ventilador de Carrinho (Stroller Fan)',
+            '🧸 Brinquedo favorito / Chupeta (Pacifier)',
+            '🍼 Mamadeiras / Papinha (Baby food)',
+            '☔ Capa de chuva do carrinho (Stroller cover)',
+            '🆔 Pulseira de Identificação (ID Bracelet)'
+        ];
+        injected = true;
+    }
+
+    if (!checklistData[vKey]) {
+        checklistData[vKey] = [
+            '✍️ Caderno de Autógrafos e Caneta',
+            '🏰 Fantasia ou camiseta temática',
+            '👟 Tênis muito confortável (Walking shoes)',
+            '🕶️ Óculos escuros (Infantil)',
+            '🎒 Mochila pequena personalizada',
+            '🍼 Garrafa de água (Reusable bottle)',
+            '🎮 Tablet ou Brinquedos para as filas',
+            '🆔 Pulseira de Identificação (ID Bracelet)'
         ];
         injected = true;
     }
