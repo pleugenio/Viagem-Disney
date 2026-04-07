@@ -1064,8 +1064,17 @@ function addStrategyCategory() {
             strategiesData[catTrimmed] = [];
             persistData();
             renderStrategies();
+            setTimeout(() => {
+                const headers = document.querySelectorAll('.strategy-card h2');
+                for (let h of headers) {
+                    if (h.innerText === catTrimmed) {
+                        h.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        break;
+                    }
+                }
+            }, 150);
         } else if (catTrimmed && strategiesData[catTrimmed]) {
-            alert("Já existe um bloco com este nome.");
+            alert("Atenção: O bloco '" + catTrimmed + "' já foi criado e se encontra na lista abaixo!");
         }
     });
 }
@@ -1273,8 +1282,17 @@ function addChecklistCategory() {
             checklistData[catTrimmed] = ["Novo Item"];
             persistData();
             renderChecklist();
+            setTimeout(() => {
+                const headers = document.querySelectorAll('.checklist-category h3');
+                for (let h of headers) {
+                    if (h.innerText === catTrimmed) {
+                        h.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        break;
+                    }
+                }
+            }, 150);
         } else if (catTrimmed && checklistData[catTrimmed]) {
-            alert("Esta categoria já existe.");
+            alert("Atenção: A categoria '" + catTrimmed + "' já foi criada e está lá no final da lista!");
         }
     });
 }
