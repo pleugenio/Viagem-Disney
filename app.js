@@ -165,10 +165,13 @@ let tripData = [
         notes: '🍱 **Almoço (8)**. Jantar Be Our Guest.',
         details: [
             '🕒 Horários: 09:00 AM - 11:00 PM (Resort: 08:30 AM)',
-            '📸 Ensaio (09:00 AM | 📍 Front of Castle | ⏱️ 1h)',
+            '📸 Ensaio Fotográfico (09:00 AM | 📍 Front of Castle | ⏱️ 1h)',
+            '🏎️ LL Tomorrowland Speedway (09:15 AM | 📍 Tomorrowland | 📏 Alt: 82cm)',
+            '🧸 LL Many Adventures of Winnie the Pooh (10:25 AM | 📍 Fantasyland | sem altura mínima)',
+            '🚢 LL Jungle Cruise (11:25 AM | 📍 Adventureland | sem altura mínima)',
             '🍱 **Almoço: Marmita Kids (8)** (12:30 PM | 📍 Baby Care | ⏱️ 1h)',
             '🍴 Be Our Guest (06:10 PM | 📍 Fantasyland | ⏱️ 1h45)',
-            '🎆 Fogos (09:30 PM | 📍 Castle | ⏱️ 20min)'
+            '🎆 Fogos: Happily Ever After (09:30 PM | 📍 Castle | ⏱️ 20min)'
         ]
     },
     {
