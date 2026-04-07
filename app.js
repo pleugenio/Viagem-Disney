@@ -825,41 +825,91 @@ function renderCurrentDay(index = 0) {
     const estimate = getDailyVariableEstimate(day);
 
     let timelineHtml = `<div class="timeline-container">`;
+    const bookedSlots = [];
+
     (day.details || []).forEach((detail, detailIdx) => {
         const dStr = detail || "";
-        const timeMatch = dStr.match(/(\d{2}:\d{2})\s*(AM|PM)?/);
+        const timeMatch = dStr.match(/(\d{1,2}:\d{2})\s*(AM|PM)?/);
         const locationMatch = dStr.match(/📍\s*([^)|]+)/);
         const durationMatch = dStr.match(/⏱️\s*([^)|]+)/);
+
+        const isLL = dStr.includes('LL ') || ['🎢','🌊','🚀','🎡'].some(e => dStr.includes(e));
+        const isRestaurant = ['🍴','House','Restaurant','Palace','Chef','Dinner','Cafe','Cafe','Table'].some(k => dStr.includes(k));
         const isMarmita = dStr.includes('🍱');
-        const safeDetail = dStr.replace(/'/g, "\\'");
+        const isShow = ['🦁','🎆','🎇','Festival','Fantasmic','Luminous','Happily','Fogos','Parade','Show'].some(k => dStr.includes(k));
+        const isTransport = ['🚗','🛬','🛣️','🚌','🛂'].some(e => dStr.includes(e));
+        const isInfo = dStr.includes('🕒');
+
+        let dotColor, borderColor, bgColor, typeLabel;
+        if (isLL)             { dotColor='#60a5fa'; borderColor='#60a5fa'; bgColor='rgba(96,165,250,0.08)'; typeLabel='⚡ Lightning Lane'; }
+        else if (isRestaurant){ dotColor='#fbbf24'; borderColor='#fbbf24'; bgColor='rgba(251,191,36,0.08)';  typeLabel='🍽️ Restaurante'; }
+        else if (isMarmita)   { dotColor='#fb923c'; borderColor='#fb923c'; bgColor='rgba(251,146,60,0.08)';  typeLabel='🍱 Marmita Kids'; }
+        else if (isShow)      { dotColor='#c084fc'; borderColor='#c084fc'; bgColor='rgba(192,132,252,0.08)'; typeLabel='🎭 Show/Parada'; }
+        else if (isTransport) { dotColor='#34d399'; borderColor='#34d399'; bgColor='rgba(52,211,153,0.08)';  typeLabel='🚗 Transporte'; }
+        else if (isInfo)      { dotColor='rgba(255,255,255,0.3)'; borderColor='rgba(255,255,255,0.1)'; bgColor='transparent'; typeLabel=''; }
+        else                  { dotColor='var(--accent)'; borderColor='var(--glass-border)'; bgColor='transparent'; typeLabel=''; }
+
+        const endMatch = dStr.match(/[–\-]\s*(\d{1,2}:\d{2})\s*(AM|PM)?/);
+        if (timeMatch) bookedSlots.push({
+            start: timeMatch[0].trim(),
+            end: endMatch ? (endMatch[1] + (endMatch[2] ? ' '+endMatch[2] : '')) : null,
+            label: dStr.split('(')[0].split('📍')[0].trim().substring(0, 35)
+        });
 
         timelineHtml += `
             <div class="timeline-item" style="position:relative;">
-                <div class="timeline-dot" ${isMarmita ? 'style="background: #fb923c;"' : ''}></div>
-                <div class="timeline-content" ${isMarmita ? 'style="border-left: 4px solid #fb923c; background: rgba(251, 146, 60, 0.05);"' : ''}>
+                <div class="timeline-dot" style="background:${dotColor};"></div>
+                <div class="timeline-content" style="border-left:4px solid ${borderColor}; background:${bgColor};">
                     <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-                        <div class="timeline-time">
-                            ${timeMatch ? timeMatch[0] : 'Horário Livre'}
-                            ${durationMatch ? `• <span style="color:var(--accent-gold)">⏱️ ${durationMatch[1].trim()}</span>` : ''}
+                        <div>
+                            ${typeLabel ? `<span style="font-size:0.62rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:${dotColor}; opacity:0.85;">${typeLabel}</span><br>` : ''}
+                            <span class="timeline-time" style="color:${dotColor};">
+                                ${timeMatch ? timeMatch[0] : 'Horário Livre'}
+                                ${durationMatch ? `• <span style="color:var(--accent-gold);">⏱️ ${durationMatch[1].trim()}</span>` : ''}
+                            </span>
                         </div>
                         <div style="display:flex; gap:0.4rem; flex-shrink:0; margin-left:0.5rem;">
                             <span style="cursor:pointer; opacity:0.6; font-size:0.9rem;" onclick="editDayDetail(${index}, ${detailIdx})">✏️</span>
                             <span style="cursor:pointer; color:var(--danger); font-size:0.9rem;" onclick="deleteDayDetail(${index}, ${detailIdx})">🗑️</span>
                         </div>
                     </div>
-                    <p style="font-weight:700; margin-bottom:5px;">${dStr.includes('🕒') ? dStr.split('📍')[0].trim() : dStr.split('(')[0].split('📍')[0].trim()}</p>
-                    ${locationMatch ? `<div style="font-size:0.75rem; color:var(--accent); font-weight:600; margin-bottom:5px;">📍 ${locationMatch[1].trim()}</div>` : ''}
+                    <p style="font-weight:700; margin:4px 0;">${dStr.includes('🕒') ? dStr.split('📍')[0].trim() : dStr.split('(')[0].split('📍')[0].trim()}</p>
+                    ${locationMatch ? `<div style="font-size:0.75rem; color:var(--accent); font-weight:600; margin-bottom:4px;">📍 ${locationMatch[1].trim()}</div>` : ''}
+                    ${dStr.includes('👤') ? `<div style="font-size:0.72rem; color:${dotColor};">${(dStr.match(/👤[^|)]+/) || [''])[0]}</div>` : ''}
                     ${isMarmita ? '<span style="color:#fb923c; font-size:0.7rem;">🍛 Aquecer no Baby Care / Hotel</span>' : ''}
                     ${dStr.includes('PAGO') ? '<span style="color:var(--success); font-size:0.7rem; font-weight:700;">Confirmado ✅</span>' : ''}
                 </div>
             </div>`;
     });
+
+    // Free slot gaps
+    let freeSlotsHtml = '';
+    if (bookedSlots.length > 1) {
+        const gaps = [];
+        for (let i = 0; i < bookedSlots.length - 1; i++) {
+            const cur = bookedSlots[i].end;
+            const nxt = bookedSlots[i+1].start;
+            if (cur && nxt) gaps.push({ from: cur, to: nxt, after: bookedSlots[i].label });
+        }
+        if (gaps.length) {
+            freeSlotsHtml = `<div class="info-card glass" style="margin-top:1.5rem; border-left-color:#34d399; background:rgba(52,211,153,0.05);">
+                <h4 style="color:#34d399; margin-bottom:0.8rem;">🟢 Janelas Livres</h4>
+                ${gaps.map(g => `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; font-size:0.82rem;">
+                    <span style="opacity:0.65;">Após ${g.after.substring(0,22)}...</span>
+                    <strong style="color:#34d399; white-space:nowrap; margin-left:0.5rem;">${g.from} → ${g.to}</strong>
+                </div>`).join('')}
+                <div style="font-size:0.68rem; opacity:0.45; margin-top:0.4rem;">Use esses intervalos para marcar mais atrações ou descanso!</div>
+            </div>`;
+        }
+    }
+
     timelineHtml += `
         <div class="timeline-item">
             <div class="timeline-dot" style="background:var(--accent); opacity:0.4;"></div>
             <button onclick="addDayDetail(${index})" class="save-btn" style="margin:0; padding:0.4rem 1rem; width:auto; font-size:0.85rem; opacity:0.8;">+ Adicionar Evento</button>
         </div>
     </div>`;
+
 
     container.innerHTML = `
         <div class="timeline-column">${timelineHtml}</div>
@@ -885,6 +935,7 @@ function renderCurrentDay(index = 0) {
                 <h4>📝 Notas</h4>
                 <p style="font-size:0.85rem; line-height:1.5;">${day.notes || 'Sem observações.'}</p>
             </div>
+            ${freeSlotsHtml}
         </div>`;
 }
 
