@@ -644,7 +644,8 @@ function injectUserCategories() {
             '🧸 Brinquedo favorito / Chupeta (Pacifier)',
             '🍼 Mamadeiras / Papinha (Baby food)',
             '☔ Capa de chuva do carrinho (Stroller cover)',
-            '🆔 Pulseira de Identificação (ID Bracelet)'
+            '🆔 Pulseira de Identificação (ID Bracelet)',
+            '📍 AirTag na pulseira de silicone'
         ];
         injected = true;
     }
@@ -658,7 +659,8 @@ function injectUserCategories() {
             '🎒 Mochila pequena personalizada',
             '🍼 Garrafa de água (Reusable bottle)',
             '🎮 Tablet ou Brinquedos para as filas',
-            '🆔 Pulseira de Identificação (ID Bracelet)'
+            '🆔 Pulseira de Identificação (ID Bracelet)',
+            '📍 AirTag na pulseira de silicone'
         ];
         injected = true;
     }
