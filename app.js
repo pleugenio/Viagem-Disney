@@ -846,21 +846,43 @@ function renderCurrentDay(index = 0) {
         const locationMatch = dStr.match(/📍\s*([^)|]+)/);
         const durationMatch = dStr.match(/⏱️\s*([^)|]+)/);
 
-        const isLL = dStr.includes('LL ') || ['🎢','🌊','🚀','🎡'].some(e => dStr.includes(e));
-        const isRestaurant = ['🍴','House','Restaurant','Palace','Chef','Dinner','Cafe','Cafe','Table'].some(k => dStr.includes(k));
+        const isLL = dStr.includes('LL ') || ['🎢','🌊','🚀','🎡','🦒','🦜','🐟'].some(e => dStr.includes(e));
+        const isRestaurant = ['🍴','House','Restaurant','Palace','Chef','Dinner','Cafe','Table','BBQ','Vine'].some(k => dStr.includes(k));
         const isMarmita = dStr.includes('🍱');
-        const isShow = ['🦁','🎆','🎇','Festival','Fantasmic','Luminous','Happily','Fogos','Parade','Show'].some(k => dStr.includes(k));
+        const isShow = ['🦁','🎆','🎇','Festival','Fantasmic','Luminous','Happily','Fogos','Parade','Show','Musical','Stunt','Stormtrooper'].some(k => dStr.includes(k));
         const isTransport = ['🚗','🛬','🛣️','🚌','🛂'].some(e => dStr.includes(e));
         const isInfo = dStr.includes('🕒');
 
+        // Palette for per-attraction consistent colors
+        const ATTRACTION_PALETTE = [
+            '#60a5fa','#34d399','#f472b6','#a78bfa','#fb923c',
+            '#38bdf8','#4ade80','#facc15','#e879f9','#f87171',
+            '#2dd4bf','#818cf8','#fbbf24','#c084fc','#86efac'
+        ];
+        function attractionColor(name) {
+            let hash = 0;
+            for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) & 0xffff;
+            return ATTRACTION_PALETTE[hash % ATTRACTION_PALETTE.length];
+        }
+        // Extract bare attraction name: strip emojis, "LL", player names, time
+        function extractAttractionName(str) {
+            return str.replace(/LL\s*/g,'').replace(/👤[^|)]+/g,'').replace(/\(.*?\)/g,'').replace(/[^\w\sáéíóúãõâêôçÁÉÍÓÚÃÕÂÊÔÇ]/g,' ').trim().split(/\s{2,}/)[0].trim();
+        }
+
         let dotColor, borderColor, bgColor, typeLabel;
-        if (isLL)             { dotColor='#60a5fa'; borderColor='#60a5fa'; bgColor='rgba(96,165,250,0.08)'; typeLabel='⚡ Lightning Lane'; }
-        else if (isRestaurant){ dotColor='#fbbf24'; borderColor='#fbbf24'; bgColor='rgba(251,191,36,0.08)';  typeLabel='🍽️ Restaurante'; }
-        else if (isMarmita)   { dotColor='#fb923c'; borderColor='#fb923c'; bgColor='rgba(251,146,60,0.08)';  typeLabel='🍱 Marmita Kids'; }
-        else if (isShow)      { dotColor='#c084fc'; borderColor='#c084fc'; bgColor='rgba(192,132,252,0.08)'; typeLabel='🎭 Show/Parada'; }
-        else if (isTransport) { dotColor='#34d399'; borderColor='#34d399'; bgColor='rgba(52,211,153,0.08)';  typeLabel='🚗 Transporte'; }
-        else if (isInfo)      { dotColor='rgba(255,255,255,0.3)'; borderColor='rgba(255,255,255,0.1)'; bgColor='transparent'; typeLabel=''; }
-        else                  { dotColor='var(--accent)'; borderColor='var(--glass-border)'; bgColor='transparent'; typeLabel=''; }
+        if (isMarmita)    { dotColor='#fb923c'; borderColor='#fb923c'; bgColor='rgba(251,146,60,0.08)';  typeLabel='🍱 Marmita Kids'; }
+        else if (isRestaurant){ dotColor='#fbbf24'; borderColor='#fbbf24'; bgColor='rgba(251,191,36,0.08)'; typeLabel='🍽️ Restaurante'; }
+        else if (isShow)  { dotColor='#c084fc'; borderColor='#c084fc'; bgColor='rgba(192,132,252,0.08)'; typeLabel='🎭 Show/Parada'; }
+        else if (isTransport){ dotColor='#34d399'; borderColor='#34d399'; bgColor='rgba(52,211,153,0.08)'; typeLabel='🚗 Transporte'; }
+        else if (isInfo)  { dotColor='rgba(255,255,255,0.3)'; borderColor='rgba(255,255,255,0.1)'; bgColor='transparent'; typeLabel=''; }
+        else if (isLL) {
+            const attrName = extractAttractionName(dStr);
+            dotColor = attractionColor(attrName);
+            borderColor = dotColor;
+            bgColor = dotColor.startsWith('#') ? dotColor + '14' : 'rgba(96,165,250,0.08)';
+            typeLabel = '⚡ LL';
+        }
+        else { dotColor='var(--accent)'; borderColor='var(--glass-border)'; bgColor='transparent'; typeLabel=''; }
 
         const endMatch = dStr.match(/[–\-]\s*(\d{1,2}:\d{2})\s*(AM|PM)?/);
         if (timeMatch) bookedSlots.push({
