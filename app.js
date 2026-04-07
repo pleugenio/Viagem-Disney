@@ -1006,17 +1006,19 @@ function renderDashboard() {
             <h3 style="margin-bottom:1rem; color:var(--accent);">📱 Comunicação Internacional</h3>
             <div style="display:flex; flex-direction:column; gap:0.8rem; font-size:0.8rem;">
                 <div style="background:rgba(96,165,250,0.05); border-left:4px solid var(--accent); padding:0.8rem; border-radius:10px;">
-                    <strong style="display:block; margin-bottom:4px;">Ligar do Brasil para você (Roaming):</strong>
-                    Diar normalmente: 0 + Op + DDD + Seu Número
+                    <strong style="display:block; margin-bottom:4px;">Para alguém te ligar do Brasil:</strong>
+                    Discar normalmente o seu número com DDD. <br>
+                    Ex: <strong style="color:var(--accent);">(11) 9XXXX-XXXX</strong>
                 </div>
                 <div style="background:rgba(96,165,250,0.05); border-left:4px solid var(--accent); padding:0.8rem; border-radius:10px;">
-                    <strong style="display:block; margin-bottom:4px;">Ligar do Brasil para você (Chip EUA):</strong>
-                    00 + Op + 1 + (Area Code) + Número
-                </div>
-                <div style="background:rgba(96,165,250,0.05); border-left:4px solid var(--accent); padding:0.8rem; border-radius:10px;">
-                    <strong style="display:block; margin-bottom:4px;">Ligar de você para o Brasil:</strong>
-                    Mantenha a tecla 0 apertada para o **+** e disque: <br>
+                    <strong style="display:block; margin-bottom:4px;">Para você ligar para o Brasil:</strong>
+                    Segure o **0** para fazer o **+** e disque: <br>
                     <strong style="color:var(--accent);">+55 (DDD) NÚMERO</strong>
+                </div>
+                <div style="background:rgba(96,165,250,0.05); border-left:4px solid var(--accent); padding:0.8rem; border-radius:10px;">
+                    <strong style="display:block; margin-bottom:4px;">Chip Americano (Se tiver):</strong>
+                    Quem liga do Brasil usa: <br>
+                    <strong style="color:var(--accent);">00 + Op + 1 + (Area Code) + Número</strong>
                 </div>
             </div>
         </div>
