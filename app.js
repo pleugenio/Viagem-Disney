@@ -72,10 +72,17 @@ let tripData = [
         notes: '🍱 **Almoço (3)**. Jantar Tusker House.',
         details: [
             '🕒 Horários: 08:00 AM - 06:00 PM (Resort: 07:30 AM)',
-            '🦓 Safaris (08:30 AM | 📍 Africa | ⏱️ 1h)',
-            '🦁 Lion King (11:00 AM | 📍 Africa | ⏱️ 45min)',
-            '🍱 **Almoço: Marmita Kids (3)** (12:30 PM | 📍 Baby Care | ⏱️ 1h)',
-            '🍴 Tusker House (05:15 PM | 📍 Africa | ⏱️ 1h30)'
+            '🎢 LL Expedition Everest (08:15–09:15 AM | 📍 Asia | 👤 Kamilla, Vicente | ⏱️ 1h)',
+            '🦒 LL Kilimanjaro Safaris (08:55–09:55 AM | 📍 Africa | 👤 Paulo | ⏱️ 1h)',
+            '🦒 LL Kilimanjaro Safaris (09:10–10:10 AM | 📍 Africa | 👤 Kamilla, Vicente, Joaquim | ⏱️ 1h)',
+            '🎢 LL Expedition Everest (09:55–10:55 AM | 📍 Asia | 👤 Paulo | ⏱️ 1h)',
+            '🍱 **Almoço: Marmita Kids (3)** (11:00 AM | 📍 Baby Care | ⏱️ 1h)',
+            '🌊 LL Navi River Journey (11:10–12:10 PM | 📍 Pandora | 👤 Kamilla, Vicente, Joaquim | ⏱️ 1h)',
+            '🚀 LL Avatar Flight of Passage (11:45–12:45 PM | 📍 Pandora | 👤 Kamilla, Vicente | ⏱️ 1h)',
+            '🚀 LL Avatar Flight of Passage (11:55–12:55 PM | 📍 Pandora | 👤 Paulo | ⏱️ 1h)',
+            '🌊 LL Navi River Journey (12:05–13:05 PM | 📍 Pandora | 👤 Paulo | ⏱️ 1h)',
+            '🦁 Festival of the Lion King (02:30 PM | 📍 Africa | ⏱️ 30min)',
+            '🍴 Tusker House Dinner (05:15 PM | 📍 Africa | ⏱️ 1h30)'
         ]
     },
     {
