@@ -924,20 +924,46 @@ function renderCurrentDay(index = 0) {
     });
 
     // Free slot gaps
+    function calcGapStr(from, to) {
+        function parseTime(t) {
+            if (!t) return 0;
+            const pmMatch = t.toUpperCase().includes('PM');
+            const amMatch = t.toUpperCase().includes('AM');
+            const parts = t.replace(/[A-Za-z]/g, '').trim().split(':');
+            let h = parseInt(parts[0]) || 0;
+            let m = parseInt(parts[1]) || 0;
+            if (pmMatch && h < 12) h += 12;
+            if (amMatch && h === 12) h = 0;
+            if (!pmMatch && !amMatch && h < 8) h += 12; // Infer PM for PM-like hours without marker
+            return h * 60 + m;
+        }
+        const diff = parseTime(to) - parseTime(from);
+        if (diff > 0) {
+            const hrs = Math.floor(diff / 60);
+            const mins = diff % 60;
+            if (hrs === 0) return `(~${mins}min)`;
+            return `(~${hrs}h${mins > 0 ? mins : ''})`;
+        }
+        return '';
+    }
+
     let freeSlotsHtml = '';
     if (bookedSlots.length > 1) {
         const gaps = [];
         for (let i = 0; i < bookedSlots.length - 1; i++) {
             const cur = bookedSlots[i].end;
             const nxt = bookedSlots[i+1].start;
-            if (cur && nxt) gaps.push({ from: cur, to: nxt, after: bookedSlots[i].label });
+            if (cur && nxt) {
+                const gap = calcGapStr(cur, nxt);
+                if (gap) gaps.push({ from: cur, to: nxt, after: bookedSlots[i].label, gap });
+            }
         }
         if (gaps.length) {
             freeSlotsHtml = `<div class="info-card glass" style="margin-top:1.5rem; border-left-color:#34d399; background:rgba(52,211,153,0.05);">
                 <h4 style="color:#34d399; margin-bottom:0.8rem;">🟢 Janelas Livres</h4>
                 ${gaps.map(g => `<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; font-size:0.82rem;">
                     <span style="opacity:0.65;">Após ${g.after.substring(0,22)}...</span>
-                    <strong style="color:#34d399; white-space:nowrap; margin-left:0.5rem;">${g.from} → ${g.to}</strong>
+                    <strong style="color:#34d399; white-space:nowrap; margin-left:0.5rem;">${g.from} → ${g.to} <span style="font-size:0.75rem; opacity:0.7; font-weight:normal; margin-left:4px;">${g.gap}</span></strong>
                 </div>`).join('')}
                 <div style="font-size:0.68rem; opacity:0.45; margin-top:0.4rem;">Use esses intervalos para marcar mais atrações ou descanso!</div>
             </div>`;
