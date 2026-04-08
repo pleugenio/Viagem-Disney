@@ -728,16 +728,17 @@ body {
     .top-bar {
         display: flex;
         flex-direction: row !important;
-        justify-content: space-between !important;
+        justify-content: flex-end !important;
         align-items: center !important;
         width: 100%;
         margin-bottom: 0;
-        padding: 1rem 1rem 0.75rem 1rem;
+        padding: 0.6rem 1rem;
         position: sticky;
         top: 0;
         z-index: 100;
         background: var(--bg-dark);
         border-bottom: 1px solid var(--glass-border);
+        gap: 0.75rem;
     }
 
     .top-bar h1 {
@@ -752,28 +753,27 @@ body {
 
     .today-header {
         position: sticky;
-        top: 73px; /* height of top-bar */
+        top: 0;
         z-index: 99;
         background: var(--bg-dark);
-        padding: 0.75rem 1rem;
+        padding: 0.6rem 1rem;
         margin: 0;
         border-bottom: 1px solid var(--glass-border);
         display: flex;
         align-items: center;
-        gap: 0.75rem;
+        gap: 0.5rem;
     }
 
+    /* Esconde o título — espaço demais no mobile */
     .today-header h2 {
-        font-size: 0.9rem;
-        white-space: nowrap;
-        opacity: 0.6;
-        font-weight: 600;
+        display: none;
     }
 
     #day-selector {
         flex: 1;
-        font-size: 0.95rem !important;
-        padding: 0.6rem 0.75rem !important;
+        min-width: 0;
+        font-size: 0.9rem !important;
+        padding: 0.55rem 0.6rem !important;
         border-radius: 12px !important;
         min-height: 44px;
         font-weight: 700;
@@ -781,7 +781,8 @@ body {
     }
 
     #today-content {
-        padding: 1rem;
+        padding: 0.75rem;
+        overflow-x: hidden;
     }
 
     /* ── Timeline ── */
@@ -791,33 +792,45 @@ body {
         gap: 1rem !important;
     }
 
+    .timeline-column,
+    .info-column {
+        min-width: 0;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
     .timeline-container {
-        padding-left: 1.25rem; /* Even less padding on mobile */
+        padding-left: 1.5rem;
+        overflow-x: hidden;
     }
 
     .timeline-dot {
-        left: -1.35rem;
-        width: 0.9rem;
-        height: 0.9rem;
+        left: -1.1rem;
+        width: 0.8rem;
+        height: 0.8rem;
     }
 
     .timeline-item {
-        margin-bottom: 1.25rem;
+        margin-bottom: 1rem;
+        overflow-x: hidden;
     }
 
     .timeline-content {
-        padding: 0.9rem 1rem !important;
-        border-radius: 14px !important;
+        padding: 0.75rem 0.875rem !important;
+        border-radius: 12px !important;
+        overflow-wrap: break-word;
+        word-break: break-word;
     }
 
     .timeline-time {
-        font-size: 1.05rem !important;
+        font-size: 0.95rem !important;
     }
 
     .timeline-content p {
-        font-size: 1rem !important;
-        line-height: 1.45;
+        font-size: 0.9rem !important;
+        line-height: 1.4;
         font-weight: 600;
+        overflow-wrap: break-word;
     }
 
     /* ── Stats Grid: 2×2 on mobile ── */
