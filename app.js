@@ -396,65 +396,45 @@ let strategiesData = {
         "**Animal Kingdom**: 7 AM: Marcar Safari ou Navi River. Comprar Individual LL para Avatar Flight of Passage.",
         "**Epcot**: Equipe de Fila Virtual para Guardians of the Galaxy (7 AM). Genie+ para Remy ou Frozen."
     ],
-    '🇺🇸 Inglês: Hotel e Reservas': [
-        "**Check-in**: I have a reservation under Paulo Lopes (Tenho uma reserva no nome de Paulo Lopes).",
-        "**Quarto pronto?**: Is our room ready? (Nosso quarto está pronto?)",
-        "**Check-out**: What time is check-out? (Que horas é o check-out?)",
-        "**Encomendas Amazon**: I'm expecting a package from Amazon. Did it arrive? (Estou esperando um pacote da Amazon. Chegou?)",
-        "**Buscar pacote**: Is there a package under the name Paulo Lopes? (Tem um pacote no nome de Paulo Lopes?)",
-        "**Geladeira**: Can we store these meals in a refrigerator? (Podemos guardar estas refeições numa geladeira?)",
-        "**Micro-ondas**: Is there a microwave available to heat our food? (Tem um micro-ondas disponível para aquecer nossa comida?)",
-        "**Wi-Fi**: What is the Wi-Fi password? (Qual é a senha do Wi-Fi?)"
+    '🇺🇸 Inglês: Hotel e Reservas (Estilo Americano)': [
+        "**Check-in**: Hi, I'm checking in for Paulo Lopes (Oi, estou fazendo check-in para Paulo Lopes).",
+        "**Quarto pronto?**: Is our room good to go? / Any chance it's ready? (Nosso quarto está pronto?)",
+        "**Check-out**: What time do we need to clear out? (Que horas precisamos sair?)",
+        "**Encomendas Amazon**: Did anything come in for me? (Chegou alguma coisa para mim?)",
+        "**Recolher pacote**: I'm here to pick up a package for Paulo (Vim buscar um pacote para Paulo).",
+        "**Geladeira**: Could we keep this in the fridge? (Poderia guardar isso na geladeira?)",
+        "**Micro-ondas**: Is there a microwave we can use? (Tem um micro-ondas que possamos usar?)",
+        "**Wi-Fi**: What's the Wi-Fi password? (Qual a senha do Wi-Fi?)"
     ],
-    '🇺🇸 Inglês: Restaurantes': [
-        "**Mesa**: A table for four, please (Uma mesa para quatro, por favor).",
-        "**Reserva**: We have a reservation at 5 PM (Temos uma reserva às 17h).",
-        "**Cadeira alta**: Can we have a high chair for the baby? (Pode nos dar um cadeirão para o bebê?)",
-        "**Pedido**: I would like the [dish name] (Eu gostaria do [nome do prato]).",
-        "**Conta**: Check, please / Can I have the bill? (A conta, por favor).",
-        "**Água**: Just tap water, please (Apenas água da torneira/grátis, por favor)."
+    '🇺🇸 Inglês: Restaurantes (Natural)': [
+        "**Mesa**: Table for four? (Mesa para quatro? - mais direto e natural).",
+        "**Reserva**: We have a 5 PM reservation (Temos reserva às 17h).",
+        "**Cadeira alta**: Do you have a high chair? (Vocês têm cadeirão?)",
+        "**Pedido**: I'll go with the [dish name] (Eu vou querer o [nome do prato]).",
+        "**Conta**: Can we get the check? / Check, please. (A conta, por favor).",
+        "**Água**: Can we just get some ice water? (Pode nos trazer água com gelo? - lembra que é de graça)."
     ],
     '🇺🇸 Inglês: Parques e Filas': [
-        "**Espera**: How long is the wait? (Quanto tempo de espera?)",
-        "**Banheiro**: Where is the nearest restroom? (Onde fica o banheiro mais próximo?)",
-        "**Fila**: Is this the line for [Ride Name]? (Esta é a fila para [Atração]?)",
-        "**Foto**: Can you take a photo for us? (Pode tirar uma foto para nós?)",
-        "**Localização**: How do I get to [Place]? (Como chego em [Lugar]?)",
-        "**Criança perdida**: I lost my son. He is wearing a blue shirt (Perdi meu filho. Ele está de camisa azul)."
+        "**Espera**: How long for this one? / What's the wait? (Quanto tempo para este? / Qual a espera?)",
+        "**Banheiro**: Where are the restrooms? (Onde ficam os banheiros?)",
+        "**Fila**: Is this the line for [Ride]? (Esta é a fila para [Atração]?)",
+        "**Foto**: Would you mind taking a photo for us? (Se importaria de tirar uma foto nossa?)",
+        "**Localização**: Which way to [Place]? (Para que lado fica [Lugar]?)",
+        "**Criança perdida (Direto)**: I can't find my son! (Não consigo achar meu filho!)"
     ],
-    '🇺🇸 Inglês: Emergências e Ajuda': [
-        "**Ajuda**: Can you help me? (Pode me ajudar?)",
-        "**Médico**: I need a doctor / Where is the First Aid? (Preciso de um médico / Onde fica o Primeiro Socorros?)",
-        "**Telefone**: Can I use your phone? It's an emergency (Posso usar seu telefone? É uma emergência).",
-        "**Segurança**: Where is the Security? (Onde fica a segurança?)",
-        "**Polícia**: Call the police (Chame a polícia)."
+    "🇺🇸 Inglês: Aluguel de Carro (Sem 'Boob')": [
+        "**Reserva**: Checking in for a rental with Alamo (Fazendo check-in do aluguel com a Alamo).",
+        "**Taxa/Caução**: Just the 83-dollar fee and the deposit today (Apenas a taxa de 83 e o caução hoje).",
+        "**Recusar Extras**: I'm good on the extras, thanks. (Estou tranquilo de extras, obrigado).",
+        "**Recusar Seguro**: I'm all set with the insurance included (Já estou pronto com o seguro incluso).",
+        "**Tanque**: I'll bring it back full (Vou trazer de volta cheio)."
     ],
-    '🚗 Estratégia: Aluguel de Carro (Alamo)': [
-        "**Pagamento**: Pagar apenas a taxa de $83 dólares reservada.",
-        "**Caução**: Apresentar cartão de crédito para o bloqueio do caução (deposit).",
-        "**Upsells**: Recusar firmemente seguros extras (Roadside Assistance, PAI, etc) e Upgrades pagos.",
-        "**Frase de Recusa**: No thank you, just the basic insurance included in my voucher (Não, obrigado, apenas o seguro básico incluído no meu voucher)."
-    ],
-    '🇺🇸 Inglês: Aluguel de Carro': [
-        "**Reserva**: I have a reservation with Alamo (Tenho uma reserva com a Alamo).",
-        "**Taxa/Caução**: I want to pay the eighty-three dollar fee and the deposit (Quero pagar a taxa de 83 dólares e o caução).",
-        "**Sem extras**: No extras, please. I don't need additional insurance or upgrades (Sem extras, por favor. Não preciso de seguros adicionais ou upgrades).",
-        "**Tanque**: I will return the car with a full tank (Eu vou devolver o carro com o tanque cheio)."
-    ],
-    '🛍️ Estratégia: Compras (Outlet)': [
-        "**Estacionamento**: Chegar até as 10:00 AM (abertura) para garantir vaga fácil.",
-        "**Cupons**: Ir primeiro no Guest Services para pegar o 'Coupon Book' (peça o livreto com descontos extras).",
-        "**Fundo da Loja**: As melhores promoções (Clearance 70%) costumam ficar no fundo das lojas.",
-        "**Mala de Rodinha**: Levar uma mala vazia para não carregar sacolas pesadas o dia inteiro.",
-        "**Impostos**: Lembre-se que o preço da etiqueta não tem o imposto (Sales Tax de 6.5% de Orlando)."
-    ],
-    '🇺🇸 Inglês: Compras (Outlet)': [
-        "**Cupons**: Where is the Guest Services desk? / Do you have any coupons? (Onde fica o atendimento? / Tem cupons?)",
-        "**Desconto**: Is this on sale? (Isto está em promoção?)",
-        "**Tamanho**: Do you have this in a medium/large? (Tem este no tamanho médio/grande?)",
-        "**Provador**: Where is the fitting room? (Onde fica o provador?)",
-        "**Devolução**: What is the return policy? (Qual a política de devolução?)",
-        "**Preço final**: How much is this with tax? (Quanto custa isto com o imposto?)"
+    '🇺🇸 Inglês: Compras no Outlet': [
+        "**Cupons**: Where do I get the coupon book? (Onde pego o livrinho de cupons?)",
+        "**Desconto**: Is this on sale? / Any extra discounts? (Está em promoção? / Algum desconto extra?)",
+        "**Tamanho**: Do you have this in a medium? (Tem este no M?)",
+        "**Provador**: Can I try this on? (Posso provar este?)",
+        "**Pagar**: I'll take these. (Vou levar estes)."
     ]
 };
 
