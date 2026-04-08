@@ -1,32 +1,34 @@
 :root {
-    /* Base Variables (Shared) */
-    --accent: #38bdf8;
-    --accent-gold: #fbbf24;
+    /* ── Disney Magic Palette ── */
+    --accent: #60a5fa;            /* Azul Disney */
+    --accent-gold: #f5c542;       /* Dourado Disney */
+    --accent-magic: #a855f7;      /* Roxo mágico */
+    --accent-pink: #f472b6;       /* Rosa Disney */
     --danger: #f87171;
     --success: #4ade80;
-    --warning: #fbbf24;
+    --warning: #f5c542;
 
-    /* Dark Theme (Default) */
-    --bg-dark: #020617;
-    --bg-card: rgba(30, 41, 59, 0.5);
-    --bg-sidebar: rgba(15, 23, 42, 0.98);
-    --text-primary: #f8fafc;
-    --text-secondary: #94a3b8;
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --timeline-line: rgba(56, 189, 248, 0.3);
-    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --modal-bg: rgba(15, 23, 42, 0.9);
+    /* Dark Theme — Noite Mágica */
+    --bg-dark: #07011a;
+    --bg-card: rgba(22, 8, 55, 0.62);
+    --bg-sidebar: rgba(7, 1, 26, 0.98);
+    --text-primary: #faf5ff;
+    --text-secondary: #b89fe0;
+    --glass-border: rgba(168, 85, 247, 0.22);
+    --timeline-line: rgba(168, 85, 247, 0.4);
+    --card-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+    --modal-bg: rgba(10, 2, 35, 0.94);
 }
 
 body.light-mode {
-    --bg-dark: #f1f5f9;
-    --bg-card: rgba(255, 255, 255, 0.8);
+    --bg-dark: #faf5ff;
+    --bg-card: rgba(255, 255, 255, 0.88);
     --bg-sidebar: #ffffff;
-    --text-primary: #1e293b;
-    --text-secondary: #64748b;
-    --glass-border: rgba(0, 0, 0, 0.1);
-    --timeline-line: rgba(56, 189, 248, 0.5);
-    --card-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    --text-primary: #2e1065;
+    --text-secondary: #7c3aed;
+    --glass-border: rgba(124, 58, 237, 0.2);
+    --timeline-line: rgba(124, 58, 237, 0.3);
+    --card-shadow: 0 10px 20px rgba(124, 58, 237, 0.1);
 }
 
 /* Detailed Day View Styles */
@@ -105,26 +107,19 @@ body.light-mode {
     line-height: 1.4;
 }
 
-.info-card {
-    background: rgba(56, 189, 248, 0.05);
-    border-left: 4px solid var(--accent);
-    padding: 2rem;
-    margin-bottom: 2rem;
-}
-
 .info-card h4 {
     font-size: 1.6rem;
     margin-bottom: 1rem;
 }
 
 .baby-care-tip {
-    background: rgba(168, 85, 247, 0.1);
-    border-left: 4px solid #c084fc;
+    background: rgba(244, 114, 182, 0.08);
+    border-left: 4px solid #f472b6;
     padding: 2rem;
     border-radius: 12px;
     font-size: 1.2rem;
-    /* Bigger tip text */
     line-height: 1.6;
+    box-shadow: 0 0 20px rgba(244, 114, 182, 0.08);
 }
 
 * {
@@ -136,18 +131,21 @@ body.light-mode {
 body {
     font-family: 'Outfit', sans-serif;
     background-color: var(--bg-dark);
+    background-image:
+        radial-gradient(ellipse at 18% 45%, rgba(168, 85, 247, 0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 82% 18%, rgba(244, 114, 182, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 55% 88%, rgba(96, 165, 250, 0.07) 0%, transparent 50%);
     color: var(--text-primary);
     display: flex;
     min-height: 100vh;
     overflow-x: hidden;
     font-size: 1.2rem;
-    /* Global increase */
 }
 
 /* Sidebar Styling */
 .sidebar {
     width: 300px;
-    background: var(--bg-sidebar);
+    background: linear-gradient(180deg, rgba(12, 3, 35, 0.98) 0%, var(--bg-sidebar) 100%);
     border-right: 1px solid var(--glass-border);
     padding: 3rem 2rem;
     display: flex;
@@ -164,8 +162,14 @@ body {
     gap: 1rem;
     margin-bottom: 4rem;
     font-size: 2.2rem;
-    /* Much bigger */
     font-weight: 800;
+}
+
+.logo .text {
+    background: linear-gradient(135deg, #f5c542 0%, #f472b6 50%, #a855f7 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .nav-links {
@@ -174,28 +178,29 @@ body {
 
 .nav-links li {
     padding: 1.2rem 1.5rem;
-    /* More padding */
-    margin-bottom: 1rem;
-    border-radius: 12px;
+    margin-bottom: 0.75rem;
+    border-radius: 14px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     align-items: center;
     gap: 1.2rem;
     color: var(--text-secondary);
     font-size: 1.3rem;
-    /* Bigger */
+    border: 1px solid transparent;
 }
 
 .nav-links li:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(168, 85, 247, 0.1);
     color: var(--text-primary);
+    border-color: rgba(168, 85, 247, 0.2);
 }
 
 .nav-links li.active {
-    background: var(--accent);
-    color: white;
-    box-shadow: 0 4px 20px rgba(56, 189, 248, 0.2);
+    background: linear-gradient(135deg, rgba(245, 197, 66, 0.18), rgba(168, 85, 247, 0.25));
+    color: #f5c542;
+    border-color: rgba(245, 197, 66, 0.35);
+    box-shadow: 0 4px 24px rgba(245, 197, 66, 0.18), inset 0 0 20px rgba(168, 85, 247, 0.08);
 }
 
 /* Content Area */
@@ -220,23 +225,26 @@ body {
 
 
 .countdown {
-    background: var(--accent-gold);
-    color: #000;
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    color: #f5c542;
     padding: 0.5rem 1.25rem;
     border-radius: 25px;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 0.85rem;
-    box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+    border: 1px solid rgba(245, 197, 66, 0.4);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.5), 0 0 40px rgba(168, 85, 247, 0.15);
+    letter-spacing: 0.3px;
 }
 
 /* Glassmorphism Cards */
 .glass {
     background: var(--bg-card);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--glass-border);
     border-radius: 24px;
     padding: 1.75rem;
+    box-shadow: var(--card-shadow);
 }
 
 /* Grid Layouts */
@@ -261,8 +269,11 @@ body {
 
 .stat-card .value {
     font-size: 2.25rem;
-    font-weight: 700;
-    color: var(--accent);
+    font-weight: 800;
+    background: linear-gradient(135deg, #f5c542, #ff9d00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* Itinerary Grid */
@@ -310,8 +321,8 @@ body {
 
 .itinerary-card:hover {
     transform: scale(1.02);
-    border-color: var(--accent);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--accent-gold);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(245, 197, 66, 0.15);
 }
 
 .itinerary-card .header {
@@ -333,32 +344,38 @@ body {
 
 /* Tags */
 .load-tag {
-    padding: 4px 10px;
-    border-radius: 8px;
-    font-size: 0.7rem;
-    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.68rem;
+    font-weight: 800;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid transparent;
 }
 
 .load-leve {
-    background: rgba(74, 222, 128, 0.1);
-    color: var(--success);
+    background: rgba(74, 222, 128, 0.15);
+    color: #4ade80;
+    border-color: rgba(74, 222, 128, 0.35);
 }
 
 .load-médio {
-    background: rgba(251, 191, 36, 0.1);
-    color: var(--warning);
+    background: rgba(245, 197, 66, 0.15);
+    color: #f5c542;
+    border-color: rgba(245, 197, 66, 0.35);
 }
 
 .load-pesado {
-    background: rgba(248, 113, 113, 0.1);
-    color: var(--danger);
+    background: rgba(248, 113, 113, 0.15);
+    color: #f87171;
+    border-color: rgba(248, 113, 113, 0.35);
 }
 
 .load-critico {
-    background: rgba(168, 85, 247, 0.1);
-    color: #c084fc;
-    border: 1px solid rgba(168, 85, 247, 0.3);
+    background: rgba(244, 114, 182, 0.15);
+    color: #f472b6;
+    border-color: rgba(244, 114, 182, 0.4);
+    box-shadow: 0 0 10px rgba(244, 114, 182, 0.2);
 }
 
 /* Modal Styling */
@@ -384,14 +401,14 @@ body {
 }
 
 .modal-content {
-    background: #1e293b;
+    background: linear-gradient(135deg, #0e0530, #150840);
     border-radius: 28px;
     padding: 3rem;
     width: 100%;
     max-width: 550px;
     position: relative;
-    border: 1px solid var(--glass-border);
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px rgba(168, 85, 247, 0.15);
 }
 
 .close-btn {
@@ -440,7 +457,7 @@ body {
 .save-btn {
     width: 100%;
     padding: 1.25rem;
-    background: var(--accent);
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
     border: none;
     border-radius: 16px;
     color: white;
@@ -449,12 +466,13 @@ body {
     cursor: pointer;
     transition: all 0.3s;
     margin-top: 1rem;
+    box-shadow: 0 4px 20px rgba(168, 85, 247, 0.35);
 }
 
 .save-btn:hover {
-    filter: brightness(1.1);
+    filter: brightness(1.15);
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(56, 189, 248, 0.3);
+    box-shadow: 0 12px 30px rgba(168, 85, 247, 0.5);
 }
 
 /* Tabs */
@@ -476,7 +494,7 @@ body {
 }
 
 .checklist-category h3 {
-    color: var(--accent);
+    color: var(--accent-gold);
     margin-bottom: 1rem;
     font-size: 1.1rem;
     border-bottom: 1px solid var(--glass-border);
@@ -502,7 +520,7 @@ body {
     width: 18px;
     height: 18px;
     cursor: pointer;
-    accent-color: var(--accent);
+    accent-color: var(--accent-magic);
 }
 
 .wishlist-table {
@@ -530,7 +548,8 @@ body {
 
 .wishlist-price {
     color: var(--accent-gold);
-    font-weight: 700;
+    font-weight: 800;
+    text-shadow: 0 0 12px rgba(245, 197, 66, 0.4);
 }
 
 .wishlist-delete {
@@ -620,17 +639,18 @@ body {
         flex-direction: row !important;
         padding: 0 !important;
         border-right: none !important;
-        border-top: 1px solid var(--glass-border) !important;
+        border-top: 1px solid rgba(168, 85, 247, 0.3) !important;
         z-index: 9999 !important;
-        background: rgba(10, 18, 36, 0.98) !important;
-        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.6) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
+        background: linear-gradient(180deg, rgba(10, 2, 30, 0.98), rgba(7, 1, 26, 0.99)) !important;
+        box-shadow: 0 -4px 30px rgba(168, 85, 247, 0.25) !important;
+        backdrop-filter: blur(24px) !important;
+        -webkit-backdrop-filter: blur(24px) !important;
     }
 
     body.light-mode .sidebar {
-        background: rgba(255, 255, 255, 0.97) !important;
-        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15) !important;
+        background: rgba(255, 252, 255, 0.97) !important;
+        border-top-color: rgba(124, 58, 237, 0.2) !important;
+        box-shadow: 0 -4px 24px rgba(124, 58, 237, 0.1) !important;
     }
 
     .logo {
@@ -882,8 +902,8 @@ body {
 
 /* Theme Toggle */
 .theme-toggle {
-    background: transparent;
-    border: 1px solid var(--glass-border);
+    background: rgba(168, 85, 247, 0.12);
+    border: 1px solid rgba(168, 85, 247, 0.3);
     color: var(--text-primary);
     padding: 0.6rem;
     border-radius: 12px;
@@ -896,9 +916,60 @@ body {
 }
 
 .theme-toggle:hover {
-    background: var(--accent);
+    background: var(--accent-magic);
+    border-color: var(--accent-magic);
     color: white;
-    transform: rotate(15deg);
+    transform: rotate(20deg);
+    box-shadow: 0 0 16px rgba(168, 85, 247, 0.5);
+}
+
+/* ── Sparkle animation for logo castle ── */
+@keyframes sparkle {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.7; transform: scale(1.12) rotate(8deg); }
+}
+
+.logo .emoji {
+    animation: sparkle 3s ease-in-out infinite;
+    display: inline-block;
+}
+
+/* ── Section headings with gold accent ── */
+.tab-content h2 {
+    background: linear-gradient(135deg, var(--text-primary) 60%, var(--accent-magic) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ── Info card with Disney purple ── */
+.info-card {
+    background: rgba(168, 85, 247, 0.06);
+    border-left: 4px solid var(--accent-magic);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 0 12px 12px 0;
+}
+
+/* ── Wishlist item hover ── */
+.wishlist-item:hover {
+    background: rgba(168, 85, 247, 0.07);
+}
+
+/* ── Calendar empty cell ── */
+.calendar-empty {
+    background: rgba(168, 85, 247, 0.03);
+    border: 1px dashed rgba(168, 85, 247, 0.15);
+    border-radius: 24px;
+    opacity: 0.5;
+}
+
+/* ── Marmita tracker Disney orange ── */
+.marmita-count {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #fb923c;
+    text-shadow: 0 0 10px rgba(251, 146, 60, 0.4);
 }
 
 .detail-list {
