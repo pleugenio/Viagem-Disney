@@ -400,7 +400,10 @@ let strategiesData = {
         "**Check-in**: I have a reservation under Paulo Lopes (Tenho uma reserva no nome de Paulo Lopes).",
         "**Quarto pronto?**: Is our room ready? (Nosso quarto está pronto?)",
         "**Check-out**: What time is check-out? (Que horas é o check-out?)",
-        "**Ajuda com malas**: Can you help us with our luggage? (Pode nos ajudar com as malas?)",
+        "**Encomendas Amazon**: I'm expecting a package from Amazon. Did it arrive? (Estou esperando um pacote da Amazon. Chegou?)",
+        "**Buscar pacote**: Is there a package under the name Paulo Lopes? (Tem um pacote no nome de Paulo Lopes?)",
+        "**Geladeira**: Can we store these meals in a refrigerator? (Podemos guardar estas refeições numa geladeira?)",
+        "**Micro-ondas**: Is there a microwave available to heat our food? (Tem um micro-ondas disponível para aquecer nossa comida?)",
         "**Wi-Fi**: What is the Wi-Fi password? (Qual é a senha do Wi-Fi?)"
     ],
     '🇺🇸 Inglês: Restaurantes': [
