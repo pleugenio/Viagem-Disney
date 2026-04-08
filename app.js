@@ -440,6 +440,21 @@ let strategiesData = {
         "**Taxa/Caução**: I want to pay the eighty-three dollar fee and the deposit (Quero pagar a taxa de 83 dólares e o caução).",
         "**Sem extras**: No extras, please. I don't need additional insurance or upgrades (Sem extras, por favor. Não preciso de seguros adicionais ou upgrades).",
         "**Tanque**: I will return the car with a full tank (Eu vou devolver o carro com o tanque cheio)."
+    ],
+    '🛍️ Estratégia: Compras (Outlet)': [
+        "**Estacionamento**: Chegar até as 10:00 AM (abertura) para garantir vaga fácil.",
+        "**Cupons**: Ir primeiro no Guest Services para pegar o 'Coupon Book' (peça o livreto com descontos extras).",
+        "**Fundo da Loja**: As melhores promoções (Clearance 70%) costumam ficar no fundo das lojas.",
+        "**Mala de Rodinha**: Levar uma mala vazia para não carregar sacolas pesadas o dia inteiro.",
+        "**Impostos**: Lembre-se que o preço da etiqueta não tem o imposto (Sales Tax de 6.5% de Orlando)."
+    ],
+    '🇺🇸 Inglês: Compras (Outlet)': [
+        "**Cupons**: Where is the Guest Services desk? / Do you have any coupons? (Onde fica o atendimento? / Tem cupons?)",
+        "**Desconto**: Is this on sale? (Isto está em promoção?)",
+        "**Tamanho**: Do you have this in a medium/large? (Tem este no tamanho médio/grande?)",
+        "**Provador**: Where is the fitting room? (Onde fica o provador?)",
+        "**Devolução**: What is the return policy? (Qual a política de devolução?)",
+        "**Preço final**: How much is this with tax? (Quanto custa isto com o imposto?)"
     ]
 };
 
