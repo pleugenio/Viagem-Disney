@@ -412,7 +412,8 @@ let strategiesData = {
         "**Cadeira alta**: Nativo: Do you have a high chair? | Formal: Could we have a high chair, please?",
         "**Pedido**: Nativo: I'll go with the... | Formal: I would like to order the...",
         "**Conta**: Nativo: Can we get the check? | Formal: Could I have the bill, please?",
-        "**Água**: Nativo: Just some ice water. | Formal: Just tap water for us, please."
+        "**Água**: Nativo: Just some ice water. | Formal: Just tap water for us, please.",
+        "**Ponto da Carne**: Rare (Mal passado) | Medium Rare (No ponto para mal) | Medium (Ao ponto) | Medium Well (No ponto para bem) | Well Done (Bem passado)"
     ],
     '🇺🇸 Inglês: Parques e Filas': [
         "**Espera**: Nativo: How long for this one? | Formal: What is the wait time for this attraction?",
