@@ -1097,11 +1097,11 @@ function renderDashboard() {
                 <div style="width:${isNaN(progress) ? 0 : progress}%; height:100%; background:var(--accent); box-shadow:0 0 10px var(--accent);"></div>
             </div>
         </div>
-        <div class="stats-grid" style="margin-top:2rem;">
+        <div style="margin-top:2rem; display:flex; flex-direction:column; gap:0.5rem;">
             ${tripData.slice(0, 5).map(day => `
-                <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px; opacity:0.8;">
-                    <span style="font-size:1.2rem;">${day.icon}</span>
-                    <span style="font-size:0.85rem;">${day.date}: ${(day.title || "").split('-')[0].substring(0, 30)}</span>
+                <div style="display:flex; align-items:center; gap:8px; opacity:0.85; background:rgba(255,255,255,0.03); padding:8px; border-radius:8px;">
+                    <span style="font-size:1.1rem;">${day.icon}</span>
+                    <span style="font-size:0.8rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${day.date}: ${(day.title || "").split('-')[0]}</span>
                 </div>
             `).join('')}
         </div>
