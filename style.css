@@ -103,8 +103,8 @@ body.light-mode {
 
 .timeline-content p {
     font-size: 1.5rem;
-    /* Large activity text */
     line-height: 1.4;
+    word-break: break-word; /* Ensure line breaks on long words */
 }
 
 .info-card h4 {
@@ -499,6 +499,7 @@ body {
     font-size: 1.1rem;
     border-bottom: 1px solid var(--glass-border);
     padding-bottom: 0.5rem;
+    white-space: normal; /* Allow wrapping */
 }
 
 .checklist-item {
@@ -601,8 +602,8 @@ body {
 /* Strategies grid (used in strategies & shows tabs) */
 .strategies-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
 }
 
 /* Responsive */
@@ -784,8 +785,14 @@ body {
     }
 
     /* ── Timeline ── */
+    .today-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 1rem !important;
+    }
+
     .timeline-container {
-        padding-left: 1.75rem;
+        padding-left: 1.25rem; /* Even less padding on mobile */
     }
 
     .timeline-dot {
