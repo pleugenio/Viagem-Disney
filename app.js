@@ -733,18 +733,57 @@ function injectUserCategories() {
         injected = true;
     }
     
-    const wKey = '🛒 Walmart: Lista de Compras';
-    if (!checklistData[wKey]) {
-        checklistData[wKey] = [
-            '💧 Fardo de Água (Case of Water)',
-            '🥯 Café da Manhã: Cereal, Leite, Bagels e Cream Cheese',
-            '🥨 Snacks: Goldfish, Granola Bars e Fruit Snacks (Parques)',
-            '🥤 Bebidas: Gatorade / Sucos e Frutas para as crianças',
-            '🧴 Protetor Solar (Neutrogena/Coppertone) e Pós-Sol',
-            '☔ Capas de Chuva (Ponchos - muito mais barato no Walmart!)',
-            '🧼 Sabão de Roupa (Tide Pods - para usar no Pop Century)',
-            '🧺 Lenços Umedecidos (Wipes) - Reposição pacote grande',
-            '💊 Farmácia: Advil, Tylenol e Band-Aids extras'
+    const w1Key = '💊 Walmart: Farmácia & Higiene';
+    if (!checklistData[w1Key]) {
+        checklistData[w1Key] = [
+            '🩹 Gold Bond - Friction Defense (não assar/calo) - $6.28',
+            '🦟 After Bite (picada de mosquito) - $3.88',
+            '🧴 Eucerin (Hidratante Corporal) - $12.00',
+            '☀️ Banana Boat (Protetor Solar) - $10.00',
+            '💅 Gummy Cabelo e Unha',
+            '🩹 Band-Aid Antibacteriano',
+            '🧴 Band-Aid Líquido',
+            '🪥 Pasta de dente clareadora'
+        ];
+        injected = true;
+    }
+
+    const w2Key = '❄️ Walmart: Geladeira (Frios & Laticínios)';
+    if (!checklistData[w2Key]) {
+        checklistData[w2Key] = [
+            '🥛 Horizon Organic Whole Milk - $5.00',
+            '🍎 Simply Apple (Suco sem açúcar) - $4.43',
+            '🍦 Iogurte Grego Chobani',
+            '🥣 Iogurte Oui (vários sabores) - $1.57',
+            '🧈 Manteiga e Requeijão',
+            '🍓 Danoninho para as crianças',
+            '🧀 String Cheese (Palitinho de muçarela)',
+            '🥩 Hillshire Roast Beef (Vasilha com tampa)',
+            '🧀 Sargento Mozzarella (Fatiada) - $3.12'
+        ];
+        injected = true;
+    }
+
+    const w3Key = '🥨 Walmart: Snacks & Despensa';
+    if (!checklistData[w3Key]) {
+        checklistData[w3Key] = [
+            '🥩 Jack Links Beef Tender Bites - $14.00',
+            '🥡 Sandwich Bags (Ziploc p/ parques)',
+            '🍽️ Pratos, copos e colheres descartáveis',
+            '🧻 Papel Toalha',
+            '🍫 Nutella Biscuit',
+            '🥤 Coca Zero (Engradado com 6) - $5.25',
+            '🍎 Snapple (Suco de maçã 200ml) - $6.12',
+            '🥔 Pringles / Outros Salgadinhos',
+            '💧 Água (Fardo)',
+            '🍫 Chocolates Variados',
+            '🍪 Cookies Chips Ahoy',
+            '🥣 Cereais Matinais',
+            '🧀 Mac & Cheese Kraft',
+            '🍞 Pão de Forma',
+            '🧁 Little Bites (Bolinhos)',
+            '🥪 Maionese Hellmans',
+            '🍎 Frutas frescas (Parques/Café)'
         ];
         injected = true;
     }
