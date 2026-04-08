@@ -1023,6 +1023,59 @@ function setupTabs() {
     });
 }
 
+// ── Navegar entre dias com ◀ ▶ ──
+function navigateDay(dir) {
+    const sel = document.getElementById('day-selector');
+    if (!sel) return;
+    const next = Math.max(0, Math.min(tripData.length - 1, parseInt(sel.value || 0) + dir));
+    sel.value = next;
+    renderCurrentDay(next);
+}
+
+// ── Filtro do Cronograma ──
+function filterItinerary(filter, el) {
+    currentItineraryFilter = filter;
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+    if (el) el.classList.add('active');
+    renderItinerary();
+}
+
+// ── Marcador "Agora" na timeline ──
+function highlightNow() {
+    const now = new Date();
+    const nowMins = now.getHours() * 60 + now.getMinutes();
+    const items = document.querySelectorAll('#today-content .timeline-item[data-start]');
+    if (!items.length) return;
+
+    let bestIdx = -1;
+    let bestDiff = Infinity;
+
+    items.forEach((item, i) => {
+        const s = parseInt(item.dataset.start);
+        if (s < 0) return;
+        const diff = nowMins - s;
+        if (diff >= 0 && diff < bestDiff) {
+            bestDiff = diff;
+            bestIdx = i;
+        }
+    });
+
+    items.forEach(item => item.classList.remove('is-now'));
+    // só marca se a atividade começou há menos de 3h (180 min)
+    if (bestIdx >= 0 && bestDiff < 180) {
+        items[bestIdx].classList.add('is-now');
+    }
+}
+
+// ── Conversor USD → BRL ──
+function convertUSD() {
+    const input = document.getElementById('usd-converter-input');
+    const output = document.getElementById('brl-converter-output');
+    if (!input || !output) return;
+    const val = parseFloat(input.value) || 0;
+    output.textContent = `R$ ${(val * EXCHANGE_RATE).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+}
+
 function initDaySelector() {
     const selector = document.getElementById('day-selector');
     if (!selector) return;
@@ -1102,6 +1155,14 @@ function renderDashboard() {
                     <strong style="font-size:1.1rem; color:var(--danger);">011 55 11 98388-0450</strong>
                 </div>
             </div>
+        </div>
+        <div style="margin-top:2rem; border-top:1px solid var(--glass-border); padding-top:1.5rem;">
+            <h3 style="margin-bottom:1rem; color:var(--accent);">📰 Notícias Disney</h3>
+            <a href="https://wdwnt.com/category/walt-disney-world/" target="_blank" rel="noopener"
+               style="display:inline-flex; align-items:center; gap:0.5rem; padding:0.7rem 1.4rem; background:rgba(96,165,250,0.12); border:1px solid rgba(96,165,250,0.3); border-radius:12px; color:var(--accent); text-decoration:none; font-weight:700; font-size:0.9rem; transition:all 0.2s;"
+               onmouseover="this.style.background='rgba(96,165,250,0.22)'" onmouseout="this.style.background='rgba(96,165,250,0.12)'">
+               🌐 Abrir WDWNT.com
+            </a>
         </div>
     `;
 }
@@ -1205,8 +1266,20 @@ function renderCurrentDay(index = 0) {
             label: dStr.split('(')[0].split('📍')[0].trim().substring(0, 35)
         });
 
+        let startMins = -1;
+        if (timeMatch) {
+            let smH = parseInt(timeMatch[1].split(':')[0]) || 0;
+            const smM = parseInt((timeMatch[1].split(':')[1] || '0')) || 0;
+            const smPM = (timeMatch[2] || '').toUpperCase() === 'PM';
+            const smAM = (timeMatch[2] || '').toUpperCase() === 'AM';
+            if (smPM && smH < 12) smH += 12;
+            if (smAM && smH === 12) smH = 0;
+            if (!smPM && !smAM && smH < 8) smH += 12;
+            startMins = smH * 60 + smM;
+        }
+
         timelineHtml += `
-            <div class="timeline-item" style="position:relative;">
+            <div class="timeline-item" style="position:relative;" data-start="${startMins}">
                 <div class="timeline-dot" style="background:${dotColor};"></div>
                 <div class="timeline-content" style="border-left:4px solid ${borderColor}; background:${bgColor};">
                     <div style="display:flex; justify-content:space-between; align-items:flex-start;">
@@ -1338,6 +1411,7 @@ function renderCurrentDay(index = 0) {
             </div>
             ${freeSlotsHtml}
         </div>`;
+    setTimeout(highlightNow, 120);
 }
 
 function addDayDetail(dayIdx) {
@@ -1375,13 +1449,27 @@ function renderItinerary() {
     const dailyList = document.getElementById('daily-list');
     if (!dailyList) return;
     dailyList.innerHTML = '';
-    const firstDayOffset = 5;
-    for (let i = 0; i < firstDayOffset; i++) {
-        const empty = document.createElement('div');
-        empty.className = 'calendar-cell calendar-empty';
-        dailyList.appendChild(empty);
+
+    const isFiltered = currentItineraryFilter !== 'all';
+    const isDisneyPark = (day) => day.paidTickets ||
+        ['Magic Kingdom', 'Animal Kingdom', 'EPCOT', 'Hollywood Studios', 'Typhoon', 'Blizzard'].some(k => (day.title || '').includes(k));
+
+    if (!isFiltered) {
+        dailyList.style.gridTemplateColumns = 'repeat(7, 1fr)';
+        const firstDayOffset = 5;
+        for (let i = 0; i < firstDayOffset; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'calendar-cell calendar-empty';
+            dailyList.appendChild(empty);
+        }
+    } else {
+        dailyList.style.gridTemplateColumns = 'repeat(auto-fit, minmax(180px, 1fr))';
     }
+
     tripData.forEach((day, index) => {
+        if (currentItineraryFilter === 'disney' && !isDisneyPark(day)) return;
+        if (currentItineraryFilter === 'lazer' && isDisneyPark(day)) return;
+
         const card = document.createElement('div');
         card.className = 'itinerary-card glass calendar-cell';
 
@@ -1405,13 +1493,23 @@ function renderItinerary() {
         card.onclick = () => openEditModal(index);
         dailyList.appendChild(card);
     });
-    const totalCells = firstDayOffset + tripData.length;
-    const remaining = 7 - (totalCells % 7);
-    if (remaining < 7) { for (let i = 0; i < remaining; i++) { const empty = document.createElement('div'); empty.className = 'calendar-cell calendar-empty'; dailyList.appendChild(empty); } }
+
+    if (!isFiltered) {
+        const totalCells = 5 + tripData.length;
+        const remaining = 7 - (totalCells % 7);
+        if (remaining < 7) {
+            for (let i = 0; i < remaining; i++) {
+                const empty = document.createElement('div');
+                empty.className = 'calendar-cell calendar-empty';
+                dailyList.appendChild(empty);
+            }
+        }
+    }
 }
 
 let currentInputCallback = null;
 let currentConfirmCallback = null;
+let currentItineraryFilter = 'all';
 
 function requestInput(title, defaultValue, callback) {
     const modal = document.getElementById('input-modal');
@@ -1757,6 +1855,22 @@ function renderFinance() {
 
     fContainer.innerHTML = `
     <h2>Controle & Checklist</h2>
+    <div class="glass" style="margin-bottom:1.5rem;">
+        <div style="font-size:0.75rem; color:var(--accent-gold); font-weight:800; margin-bottom:0.75rem; letter-spacing:0.5px; text-transform:uppercase;">💱 Conversor Rápido</div>
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+            <div style="flex:1; min-width:110px;">
+                <label style="font-size:0.7rem; color:var(--text-secondary); font-weight:700; display:block; margin-bottom:0.35rem;">USD $</label>
+                <input type="number" id="usd-converter-input" placeholder="0.00" oninput="convertUSD()"
+                       style="width:100%; padding:0.7rem 0.9rem; background:rgba(255,255,255,0.04); border:1px solid var(--glass-border); border-radius:12px; color:var(--text-primary); font-family:inherit; font-size:1.25rem; font-weight:800;">
+            </div>
+            <div style="font-size:1.2rem; opacity:0.35; padding-top:1.3rem; flex-shrink:0;">⇄</div>
+            <div style="flex:1; min-width:110px;">
+                <label style="font-size:0.7rem; color:var(--text-secondary); font-weight:700; display:block; margin-bottom:0.35rem;">BRL R$</label>
+                <div id="brl-converter-output" style="padding:0.7rem 0.9rem; background:rgba(245,197,66,0.1); border:1px solid rgba(245,197,66,0.3); border-radius:12px; font-size:1.25rem; font-weight:800; color:var(--accent-gold); min-height:3rem; display:flex; align-items:center;">R$ 0,00</div>
+            </div>
+        </div>
+        <div style="font-size:0.62rem; opacity:0.35; margin-top:0.5rem; text-align:right;">1 USD = R$ ${EXCHANGE_RATE}</div>
+    </div>
         <div class="stats-grid">
             <div class="stat-card glass"><h3>Orçamento</h3><p class="value">R$25k</p></div>
             <div class="stat-card glass"><h3>Pendentes (Reservas)</h3><p class="value" style="color:var(--warning);">R$${pendingBRL.toLocaleString('pt-BR', { maximumFractionDigits: 0 })}</p></div>
@@ -2114,9 +2228,7 @@ function startCountdown() {
         const n = new Date().getTime();
         const d = Math.floor((t - n) / (1000 * 60 * 60 * 24));
         if (d >= 0) {
-            cEl.innerText = `${d} Dias para a Magia ✨`;
-            cEl.style.background = 'var(--accent-gold)';
-            cEl.style.color = '#000';
+            cEl.innerText = `✨ ${d} dias`;
         } else {
             cEl.innerText = `A Magia Começou! ✨`;
         }
@@ -2211,5 +2323,4 @@ window.onload = () => {
     loadPersistedData(); // This now async handles sanitizeData() and renderAll()
     setupEventListeners();
     startCountdown();
-    fetchNews(); // Load news immediately
 };
