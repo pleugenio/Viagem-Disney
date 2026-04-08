@@ -732,6 +732,22 @@ function injectUserCategories() {
         ];
         injected = true;
     }
+    
+    const wKey = '🛒 Walmart: Lista de Compras';
+    if (!checklistData[wKey]) {
+        checklistData[wKey] = [
+            '💧 Fardo de Água (Case of Water)',
+            '🥯 Café da Manhã: Cereal, Leite, Bagels e Cream Cheese',
+            '🥨 Snacks: Goldfish, Granola Bars e Fruit Snacks (Parques)',
+            '🥤 Bebidas: Gatorade / Sucos e Frutas para as crianças',
+            '🧴 Protetor Solar (Neutrogena/Coppertone) e Pós-Sol',
+            '☔ Capas de Chuva (Ponchos - muito mais barato no Walmart!)',
+            '🧼 Sabão de Roupa (Tide Pods - para usar no Pop Century)',
+            '🧺 Lenços Umedecidos (Wipes) - Reposição pacote grande',
+            '💊 Farmácia: Advil, Tylenol e Band-Aids extras'
+        ];
+        injected = true;
+    }
 
     if (injected) {
         persistData();
