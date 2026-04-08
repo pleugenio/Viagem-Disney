@@ -435,6 +435,14 @@ let strategiesData = {
         "**Tamanho**: Do you have this in a medium? (Tem este no M?)",
         "**Provador**: Can I try this on? (Posso provar este?)",
         "**Pagar**: I'll take these. (Vou levar estes)."
+    ],
+    '🇺🇸 Inglês: Se não entender (Estilo Nativo)': [
+        "**O mais comum**: Sorry? (Desculpe? - com tom de pergunta, é o que os americanos mais usam quando não ouvem direito).",
+        "**Mais direto**: What was that? (O que foi isso? / O que você disse?)",
+        "**Pedir pra repetir**: One more time, please? (Mais uma vez, por favor?)",
+        "**Devagar**: Could you go a bit slower? (Poderia falar um pouco mais devagar?)",
+        "**Mais simples**: I didn't quite catch that. (Não entendi direito).",
+        "**O 'Curinga'**: Come again? (Pode repetir? - super natural e usado o tempo todo)."
     ]
 };
 
