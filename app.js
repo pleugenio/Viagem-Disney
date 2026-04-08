@@ -428,6 +428,18 @@ let strategiesData = {
         "**Telefone**: Can I use your phone? It's an emergency (Posso usar seu telefone? É uma emergência).",
         "**Segurança**: Where is the Security? (Onde fica a segurança?)",
         "**Polícia**: Call the police (Chame a polícia)."
+    ],
+    '🚗 Estratégia: Aluguel de Carro (Alamo)': [
+        "**Pagamento**: Pagar apenas a taxa de $83 dólares reservada.",
+        "**Caução**: Apresentar cartão de crédito para o bloqueio do caução (deposit).",
+        "**Upsells**: Recusar firmemente seguros extras (Roadside Assistance, PAI, etc) e Upgrades pagos.",
+        "**Frase de Recusa**: No thank you, just the basic insurance included in my voucher (Não, obrigado, apenas o seguro básico incluído no meu voucher)."
+    ],
+    '🇺🇸 Inglês: Aluguel de Carro': [
+        "**Reserva**: I have a reservation with Alamo (Tenho uma reserva com a Alamo).",
+        "**Taxa/Caução**: I want to pay the eighty-three dollar fee and the deposit (Quero pagar a taxa de 83 dólares e o caução).",
+        "**Sem extras**: No extras, please. I don't need additional insurance or upgrades (Sem extras, por favor. Não preciso de seguros adicionais ou upgrades).",
+        "**Tanque**: I will return the car with a full tank (Eu vou devolver o carro com o tanque cheio)."
     ]
 };
 
