@@ -396,53 +396,52 @@ let strategiesData = {
         "**Animal Kingdom**: 7 AM: Marcar Safari ou Navi River. Comprar Individual LL para Avatar Flight of Passage.",
         "**Epcot**: Equipe de Fila Virtual para Guardians of the Galaxy (7 AM). Genie+ para Remy ou Frozen."
     ],
-    '🇺🇸 Inglês: Hotel e Reservas (Estilo Americano)': [
-        "**Check-in**: Hi, I'm checking in for Paulo Lopes (Oi, estou fazendo check-in para Paulo Lopes).",
-        "**Quarto pronto?**: Is our room good to go? / Any chance it's ready? (Nosso quarto está pronto?)",
-        "**Check-out**: What time do we need to clear out? (Que horas precisamos sair?)",
-        "**Encomendas Amazon**: Did anything come in for me? (Chegou alguma coisa para mim?)",
-        "**Recolher pacote**: I'm here to pick up a package for Paulo (Vim buscar um pacote para Paulo).",
-        "**Geladeira**: Could we keep this in the fridge? (Poderia guardar isso na geladeira?)",
-        "**Micro-ondas**: Is there a microwave we can use? (Tem um micro-ondas que possamos usar?)",
-        "**Wi-Fi**: What's the Wi-Fi password? (Qual a senha do Wi-Fi?)"
+    '🇺🇸 Inglês: Hotel e Reservas': [
+        "**Check-in**: Nativo: I'm checking in for... | Formal: I have a reservation under...",
+        "**Quarto pronto?**: Nativo: Is our room good to go? | Formal: Is our room ready, please?",
+        "**Check-out**: Nativo: What time do we clear out? | Formal: What time is check-out?",
+        "**Encomendas**: Nativo: Did anything come in for me? | Formal: Did a package arrive for me?",
+        "**Buscar pacote**: Nativo: Picking up a package for... | Formal: I'm here to pick up a package for...",
+        "**Geladeira**: Nativo: Could we keep this in the fridge? | Formal: May we store this in the refrigerator?",
+        "**Micro-ondas**: Nativo: Is there a microwave we can use? | Formal: Is there a microwave available?",
+        "**Wi-Fi**: Nativo: What's the Wi-Fi password? | Formal: What is the Wi-Fi password, please?"
     ],
-    '🇺🇸 Inglês: Restaurantes (Natural)': [
-        "**Mesa**: Table for four? (Mesa para quatro? - mais direto e natural).",
-        "**Reserva**: We have a 5 PM reservation (Temos reserva às 17h).",
-        "**Cadeira alta**: Do you have a high chair? (Vocês têm cadeirão?)",
-        "**Pedido**: I'll go with the [dish name] (Eu vou querer o [nome do prato]).",
-        "**Conta**: Can we get the check? / Check, please. (A conta, por favor).",
-        "**Água**: Can we just get some ice water? (Pode nos trazer água com gelo? - lembra que é de graça)."
+    '🇺🇸 Inglês: Restaurantes': [
+        "**Mesa**: Nativo: Table for four? | Formal: A table for four, please.",
+        "**Reserva**: Nativo: We have a reservation at... | Formal: We have a reservation under the name...",
+        "**Cadeira alta**: Nativo: Do you have a high chair? | Formal: Could we have a high chair, please?",
+        "**Pedido**: Nativo: I'll go with the... | Formal: I would like to order the...",
+        "**Conta**: Nativo: Can we get the check? | Formal: Could I have the bill, please?",
+        "**Água**: Nativo: Just some ice water. | Formal: Just tap water for us, please."
     ],
     '🇺🇸 Inglês: Parques e Filas': [
-        "**Espera**: How long for this one? / What's the wait? (Quanto tempo para este? / Qual a espera?)",
-        "**Banheiro**: Where are the restrooms? (Onde ficam os banheiros?)",
-        "**Fila**: Is this the line for [Ride]? (Esta é a fila para [Atração]?)",
-        "**Foto**: Would you mind taking a photo for us? (Se importaria de tirar uma foto nossa?)",
-        "**Localização**: Which way to [Place]? (Para que lado fica [Lugar]?)",
-        "**Criança perdida (Direto)**: I can't find my son! (Não consigo achar meu filho!)"
+        "**Espera**: Nativo: How long for this one? | Formal: What is the wait time for this attraction?",
+        "**Banheiro**: Nativo: Where are the restrooms? | Formal: Where is the nearest restroom, please?",
+        "**Fila**: Nativo: Is this the line for...? | Formal: Excuse me, is this the end of the line?",
+        "**Foto**: Nativo: Would you mind taking a photo? | Formal: Could you please take a photo for us?",
+        "**Localização**: Nativo: Which way to [Place]? | Formal: How do I get to [Place], please?",
+        "**Criança perdida**: Nativo: I can't find my son! | Formal: I've lost my child, I need assistance."
     ],
-    "🇺🇸 Inglês: Aluguel de Carro (Sem 'Boob')": [
-        "**Reserva**: Checking in for a rental with Alamo (Fazendo check-in do aluguel com a Alamo).",
-        "**Taxa/Caução**: Just the 83-dollar fee and the deposit today (Apenas a taxa de 83 e o caução hoje).",
-        "**Recusar Extras**: I'm good on the extras, thanks. (Estou tranquilo de extras, obrigado).",
-        "**Recusar Seguro**: I'm all set with the insurance included (Já estou pronto com o seguro incluso).",
-        "**Tanque**: I'll bring it back full (Vou trazer de volta cheio)."
+    "🇺🇸 Inglês: Aluguel de Carro": [
+        "**Reserva**: Nativo: Checking in for a rental with... | Formal: I have a reservation with Alamo.",
+        "**Taxa/Caução**: Nativo: Just the 83-dollar fee and the deposit. | Formal: I want to pay the 83-dollar fee.",
+        "**Recusar Extras**: Nativo: I'm good on the extras. | Formal: No additional services, please.",
+        "**Recusar Seguro**: Nativo: I'm all set with the insurance. | Formal: I decline any additional insurance.",
+        "**Tanque**: Nativo: I'll bring it back full. | Formal: I will return the vehicle with a full tank."
     ],
     '🇺🇸 Inglês: Compras no Outlet': [
-        "**Cupons**: Where do I get the coupon book? (Onde pego o livrinho de cupons?)",
-        "**Desconto**: Is this on sale? / Any extra discounts? (Está em promoção? / Algum desconto extra?)",
-        "**Tamanho**: Do you have this in a medium? (Tem este no M?)",
-        "**Provador**: Can I try this on? (Posso provar este?)",
-        "**Pagar**: I'll take these. (Vou levar estes)."
+        "**Cupons**: Nativo: Where do I get the coupon book? | Formal: Where is the Guest Services desk, please?",
+        "**Desconto**: Nativo: Is this on sale? | Formal: Does this item have any discount?",
+        "**Tamanho**: Nativo: Do you have this in a medium? | Formal: Is this available in a medium size?",
+        "**Provador**: Nativo: Can I try this on? | Formal: Where are the fitting rooms, please?",
+        "**Pagar**: Nativo: I'll take these. | Formal: I would like to purchase these items."
     ],
-    '🇺🇸 Inglês: Se não entender (Estilo Nativo)': [
-        "**O mais comum**: Sorry? (Desculpe? - com tom de pergunta, é o que os americanos mais usam quando não ouvem direito).",
-        "**Mais direto**: What was that? (O que foi isso? / O que você disse?)",
-        "**Pedir pra repetir**: One more time, please? (Mais uma vez, por favor?)",
-        "**Devagar**: Could you go a bit slower? (Poderia falar um pouco mais devagar?)",
-        "**Mais simples**: I didn't quite catch that. (Não entendi direito).",
-        "**O 'Curinga'**: Come again? (Pode repetir? - super natural e usado o tempo todo)."
+    '🇺🇸 Inglês: Se não entender': [
+        "**O mais comum**: Nativo: Sorry? | Formal: Pardon? / Excuse me?",
+        "**Mais direto**: Nativo: What was that? | Formal: I'm sorry, what did you say?",
+        "**Pedir pra repetir**: Nativo: One more time, please? | Formal: Could you repeat that, please?",
+        "**Devagar**: Nativo: Could you go a bit slower? | Formal: Could you speak more slowly, please?",
+        "**Geral**: Nativo: Come again? | Formal: I beg your pardon?"
     ]
 };
 
