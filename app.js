@@ -391,10 +391,11 @@ let strategiesData = {
     'Joaquim (1 ano)': ["Troca roupa SeaWorld.", "Pausa carrinho.", "Baby Care.", "Dolphin Nursery."],
     'Vicente (4 anos)': ["Dollar Tree: Brinquedos.", "SeaWorld: Abby’s Tower.", "Marmitas.", "Fone fogos."],
     '✨ Estratégia Genie+ (Prioridades 07:00 AM)': [
-        "**Magic Kingdom**: 7 AM: Marcar Tiana’s ou Space Mountain. 11 AM: Segunda reserva.",
-        "**Hollywood Studios**: 7 AM: Marcar Slinky Dog Dash (acaba rápido!) ou Rise of the Resistance.",
-        "**Animal Kingdom**: 7 AM: Marcar Safari ou Navi River. Comprar Individual LL para Avatar Flight of Passage.",
-        "**Epcot**: Equipe de Fila Virtual para Guardians of the Galaxy (7 AM). Genie+ para Remy ou Frozen."
+        "🏨 BENEFÍCIO POP CENTURY: Entrada Antecipada 30min antes do público geral. Veja ‘Resort: HH:MM’ em cada dia do roteiro.",
+        "🏰 Magic Kingdom: 7 AM → Tiana’s Bayou Adventure (prioridade máxima!) ou TRON Lightcycle. Selecione a 2ª LL assim que usar a 1ª.",
+        "🎬 Hollywood Studios: Slinky Dog Dash + Rise of the Resistance ✅ JÁ PRÉ-RESERVADOS. Às 7 AM → Mickey & Minnie Runaway Railway ou Toy Story Mania.",
+        "🐘 Animal Kingdom: Safari, Navi River, Avatar FoP e Expedition Everest ✅ JÁ PRÉ-RESERVADOS. Dia mais livre — foco nos shows!",
+        "🌍 EPCOT: 7 AM → Guardians of the Galaxy (Individual LL). Genie+ → Remy’s Ratatouille Adventure ou Frozen Ever After."
     ],
     '🇺🇸 Inglês: Hotel e Reservas': [
         "**Check-in**: Nativo: I'm checking in for... | Formal: I have a reservation under...",
@@ -501,6 +502,25 @@ function sanitizeData() {
         details: Array.isArray(day.details) ? day.details : [],
         ...day
     }));
+
+    // Migration: corrige dicas Genie+ para hóspedes Disney (Pop Century)
+    const genieKey = Object.keys(strategiesData).find(k => k.includes('Genie+'));
+    if (genieKey) {
+        const tips = strategiesData[genieKey];
+        const OLD_HS = "**Hollywood Studios**: 7 AM: Marcar Slinky Dog Dash (acaba r\u00e1pido!) ou Rise of the Resistance.";
+        const OLD_AK = "**Animal Kingdom**: 7 AM: Marcar Safari ou Navi River. Comprar Individual LL para Avatar Flight of Passage.";
+        const OLD_MK = "**Magic Kingdom**: 7 AM: Marcar Tiana\u2019s ou Space Mountain. 11 AM: Segunda reserva.";
+        const OLD_EP = "**Epcot**: Equipe de Fila Virtual para Guardians of the Galaxy (7 AM). Genie+ para Remy ou Frozen.";
+        for (let i = 0; i < tips.length; i++) {
+            if (tips[i] === OLD_HS) tips[i] = "🎬 Hollywood Studios: Slinky Dog Dash + Rise of the Resistance \u2705 J\u00c1 PR\u00c9-RESERVADOS. \u00c0s 7 AM \u2192 Mickey & Minnie Runaway Railway ou Toy Story Mania.";
+            else if (tips[i] === OLD_AK) tips[i] = "🐘 Animal Kingdom: Safari, Navi River, Avatar FoP e Expedition Everest \u2705 J\u00c1 PR\u00c9-RESERVADOS. Dia mais livre \u2014 foco nos shows!";
+            else if (tips[i] === OLD_MK) tips[i] = "🏰 Magic Kingdom: 7 AM \u2192 Tiana\u2019s Bayou Adventure (prioridade m\u00e1xima!) ou TRON Lightcycle. Selecione a 2\u00aa LL assim que usar a 1\u00aa.";
+            else if (tips[i] === OLD_EP) tips[i] = "🌍 EPCOT: 7 AM \u2192 Guardians of the Galaxy (Individual LL). Genie+ \u2192 Remy\u2019s Ratatouille Adventure ou Frozen Ever After.";
+        }
+        if (!tips.some(t => t.includes('BENEF') || t.includes('Entrada Antecipada'))) {
+            tips.unshift("🏨 BENEF\u00cdCIO POP CENTURY: Entrada Antecipada 30min antes do p\u00fablico geral. Veja 'Resort: HH:MM' em cada dia do roteiro.");
+        }
+    }
 }
 
 const BABY_CARE_LOCATIONS = {
